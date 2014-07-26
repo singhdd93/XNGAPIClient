@@ -10,8 +10,12 @@ If you have any questions please open an issue.
 
 ===
 
-[![Build Status](http://img.shields.io/travis/xing/XNGAPIClient.svg?style=flat)](https://travis-ci.org/xing/XNGAPIClient) [![Dependency Status](https://www.versioneye.com/objective-c/xngapiclient/badge.svg?style=flat)](https://www.versioneye.com/objective-c/xngapiclient)
+[![Build Status](http://img.shields.io/travis/xing/XNGAPIClient.svg?style=flat)](https://travis-ci.org/xing/XNGAPIClient)
+[![Dependency Status](https://www.versioneye.com/objective-c/xngapiclient/badge.svg?style=flat)](https://www.versioneye.com/objective-c/xngapiclient)
 [![Reference Status](https://www.versioneye.com/objective-c/xngapiclient/reference_badge.svg?style=flat)](https://www.versioneye.com/objective-c/xngapiclient/references)
+[![Cocoapods Version](http://img.shields.io/cocoapods/v/XNGAPIClient.svg?style=flat)](https://github.com/xing/XNGAPIClient/blob/master/XNGAPIClient.podspec)
+[![](http://img.shields.io/cocoapods/l/XNGAPIClient.svg?style=flat)](https://github.com/xing/XNGAPIClient/blob/master/LICENSE)
+[![CocoaPods Platform](http://img.shields.io/cocoapods/p/XNGAPIClient.svg?style=flat)]()
 
 XNGAPIClient is the official client to access the XING API. In order to access the API, you only need an account on https://xing.com and an oauth consumer key and secret which can be obtained at https://dev.xing.com. Both is totally free and only takes a minute!
 
