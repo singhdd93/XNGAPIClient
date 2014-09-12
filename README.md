@@ -11,6 +11,7 @@ If you have any questions please open an issue.
 ===
 
 [![Build Status](http://img.shields.io/travis/xing/XNGAPIClient.svg?style=flat)](https://travis-ci.org/xing/XNGAPIClient)
+[![Coverage Status](http://img.shields.io/coveralls/xing/XNGAPIClient/master.svg?style=flat)](https://coveralls.io/r/xing/XNGAPIClient)
 [![Dependency Status](https://www.versioneye.com/objective-c/xngapiclient/badge.svg?style=flat)](https://www.versioneye.com/objective-c/xngapiclient)
 [![Reference Status](https://www.versioneye.com/objective-c/xngapiclient/reference_badge.svg?style=flat)](https://www.versioneye.com/objective-c/xngapiclient/references)
 [![Cocoapods Version](http://img.shields.io/cocoapods/v/XNGAPIClient.svg?style=flat)](https://github.com/xing/XNGAPIClient/blob/master/XNGAPIClient.podspec)
