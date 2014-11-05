@@ -118,11 +118,21 @@
     [self cancelAllHTTPOperationsWithMethod:@"GET" path:path];
 }
 
-- (void)postRecommendActivityWithID:(NSString*)activityID
+- (void)postRecommendActivityWithID:(NSString *)activityID
+                            text:(NSString *)text
                             success:(void (^)(id JSON))success
                             failure:(void (^)(NSError *error))failure {
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    if (text) {
+        parameters[@"text"] = text;
+    }
+
     NSString *path = [NSString stringWithFormat:@"v1/activities/%@/share", activityID];
-    [self postJSONPath:path parameters:nil success:success failure:failure];
+
+    [self postJSONPath:path
+            parameters:parameters
+               success:success
+               failure:failure];
 }
 
 - (void)deleteActivityWithID:(NSString*)activityID
