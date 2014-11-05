@@ -119,7 +119,7 @@
 }
 
 - (void)postRecommendActivityWithID:(NSString *)activityID
-                            text:(NSString *)text
+                               text:(NSString *)text
                             success:(void (^)(id JSON))success
                             failure:(void (^)(NSError *error))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
