@@ -99,6 +99,11 @@
                             success:(void (^)(id JSON))success
                             failure:(void (^)(NSError *error))failure;
 
+// To be deprecated:
+- (void)postRecommendActivityWithID:(NSString *)activityID
+                            success:(void (^)(id JSON))success
+                            failure:(void (^)(NSError *error))failure;
+
 /**
  Deletes the activity with the given ID. Users can only delete their own activities, and only activities with DELETE in the possible_actions field can be deleted.
 
