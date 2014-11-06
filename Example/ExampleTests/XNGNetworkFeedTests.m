@@ -215,6 +215,31 @@
      }];
 }
 
+- (void)testRecommendActivityWithOptionalText {
+    [self.testHelper executeCall:
+     ^{
+         [[XNGAPIClient sharedClient] postRecommendActivityWithID:@"1"
+                                                             text:@"Short text"
+                                                          success:nil
+                                                          failure:nil];
+     }
+              withExpectations:
+     ^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+         expect(request.URL.host).to.equal(@"api.xing.com");
+         expect(request.URL.path).to.equal(@"/v1/activities/1/share");
+         expect(request.HTTPMethod).to.equal(@"POST");
+
+         [self.testHelper removeOAuthParametersInQueryDict:query];
+
+         expect([body valueForKey:@"text"]).to.equal(@"Short%20text");
+         [body removeObjectForKey:@"text"];
+
+         expect([query allKeys]).to.haveCountOf(0);
+
+         expect([body allKeys]).to.haveCountOf(0);
+     }];
+}
+
 - (void)testDeleteActivity {
     [self.testHelper executeCall:
      ^{

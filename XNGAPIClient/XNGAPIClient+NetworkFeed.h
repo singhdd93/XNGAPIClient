@@ -95,8 +95,13 @@
  https://dev.xing.com/docs/post/activities/:id/share
  */
 - (void)postRecommendActivityWithID:(NSString*)activityID
+                            text:(NSString *)text
                             success:(void (^)(id JSON))success
                             failure:(void (^)(NSError *error))failure;
+
+- (void)postRecommendActivityWithID:(NSString *)activityID
+                            success:(void (^)(id JSON))success
+                            failure:(void (^)(NSError *error))failure DEPRECATED_MSG_ATTRIBUTE("Replaced by postRecommendActivityWithID:text:success:failure");
 
 /**
  Deletes the activity with the given ID. Users can only delete their own activities, and only activities with DELETE in the possible_actions field can be deleted.
