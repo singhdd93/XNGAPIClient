@@ -145,7 +145,6 @@
                               failure:failure];
 }
 
-
 - (void)deleteActivityWithID:(NSString*)activityID
                      success:(void (^)(id JSON))success
                      failure:(void (^)(NSError *error))failure {
