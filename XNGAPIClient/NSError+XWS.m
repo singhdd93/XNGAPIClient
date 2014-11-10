@@ -44,7 +44,7 @@
 
 - (BOOL)xws_accessDenied {
     if (self.isXWSError &&
-        [self.xwsErrorName isEqualToString:@"ACCESS_DENIED"]) {
+        ([self.xwsErrorName isEqualToString:@"ACCESS_DENIED"] || [self.xwsErrorName isEqualToString:@"FORBIDDEN"])) {
         return YES;
     }
     return NO;
