@@ -91,7 +91,7 @@
 	{
 		return value;
 	}
-    return NO;
+    return @(NO);
 }
 
 - (NSMutableArray *)xng_mutableArrayForKey:(id)key
