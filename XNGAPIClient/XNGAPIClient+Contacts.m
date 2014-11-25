@@ -35,11 +35,11 @@
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 
     if (limit) {
-        parameters[@"limit"] = @(limit);
+        parameters[@"limit"] = [NSString stringWithFormat:@"%@", @(limit)];
     }
 
     if (offset) {
-        parameters[@"offset"] = @(offset);
+        parameters[@"offset"] = [NSString stringWithFormat:@"%@", @(offset)];
     }
 
     if (orderBy == XNGContactsOrderOptionByLastName) {
