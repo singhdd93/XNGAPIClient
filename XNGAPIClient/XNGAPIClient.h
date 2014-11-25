@@ -20,9 +20,9 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "AFOAuth1Client.h"
+#import <AF2OAuth1Client/AF2OAuth1Client.h>
 
-@interface XNGAPIClient : AFOAuth1Client
+@interface XNGAPIClient : AF2OAuth1Client
 
 extern NSString * const XNGAPIClientInvalidTokenErrorNotification;
 extern NSString * const XNGAPIClientDeprecationErrorNotification;
@@ -150,12 +150,6 @@ extern NSString * const XNGAPIClientDeprecationWarningNotification;
           acceptHeader:(NSString *)acceptHeader
                success:(void (^)(id))success
                failure:(void (^)(NSError *))failure;
-
-#pragma mark - HTTP Operation queue methods
-
-- (void)enqueueJSONRequest:(NSMutableURLRequest *)request
-                   success:(void (^)(id JSON))success
-                   failure:(void (^)(NSError *error))failure;
 
 #pragma mark - cancel requests methods
 
