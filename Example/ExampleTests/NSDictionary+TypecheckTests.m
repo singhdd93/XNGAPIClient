@@ -1,11 +1,3 @@
-//
-//  NSDictionary+TypecheckTests.m
-//  Example
-//
-//  Created by Silvan Dähn on 27.11.14.
-//  Copyright (c) 2014 XING AG. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 #import "XNGTestHelper.h"
