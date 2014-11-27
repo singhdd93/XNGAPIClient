@@ -31,8 +31,10 @@
 - (NSNumber *)xng_numberForKey:(id)key;
 
 - (NSArray *)xng_arrayForKey:(id)key;
+- (NSArray *)xng_arrayForKeyPath:(NSString *)keyPath;
 - (NSMutableArray *)xng_mutableArrayForKey:(id)key;
 - (NSDictionary *)xng_dictForKey:(id)key;
+- (NSDictionary *)xng_dictForKeyPath:(NSString *)keyPath;
 
 
 @end
