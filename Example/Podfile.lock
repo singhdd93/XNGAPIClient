@@ -6,9 +6,9 @@ PODS:
   - OCMock (3.0.2)
   - OHHTTPStubs (3.1.0)
   - SSKeychain (1.2.2)
-  - XNGAPIClient (0.3.1):
-    - XNGAPIClient/Core (= 0.3.1)
-  - XNGAPIClient/Core (0.3.1):
+  - XNGAPIClient (0.4.0):
+    - XNGAPIClient/Core (= 0.4.0)
+  - XNGAPIClient/Core (0.4.0):
     - AFNetworking (~> 1.3.0)
     - AFOAuth1Client (~> 0.3.1)
     - SSKeychain (~> 1.2.0)
@@ -30,6 +30,6 @@ SPEC CHECKSUMS:
   OCMock: b9836ab89d8d5e66cbe6333f93857037c310ee62
   OHHTTPStubs: 8b032ab399e356050010ed34613ee1761c6c8ae3
   SSKeychain: cc48bd3ad24fcd9125adb9e0d23dd50b8bbd08b9
-  XNGAPIClient: 85cb8f8fb49aca48efc3d8796487455993e62a26
+  XNGAPIClient: ef5fa94f587a5d8900330033c69bfd9e375eabf4
 
 COCOAPODS: 0.35.0
