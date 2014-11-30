@@ -95,6 +95,10 @@ static XNGAPIClient *_sharedClient = nil;
     return _callbackScheme;
 }
 
+- (NSURL *)baseURL {
+    return self.url;
+}
+
 - (void)setUserAgent:(NSString *)userAgent {
     // TODO: Find a way to set the user-agent
     // [self setDefaultHeader:@"User-Agent" value:userAgent];
