@@ -415,11 +415,9 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
 }
 
 - (NSURL*)oAuthAuthorizationURLWithParameters:(NSDictionary*)parameters {
-    // TODO: Find out how to solve this thing with URL Serialization
-    // NSString *query = AFQueryStringFromParametersWithEncoding(parameters, self.stringEncoding);
-    // NSString *pathAndQuery = [XNGAPIClientOAuthAuthorizationPath stringByAppendingFormat:@"?%@",query];
-    return [NSURL URLWithString:@""];
-    // return [[NSURL URLWithString:pathAndQuery relativeToURL:self.baseURL] absoluteURL];
+    NSString *oauthToken = parameters[@"oauth_token"];
+    NSString *pathAndQuery = [XNGAPIClientOAuthAuthorizationPath stringByAppendingFormat:@"?oauth_token=%@", oauthToken];
+    return [[NSURL URLWithString:pathAndQuery relativeToURL:self.url] absoluteURL];
 }
 
 #pragma mark - checking methods
