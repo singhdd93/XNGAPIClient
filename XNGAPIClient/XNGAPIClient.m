@@ -24,7 +24,6 @@
 #import "NSDictionary+Typecheck.h"
 #import "XNGOAuthHandler.h"
 #import "NSError+XWS.h"
-#import "AFURLRequestSerialization.h"
 
 typedef void(^XNGAPILoginOpenURLBlock)(NSURL*openURL);
 static NSDictionary * XNGParametersFromQueryString(NSString *queryString);
