@@ -142,6 +142,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
     XNGAPIClientCanLoginTests(self);
     
     NSURL *callbackURL = [self oauthCallbackURL];
+    self.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     __weak __typeof(&*self)weakSelf = self;
     
@@ -299,6 +300,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
          parameters:(NSDictionary *)parameters
             success:(void (^)(id JSON))success
             failure:(void (^)(NSError *error))failure {
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
     [self getJSONPath:path
            parameters:parameters
          acceptHeader:nil
@@ -310,6 +312,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
          parameters:(NSDictionary *)parameters
             success:(void (^)(id JSON))success
             failure:(void (^)(NSError *error))failure {
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
     [self putJSONPath:path
            parameters:parameters
          acceptHeader:nil
@@ -321,6 +324,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
           parameters:(NSDictionary *)parameters
              success:(void (^)(id JSON))success
              failure:(void (^)(NSError *error))failure {
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
     [self postJSONPath:path
             parameters:parameters
           acceptHeader:nil
@@ -332,6 +336,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
             parameters:(NSDictionary *)parameters
                success:(void (^)(id JSON))success
                failure:(void (^)(NSError *error))failure {
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
     [self deleteJSONPath:path
               parameters:parameters
             acceptHeader:nil
