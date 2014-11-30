@@ -82,9 +82,8 @@ static XNGAPIClient *_sharedClient = nil;
     return self;
 }
 
-+ (void)addAcceptableContentTypes:(NSSet *)set {
-    // TODO: use json response serializer for that matter
-    // [XNGJSONRequestOperation addAcceptableContentTypes:set];
+- (void)addAcceptableContentTypes:(NSSet *)set {
+    [self.responseSerializer setAcceptableContentTypes:set];
 }
 
 #pragma mark - Getters / Setters
