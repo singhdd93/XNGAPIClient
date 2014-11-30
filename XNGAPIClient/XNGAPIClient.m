@@ -100,8 +100,7 @@ static XNGAPIClient *_sharedClient = nil;
 }
 
 - (void)setUserAgent:(NSString *)userAgent {
-    // TODO: Find a way to set the user-agent
-    // [self setDefaultHeader:@"User-Agent" value:userAgent];
+    [self.defaultHeaders setValue:userAgent forKey:@"User-Agent"];
 }
 
 #pragma mark - handling login / logout
