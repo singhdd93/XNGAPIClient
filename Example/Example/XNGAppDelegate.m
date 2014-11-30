@@ -39,8 +39,8 @@ static BOOL RunningTests = NO;
 
     // enter your consumerKey and consumerSecret here.
     // You can obtain it at this URL: https://dev.xing.com/applications
-    [XNGAPIClient sharedClient].consumerKey = @"";
-    [XNGAPIClient sharedClient].consumerSecret = @"";
+    XNGAPIClient *client = [[XNGAPIClient alloc] initWithConsumerKey:@"" secret:@""];
+    [XNGAPIClient setSharedClient:client];
 
     XNGExampleViewController *viewController = [[XNGExampleViewController alloc] initWithNibName:nil bundle:nil];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
