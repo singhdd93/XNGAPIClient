@@ -67,12 +67,13 @@ static XNGAPIClient *_sharedClient = nil;
     _sharedClient = sharedClient;
 }
 
-- (id)initWithBaseURL:(NSURL *)url {
-    self = [super initWithBaseURL:url];
+- (instancetype)initWithConsumerKey:(NSString *)key secret:(NSString *)secret {
+    NSURL *url = [NSURL URLWithString:@"https://api.xing.com"];
+    self = [super initWithBaseURL:url
+                              key:key
+                           secret:secret];
     if (self) {
         _oAuthHandler = [[XNGOAuthHandler alloc] init];
-        self.signatureMethod = AFHMACSHA1SignatureMethod;
-        // TODO: set request and response serializer
 #ifndef TARGET_OS_MAC
         [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 #endif

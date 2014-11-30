@@ -28,6 +28,8 @@ extern NSString * const XNGAPIClientInvalidTokenErrorNotification;
 extern NSString * const XNGAPIClientDeprecationErrorNotification;
 extern NSString * const XNGAPIClientDeprecationWarningNotification;
 
+- (instancetype)initWithConsumerKey:(NSString *)key secret:(NSString *)secret;
+
 + (XNGAPIClient *)clientWithBaseURL:(NSURL *)url;
 + (XNGAPIClient *)sharedClient;
 + (void)setSharedClient:(XNGAPIClient *)sharedClient;
