@@ -1,13 +1,13 @@
 #import <XCTest/XCTest.h>
 #import "XNGTestHelper.h"
 
-@interface XINGAPIClientTests : XCTestCase
+@interface XNGAPIClientTests : XCTestCase
 
 @property (nonatomic) XNGTestHelper *testHelper;
 
 @end
 
-@implementation XINGAPIClientTests
+@implementation XNGAPIClientTests
 
 - (void)setUp {
     [super setUp];
