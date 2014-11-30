@@ -197,9 +197,12 @@
 - (void)testRecommendActivity {
     [self.testHelper executeCall:
      ^{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
          [[XNGAPIClient sharedClient] postRecommendActivityWithID:@"1"
                                                           success:nil
                                                           failure:nil];
+#pragma clang diagnostic pop
      }
               withExpectations:
      ^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
