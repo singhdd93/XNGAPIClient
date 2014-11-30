@@ -172,6 +172,8 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
     XNGAPIClientCanLoginTests(self);
     
     NSURL *callbackURL = [self oauthCallbackURL];
+    self.responseSerializer = [AFHTTPResponseSerializer serializer];
+
     __weak __typeof(&*self)weakSelf = self;
     
     [self acquireOAuthRequestTokenWithPath:XNGAPIClientOAuthRequestTokenPath
@@ -276,6 +278,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
                                         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSParameterAssert(username);
     NSParameterAssert(password);
+    self.responseSerializer = [AFHTTPResponseSerializer serializer];
     
 	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"x_auth_username"] = username;
