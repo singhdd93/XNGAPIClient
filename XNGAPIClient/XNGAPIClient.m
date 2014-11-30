@@ -357,7 +357,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
     if (acceptHeader) {
         [request setValue:acceptHeader forHTTPHeaderField:@"Accept"];
     }
-    [self xng_GET:path parameters:parameters success:success failure:failure];
+    [[self xng_HTTPRequestOperationWithRequest:request success:success failure:failure] start];
 }
 
 - (void)putJSONPath:(NSString *)path
@@ -369,7 +369,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
     if (acceptHeader) {
         [request setValue:acceptHeader forHTTPHeaderField:@"Accept"];
     }
-    [self xng_PUT:path parameters:parameters success:success failure:failure];
+    [[self xng_HTTPRequestOperationWithRequest:request success:success failure:failure] start];
 }
 
 - (void)postJSONPath:(NSString *)path
@@ -381,7 +381,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
     if (acceptHeader) {
         [request setValue:acceptHeader forHTTPHeaderField:@"Accept"];
     }
-    [self xng_POST:path parameters:parameters success:success failure:failure];
+    [[self xng_HTTPRequestOperationWithRequest:request success:success failure:failure] start];
 }
 
 - (void)deleteJSONPath:(NSString *)path
@@ -393,7 +393,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
     if (acceptHeader) {
         [request setValue:acceptHeader forHTTPHeaderField:@"Accept"];
     }
-    [self xng_DELETE:path parameters:parameters success:success failure:failure];
+    [[self xng_HTTPRequestOperationWithRequest:request success:success failure:failure] start];
 }
 
 #pragma mark - OAuth related methods
@@ -477,80 +477,11 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
 
 #pragma mark - HTTP Operation methods
 
-- (AFHTTPRequestOperation *)xng_GET:(NSString *)URLString
-                     parameters:(id)parameters
-                        success:(void (^)(id responseObject))success
-                        failure:(void (^)(NSError *error))failure {
-    return [super GET:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self checkForDeprecation:operation.response];
-        if (success) {
-            success(responseObject);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // TODO: check if JSON is returned for errors too
-        [self checkForDeprecation:operation.response];
-        [self checkForGlobalErrors:operation.response withJSON:operation.responseObject];
-        if ([operation.responseObject isKindOfClass:[NSDictionary class]]) {
-            error = [NSError xwsErrorWithStatusCode:operation.response.statusCode
-                                           userInfo:operation.responseObject];
-        }
-        if (failure) {
-            failure(error);
-        }
-    }];
-}
-
-- (AFHTTPRequestOperation *)xng_PUT:(NSString *)URLString
-                         parameters:(id)parameters
-                            success:(void (^)(id responseObject))success
-                            failure:(void (^)(NSError *error))failure {
-    return [super PUT:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self checkForDeprecation:operation.response];
-        if (success) {
-            success(responseObject);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // TODO: check if JSON is returned for errors too
-        [self checkForDeprecation:operation.response];
-        [self checkForGlobalErrors:operation.response withJSON:operation.responseObject];
-        if ([operation.responseObject isKindOfClass:[NSDictionary class]]) {
-            error = [NSError xwsErrorWithStatusCode:operation.response.statusCode
-                                           userInfo:operation.responseObject];
-        }
-        if (failure) {
-            failure(error);
-        }
-    }];
-}
-
-- (AFHTTPRequestOperation *)xng_POST:(NSString *)URLString
-                          parameters:(id)parameters
-                             success:(void (^)(id responseObject))success
-                             failure:(void (^)(NSError *error))failure {
-    return [super POST:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self checkForDeprecation:operation.response];
-        if (success) {
-            success(responseObject);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // TODO: check if JSON is returned for errors too
-        [self checkForDeprecation:operation.response];
-        [self checkForGlobalErrors:operation.response withJSON:operation.responseObject];
-        if ([operation.responseObject isKindOfClass:[NSDictionary class]]) {
-            error = [NSError xwsErrorWithStatusCode:operation.response.statusCode
-                                           userInfo:operation.responseObject];
-        }
-        if (failure) {
-            failure(error);
-        }
-    }];
-}
-
-- (AFHTTPRequestOperation *)xng_DELETE:(NSString *)URLString
-                            parameters:(id)parameters
-                               success:(void (^)(id responseObject))success
-                               failure:(void (^)(NSError *error))failure {
-    return [super DELETE:URLString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+- (AFHTTPRequestOperation *)xng_HTTPRequestOperationWithRequest:(NSURLRequest *)request
+                                                        success:(void (^)(id responseObject))success
+                                                        failure:(void (^)(NSError *error))failure {
+    return [super HTTPRequestOperationWithRequest:request
+                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [self checkForDeprecation:operation.response];
         if (success) {
             success(responseObject);
