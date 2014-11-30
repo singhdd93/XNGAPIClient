@@ -35,16 +35,16 @@
 
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     if (limit) {
-        parameters[@"limit"] = @(limit);
+        parameters[@"limit"] = @(limit).stringValue;
     }
     if (offset) {
-        parameters[@"offset"] = @(offset);
+        parameters[@"offset"] = @(offset).stringValue;
     }
     if (userFields) {
         parameters[@"user_fields"] = userFields;
     }
     if (latestMessagesCount) {
-        parameters[@"with_latest_messages"] = @(latestMessagesCount);
+        parameters[@"with_latest_messages"] = @(latestMessagesCount).stringValue;
     }
     NSString *path = @"v1/users/me/conversations";
     [self getJSONPath:path parameters:parameters success:success failure:failure];
@@ -87,7 +87,7 @@
         parameters[@"user_fields"] = userFields;
     }
     if (latestMessagesCount) {
-        parameters[@"with_latest_messages"] = @(latestMessagesCount);
+        parameters[@"with_latest_messages"] = @(latestMessagesCount).stringValue;
     }
     NSString *path = [NSString stringWithFormat:@"v1/users/me/conversations/%@", conversationID];
 

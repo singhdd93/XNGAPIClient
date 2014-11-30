@@ -33,10 +33,10 @@
 
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     if (limit) {
-        parameters[@"limit"] = @(limit);
+        parameters[@"limit"] = @(limit).stringValue;
     }
     if (offset) {
-        parameters[@"offset"] = @(offset);
+        parameters[@"offset"] = @(offset).stringValue;
     }
     if ([userField length]) {
         parameters[@"user_fields"] = userField;
