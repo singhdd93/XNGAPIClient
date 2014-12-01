@@ -28,6 +28,16 @@
     [self.testHelper tearDown];
 }
 
+- (void)testAddAcceptableContentTypes {
+    [[XNGAPIClient sharedClient] addAcceptableContentTypes:[NSSet setWithArray:@[@"text/html"]]];
+    expect([XNGAPIClient sharedClient].responseSerializer.acceptableContentTypes).to.contain(@"text/html");
+}
+
+- (void)testSetUserAgent {
+    [[XNGAPIClient sharedClient] setUserAgent:@"XNGAPIClient/1.0"];
+    expect([XNGAPIClient sharedClient].defaultHeaders[@"User-Agent"]).to.equal(@"XNGAPIClient/1.0");
+}
+
 - (void)testLoginXAuth {
     [self.testHelper executeCall:
      ^{
