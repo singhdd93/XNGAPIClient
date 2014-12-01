@@ -20,17 +20,22 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import <AF2OAuth1Client/AF2OAuth1Client.h>
+#import <XNGOAuth1Client/XNGOAuth1Client.h>
 
-@interface XNGAPIClient : AF2OAuth1Client
+@interface XNGAPIClient : XNGOAuth1Client
 
 extern NSString * const XNGAPIClientInvalidTokenErrorNotification;
 extern NSString * const XNGAPIClientDeprecationErrorNotification;
 extern NSString * const XNGAPIClientDeprecationWarningNotification;
 
+/**
+ * Designated intializer
+ *
+ * @param key consumerKey obtained from https://dev.xing.com
+ * @param secret consumerSecret obtained from https://dev.xing.com
+ */
 - (instancetype)initWithConsumerKey:(NSString *)key secret:(NSString *)secret;
 
-+ (XNGAPIClient *)clientWithBaseURL:(NSURL *)url;
 + (XNGAPIClient *)sharedClient;
 + (void)setSharedClient:(XNGAPIClient *)sharedClient;
 - (void)addAcceptableContentTypes:(NSSet *)set;

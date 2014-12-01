@@ -1,6 +1,4 @@
 PODS:
-  - AF2OAuth1Client (0.3.6):
-    - AFNetworking (~> 2.0)
   - AFNetworking (2.5.0):
     - AFNetworking/NSURLConnection (= 2.5.0)
     - AFNetworking/NSURLSession (= 2.5.0)
@@ -29,8 +27,10 @@ PODS:
   - XNGAPIClient (0.4.0):
     - XNGAPIClient/Core (= 0.4.0)
   - XNGAPIClient/Core (0.4.0):
-    - AF2OAuth1Client (~> 0.3.6)
     - SSKeychain (~> 1.2.0)
+    - XNGOAuth1Client (~> 1.0.0)
+  - XNGOAuth1Client (1.0.0):
+    - AFNetworking (~> 2.0)
 
 DEPENDENCIES:
   - Expecta
@@ -43,12 +43,12 @@ EXTERNAL SOURCES:
     :path: ../XNGAPIClient.podspec
 
 SPEC CHECKSUMS:
-  AF2OAuth1Client: 6fc006c12f89c5efc131118e19ea99043bfcb0a3
   AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
   Expecta: 03aabd0a89d8dea843baecb19a7fd7466a69a31d
   OCMock: f6cb8c162ab9d5620dddf411282c7b2c0ee78854
   OHHTTPStubs: 8b032ab399e356050010ed34613ee1761c6c8ae3
   SSKeychain: cc48bd3ad24fcd9125adb9e0d23dd50b8bbd08b9
-  XNGAPIClient: d70b6e0185102158eba2f2bc6a0c747ab618bc60
+  XNGAPIClient: df3066617f2fa1c166ff4bb1f05389c176e834ab
+  XNGOAuth1Client: 98e8d268a06966f96932ba49d248ec59a54c56dc
 
 COCOAPODS: 0.35.0

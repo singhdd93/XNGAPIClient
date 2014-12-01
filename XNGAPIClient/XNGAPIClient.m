@@ -23,15 +23,11 @@
 #import "NSString+URLEncoding.h"
 #import "NSDictionary+Typecheck.h"
 #import "XNGOAuthHandler.h"
+#import "XNGOAuthToken.h"
 #import "NSError+XWS.h"
 
 typedef void(^XNGAPILoginOpenURLBlock)(NSURL*openURL);
 static NSDictionary * XNGParametersFromQueryString(NSString *queryString);
-
-@interface AF2OAuth1Client (private)
-@property (readwrite, nonatomic, copy) NSString *key;
-@property (readwrite, nonatomic, copy) NSString *secret;
-@end
 
 @interface XNGAPIClient()
 @property(nonatomic, strong, readwrite) XNGOAuthHandler *oAuthHandler;
@@ -47,18 +43,7 @@ NSString * const XNGAPIClientDeprecationWarningNotification = @"com.xing.apiClie
 
 static XNGAPIClient *_sharedClient = nil;
 
-+ (XNGAPIClient *)clientWithBaseURL:(NSURL *)url {
-    return [[XNGAPIClient alloc] initWithBaseURL:url];
-}
-
 + (XNGAPIClient *)sharedClient {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        if (_sharedClient == nil) {
-            NSURL *baseURL = [NSURL URLWithString:@"https://api.xing.com"];
-            _sharedClient = [[XNGAPIClient alloc] initWithBaseURL:baseURL];
-        }
-    });
     return _sharedClient;
 }
 
@@ -152,7 +137,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
                                      accessMethod:@"POST"
                                             scope:nil
                                           success:
-     ^(AF2OAuth1Token *accessToken, id responseObject) {
+     ^(XNGOAuthToken *accessToken, id responseObject) {
          NSString *userID = [accessToken.userInfo xng_stringForKey:@"user_id"];
          [weakSelf.oAuthHandler saveUserID:userID
                                accessToken:accessToken.key
@@ -181,7 +166,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
                               accessMethod:@"POST"
                                      scope:nil
                                    success:
-     ^(AF2OAuth1Token *requestToken, id responseObject) {
+     ^(XNGOAuthToken *requestToken, id responseObject) {
          
          weakSelf.loginOpenURLBlock = [weakSelf loginOpenURLBlockWithRequestToken:requestToken loggedIn:loggedInBlock failuire:failureBlock];
 
@@ -196,7 +181,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
     
 }
 
-- (XNGAPILoginOpenURLBlock) loginOpenURLBlockWithRequestToken:(AF2OAuth1Token*)requestToken
+- (XNGAPILoginOpenURLBlock) loginOpenURLBlockWithRequestToken:(XNGOAuthToken*)requestToken
                                                      loggedIn:(void (^)())loggedInBlock
                                                      failuire:(void (^)(NSError *))failureBlock  {
     __weak __typeof(&*self)weakSelf = self;
@@ -209,13 +194,13 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
         [weakSelf acquireOAuthAccessTokenWithPath:XNGAPIClientOAuthAccessTokenPath
                                  requestToken:requestToken
                                  accessMethod:@"POST"
-                                      success:^(AF2OAuth1Token *accessToken, id responseObject) {
+                                      success:^(XNGOAuthToken *accessToken, id responseObject) {
                                           [weakSelf saveAuthDataFromToken:accessToken success:loggedInBlock failure:failureBlock];
                                           loggedInBlock();
                                       } failure:failureBlock];
     };
 }
-- (void) saveAuthDataFromToken:(AF2OAuth1Token*)accessToken
+- (void) saveAuthDataFromToken:(XNGOAuthToken*)accessToken
                        success:(void (^)(void))success
                        failure:(void (^)(NSError *error))failure  {
     self.accessToken = accessToken;
@@ -289,9 +274,9 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
     [self POST:path parameters:parameters success:success failure:failure];
 }
 
-- (AF2OAuth1Token*)accessTokenFromKeychain {
+- (XNGOAuthToken*)accessTokenFromKeychain {
     if (self.oAuthHandler.accessToken && self.oAuthHandler.tokenSecret) {
-        return [[AF2OAuth1Token alloc] initWithKey:self.oAuthHandler.accessToken secret:self.oAuthHandler.tokenSecret session:nil expiration:nil renewable:YES];
+        return [[XNGOAuthToken alloc] initWithKey:self.oAuthHandler.accessToken secret:self.oAuthHandler.tokenSecret session:nil expiration:nil renewable:YES];
     }
     return nil;
 }
