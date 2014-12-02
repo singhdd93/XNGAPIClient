@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
   s.name = 'XNGAPIClient'
-  s.version = '0.4.0'
+  s.version = '1.0.0'
   s.license = 'MIT'
   s.ios.deployment_target = '6.0'
-  s.osx.deployment_target = '10.7'
+  s.osx.deployment_target = '10.8'
   s.summary = 'The official Objective-C client for the XING API'
   s.author  = {
     'XING iOS Team' => 'iphonedev@xing.com'
