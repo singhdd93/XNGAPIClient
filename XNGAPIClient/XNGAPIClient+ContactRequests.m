@@ -20,6 +20,7 @@
 // THE SOFTWARE.
 
 #import "XNGAPIClient+ContactRequests.h"
+#import "XNGAPIClient_Private.h"
 
 @implementation XNGAPIClient (ContactRequests)
 
@@ -33,10 +34,10 @@
 
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     if (limit) {
-        parameters[@"limit"] = @(limit);
+        parameters[@"limit"] = @(limit).stringValue;
     }
     if (offset) {
-        parameters[@"offset"] = @(offset);
+        parameters[@"offset"] = @(offset).stringValue;
     }
     if ([userField length]) {
         parameters[@"user_fields"] = userField;
@@ -61,10 +62,12 @@
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/users/%@/contact_requests", userID];
-    [self postJSONPath:path
-            parameters:parameters
-               success:success
-               failure:failure];
+    NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:parameters];
+    self.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [[self xng_HTTPRequestOperationWithRequest:request success:^(NSData *responseObject) {
+        success(nil);
+    } failure:failure] start];
 }
 
 - (void)putConfirmContactRequestForUserID:(NSString*)userID

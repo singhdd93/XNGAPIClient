@@ -121,6 +121,26 @@
      }];
 }
 
+- (void)testPostStatusMessageResponse {
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        return [request.URL.absoluteString isEqualToString:@"https://api.xing.com/v1/users/me/status_message"];
+    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+        NSData *responseData = [@"Status update has been posted" dataUsingEncoding:NSUTF8StringEncoding];
+        return [OHHTTPStubsResponse responseWithData:responseData statusCode:200 headers:nil];
+    }];
+
+    XCTestExpectation *stub = [self expectationWithDescription:@"stub"];
+    [[XNGAPIClient sharedClient] postStatusMessage:@"status message"
+                                           success:^(id JSON) {
+                                               expect(JSON).to.beNil();
+                                               [stub fulfill];
+                                           } failure:^(NSError *error) {
+                                               expect(YES).to.beFalsy();
+                                               [stub fulfill];
+                                           }];
+    [self waitForExpectationsWithTimeout:.5 handler:nil];
+}
+
 - (void)testPostStatusMessage {
     [self.testHelper executeCall:
      ^{
@@ -187,27 +207,6 @@
 
          expect([query valueForKey:@"user_fields"]).to.equal(@"display_name");
          [query removeObjectForKey:@"user_fields"];
-
-         expect([query allKeys]).to.haveCountOf(0);
-
-         expect([body allKeys]).to.haveCountOf(0);
-     }];
-}
-
-- (void)testRecommendActivity {
-    [self.testHelper executeCall:
-     ^{
-         [[XNGAPIClient sharedClient] postRecommendActivityWithID:@"1"
-                                                          success:nil
-                                                          failure:nil];
-     }
-              withExpectations:
-     ^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
-         expect(request.URL.host).to.equal(@"api.xing.com");
-         expect(request.URL.path).to.equal(@"/v1/activities/1/share");
-         expect(request.HTTPMethod).to.equal(@"POST");
-
-         [self.testHelper removeOAuthParametersInQueryDict:query];
 
          expect([query allKeys]).to.haveCountOf(0);
 
@@ -338,6 +337,27 @@
          [body removeObjectForKey:@"text"];
          expect([body allKeys]).to.haveCountOf(0);
      }];
+}
+
+- (void)testPostNewCommentResponse {
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        return [request.URL.absoluteString isEqualToString:@"https://api.xing.com/v1/activities/1/comments"];
+    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+        NSData *responseData = [@"The comment was created successfully" dataUsingEncoding:NSUTF8StringEncoding];
+        return [OHHTTPStubsResponse responseWithData:responseData statusCode:200 headers:nil];
+    }];
+
+    XCTestExpectation *stub = [self expectationWithDescription:@"stub"];
+    [[XNGAPIClient sharedClient] postNewComment:@"comment"
+                                     activityID:@"1"
+                                        success:^(id JSON) {
+                                            expect(JSON).to.beNil();
+                                            [stub fulfill];
+                                        } failure:^(NSError *error) {
+                                            expect(YES).to.beFalsy();
+                                            [stub fulfill];
+                                        }];
+    [self waitForExpectationsWithTimeout:.5 handler:nil];
 }
 
 - (void)testDeleteComment {

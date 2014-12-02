@@ -19,30 +19,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XNGJSONRequestOperation.h"
+#import "XNGAPIClient.h"
 
-@implementation XNGJSONRequestOperation
+@interface XNGAPIClient ()
 
-@synthesize responseJSON = _responseJSON;
-
-+ (void)initialize {
-    [super initialize];
-    [self addAcceptableContentTypes:[NSSet setWithObjects:@"text/html", nil]];
-}
-
-- (id)responseJSON {
-    if ([self.responseData length] > 60) {
-        return [super responseJSON];
-    }
-    NSString *json = self.responseString;
-    if (([@"The profile visit was created successfully." isEqualToString:json]) ||
-        ([@"Status update has been posted" isEqualToString:json]) ||
-        ([@"The comment was created successfully" isEqualToString:json]) ||
-        ([@"Contact request was successfully sent" isEqualToString:json]) ||
-        ([@"The token was successfully registered" isEqualToString:json])) {
-        return nil;
-    }
-    return [super responseJSON];
-}
+- (AFHTTPRequestOperation *)xng_HTTPRequestOperationWithRequest:(NSURLRequest *)request
+                                                        success:(void (^)(id responseObject))success
+                                                        failure:(void (^)(NSError *error))failure;
 
 @end

@@ -22,8 +22,8 @@
 #import "XNGOAuthHandler.h"
 #import "XNGAPIClient.h"
 #import "NSString+URLEncoding.h"
-#import "SSKeychain.h"
 #import "NSError+XWS.h"
+#import <SSKeychain/SSKeychain.h>
 
 static NSString *kIdentifier = @"com.xing.iphone-app-2010";
 static NSString *kTokenSecretName = @"TokenSecret";//Keychain username

@@ -20,6 +20,7 @@
 // THE SOFTWARE.
 
 #import "XNGAPIClient+ProfileVisits.h"
+#import "XNGAPIClient_Private.h"
 
 @implementation XNGAPIClient (ProfileVisits)
 
@@ -33,10 +34,10 @@
                       failure:(void (^)(NSError *error))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     if (limit) {
-        parameters[@"limit"] = @(limit);
+        parameters[@"limit"] = @(limit).stringValue;
     }
     if (offset) {
-        parameters[@"offset"] = @(offset);
+        parameters[@"offset"] = @(offset).stringValue;
     }
     if ([since length]) {
         parameters[@"since"] = since;
@@ -58,7 +59,12 @@
                                 failure:(void (^)(NSError *error))failure {
     NSParameterAssert(userID);
     NSString *path = [NSString stringWithFormat:@"v1/users/%@/visits", userID];
-    [self postJSONPath:path parameters:nil success:success failure:failure];
+    NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:nil];
+    self.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [[self xng_HTTPRequestOperationWithRequest:request success:^(NSData *responseObject) {
+        success(nil);
+    } failure:failure] start];
 }
 
 #pragma mark - private methods

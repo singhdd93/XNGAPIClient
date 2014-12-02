@@ -52,10 +52,10 @@
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"query"] = searchString;
     if (limit) {
-        parameters[@"limit"] = @(limit);
+        parameters[@"limit"] = @(limit).stringValue;
     }
     if (offset) {
-        parameters[@"offset"] = @(offset);
+        parameters[@"offset"] = @(offset).stringValue;
     }
     if ([userFields length]) {
         parameters[@"user_fields"] = userFields;
@@ -77,10 +77,10 @@
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 
     if (limit) {
-        parameters[@"limit"] = @(limit);
+        parameters[@"limit"] = @(limit).stringValue;
     }
     if (offset) {
-        parameters[@"offset"] = @(offset);
+        parameters[@"offset"] = @(offset).stringValue;
     }
     if ([userFields length]) {
         parameters[@"user_fields"] = userFields;

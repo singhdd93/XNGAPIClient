@@ -22,18 +22,12 @@
 #import "XNGAPIClient.h"
 #import "NSString+URLEncoding.h"
 #import "NSDictionary+Typecheck.h"
-#import "AFOAuth1Client.h"
 #import "XNGOAuthHandler.h"
-#import "XNGJSONRequestOperation.h"
+#import "XNGOAuthToken.h"
 #import "NSError+XWS.h"
 
 typedef void(^XNGAPILoginOpenURLBlock)(NSURL*openURL);
 static NSDictionary * XNGParametersFromQueryString(NSString *queryString);
-
-@interface AFOAuth1Client (private)
-@property (readwrite, nonatomic, copy) NSString *key;
-@property (readwrite, nonatomic, copy) NSString *secret;
-@end
 
 @interface XNGAPIClient()
 @property(nonatomic, strong, readwrite) XNGOAuthHandler *oAuthHandler;
@@ -72,8 +66,6 @@ static XNGAPIClient *_sharedClient = nil;
     self = [super initWithBaseURL:url];
     if (self) {
         _oAuthHandler = [[XNGOAuthHandler alloc] init];
-        self.signatureMethod = AFHMACSHA1SignatureMethod;
-        [self registerHTTPOperationClass:[XNGJSONRequestOperation class]];
 #ifndef TARGET_OS_MAC
         [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 #endif
@@ -82,8 +74,8 @@ static XNGAPIClient *_sharedClient = nil;
     return self;
 }
 
-+ (void)addAcceptableContentTypes:(NSSet *)set {
-    [XNGJSONRequestOperation addAcceptableContentTypes:set];
+- (void)addAcceptableContentTypes:(NSSet *)set {
+    [self.responseSerializer setAcceptableContentTypes:set];
 }
 
 #pragma mark - Getters / Setters
@@ -95,8 +87,12 @@ static XNGAPIClient *_sharedClient = nil;
     return _callbackScheme;
 }
 
+- (NSURL *)baseURL {
+    return self.url;
+}
+
 - (void)setUserAgent:(NSString *)userAgent {
-    [self setDefaultHeader:@"User-Agent" value:userAgent];
+    [self.defaultHeaders setValue:userAgent forKey:@"User-Agent"];
 }
 
 #pragma mark - handling login / logout
@@ -138,6 +134,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
     XNGAPIClientCanLoginTests(self);
     
     NSURL *callbackURL = [self oauthCallbackURL];
+    self.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     __weak __typeof(&*self)weakSelf = self;
     
@@ -148,7 +145,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
                                      accessMethod:@"POST"
                                             scope:nil
                                           success:
-     ^(AFOAuth1Token *accessToken, id responseObject) {
+     ^(XNGOAuthToken *accessToken, id responseObject) {
          NSString *userID = [accessToken.userInfo xng_stringForKey:@"user_id"];
          [weakSelf.oAuthHandler saveUserID:userID
                                accessToken:accessToken.key
@@ -168,6 +165,8 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
     XNGAPIClientCanLoginTests(self);
     
     NSURL *callbackURL = [self oauthCallbackURL];
+    self.responseSerializer = [AFHTTPResponseSerializer serializer];
+
     __weak __typeof(&*self)weakSelf = self;
     
     [self acquireOAuthRequestTokenWithPath:XNGAPIClientOAuthRequestTokenPath
@@ -175,7 +174,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
                               accessMethod:@"POST"
                                      scope:nil
                                    success:
-     ^(AFOAuth1Token *requestToken, id responseObject) {
+     ^(XNGOAuthToken *requestToken, id responseObject) {
          
          weakSelf.loginOpenURLBlock = [weakSelf loginOpenURLBlockWithRequestToken:requestToken loggedIn:loggedInBlock failuire:failureBlock];
 
@@ -190,7 +189,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
     
 }
 
-- (XNGAPILoginOpenURLBlock) loginOpenURLBlockWithRequestToken:(AFOAuth1Token*)requestToken
+- (XNGAPILoginOpenURLBlock) loginOpenURLBlockWithRequestToken:(XNGOAuthToken*)requestToken
                                                      loggedIn:(void (^)())loggedInBlock
                                                      failuire:(void (^)(NSError *))failureBlock  {
     __weak __typeof(&*self)weakSelf = self;
@@ -203,13 +202,13 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
         [weakSelf acquireOAuthAccessTokenWithPath:XNGAPIClientOAuthAccessTokenPath
                                  requestToken:requestToken
                                  accessMethod:@"POST"
-                                      success:^(AFOAuth1Token *accessToken, id responseObject) {
+                                      success:^(XNGOAuthToken *accessToken, id responseObject) {
                                           [weakSelf saveAuthDataFromToken:accessToken success:loggedInBlock failure:failureBlock];
                                           loggedInBlock();
                                       } failure:failureBlock];
     };
 }
-- (void) saveAuthDataFromToken:(AFOAuth1Token*)accessToken
+- (void) saveAuthDataFromToken:(XNGOAuthToken*)accessToken
                        success:(void (^)(void))success
                        failure:(void (^)(NSError *error))failure  {
     self.accessToken = accessToken;
@@ -272,6 +271,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
                                         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
     NSParameterAssert(username);
     NSParameterAssert(password);
+    self.responseSerializer = [AFHTTPResponseSerializer serializer];
     
 	NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"x_auth_username"] = username;
@@ -279,12 +279,12 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
     parameters[@"x_auth_mode"] = @"client_auth";
     
     NSString* path = [NSString stringWithFormat:@"%@/v1/xauth", self.baseURL];
-    [self postPath:path parameters:parameters success:success failure:failure];
+    [self POST:path parameters:parameters success:success failure:failure];
 }
 
-- (AFOAuth1Token*)accessTokenFromKeychain {
+- (XNGOAuthToken*)accessTokenFromKeychain {
     if (self.oAuthHandler.accessToken && self.oAuthHandler.tokenSecret) {
-        return [[AFOAuth1Token alloc] initWithKey:self.oAuthHandler.accessToken secret:self.oAuthHandler.tokenSecret session:nil expiration:nil renewable:YES];
+        return [[XNGOAuthToken alloc] initWithKey:self.oAuthHandler.accessToken secret:self.oAuthHandler.tokenSecret session:nil expiration:nil renewable:YES];
     }
     return nil;
 }
@@ -295,6 +295,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
          parameters:(NSDictionary *)parameters
             success:(void (^)(id JSON))success
             failure:(void (^)(NSError *error))failure {
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
     [self getJSONPath:path
            parameters:parameters
          acceptHeader:nil
@@ -306,6 +307,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
          parameters:(NSDictionary *)parameters
             success:(void (^)(id JSON))success
             failure:(void (^)(NSError *error))failure {
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
     [self putJSONPath:path
            parameters:parameters
          acceptHeader:nil
@@ -317,6 +319,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
           parameters:(NSDictionary *)parameters
              success:(void (^)(id JSON))success
              failure:(void (^)(NSError *error))failure {
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
     [self postJSONPath:path
             parameters:parameters
           acceptHeader:nil
@@ -328,6 +331,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
             parameters:(NSDictionary *)parameters
                success:(void (^)(id JSON))success
                failure:(void (^)(NSError *error))failure {
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
     [self deleteJSONPath:path
               parameters:parameters
             acceptHeader:nil
@@ -343,8 +347,10 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
             success:(void (^)(id))success
             failure:(void (^)(NSError *))failure {
     NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters];
-    if (acceptHeader) [request setValue:acceptHeader forHTTPHeaderField:@"Accept"];
-    [self enqueueJSONRequest:request success:success failure:failure];
+    if (acceptHeader) {
+        [request setValue:acceptHeader forHTTPHeaderField:@"Accept"];
+    }
+    [[self xng_HTTPRequestOperationWithRequest:request success:success failure:failure] start];
 }
 
 - (void)putJSONPath:(NSString *)path
@@ -353,8 +359,10 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
             success:(void (^)(id))success
             failure:(void (^)(NSError *))failure {
     NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:path parameters:parameters];
-    if (acceptHeader) [request setValue:acceptHeader forHTTPHeaderField:@"Accept"];
-    [self enqueueJSONRequest:request success:success failure:failure];
+    if (acceptHeader) {
+        [request setValue:acceptHeader forHTTPHeaderField:@"Accept"];
+    }
+    [[self xng_HTTPRequestOperationWithRequest:request success:success failure:failure] start];
 }
 
 - (void)postJSONPath:(NSString *)path
@@ -363,8 +371,10 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
              success:(void (^)(id))success
              failure:(void (^)(NSError *))failure {
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:parameters];
-    if (acceptHeader) [request setValue:acceptHeader forHTTPHeaderField:@"Accept"];
-    [self enqueueJSONRequest:request success:success failure:failure];
+    if (acceptHeader) {
+        [request setValue:acceptHeader forHTTPHeaderField:@"Accept"];
+    }
+    [[self xng_HTTPRequestOperationWithRequest:request success:success failure:failure] start];
 }
 
 - (void)deleteJSONPath:(NSString *)path
@@ -373,8 +383,10 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
                success:(void (^)(id))success
                failure:(void (^)(NSError *))failure {
     NSMutableURLRequest *request = [self requestWithMethod:@"DELETE" path:path parameters:parameters];
-    if (acceptHeader) [request setValue:acceptHeader forHTTPHeaderField:@"Accept"];
-    [self enqueueJSONRequest:request success:success failure:failure];
+    if (acceptHeader) {
+        [request setValue:acceptHeader forHTTPHeaderField:@"Accept"];
+    }
+    [[self xng_HTTPRequestOperationWithRequest:request success:success failure:failure] start];
 }
 
 #pragma mark - OAuth related methods
@@ -399,10 +411,9 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
 }
 
 - (NSURL*)oAuthAuthorizationURLWithParameters:(NSDictionary*)parameters {
-    NSString *query = AFQueryStringFromParametersWithEncoding(parameters, self.stringEncoding);
-
-    NSString *pathAndQuery = [XNGAPIClientOAuthAuthorizationPath stringByAppendingFormat:@"?%@",query];
-    return [[NSURL URLWithString:pathAndQuery relativeToURL:self.baseURL] absoluteURL];
+    NSString *oauthToken = parameters[@"oauth_token"];
+    NSString *pathAndQuery = [XNGAPIClientOAuthAuthorizationPath stringByAppendingFormat:@"?oauth_token=%@", oauthToken];
+    return [[NSURL URLWithString:pathAndQuery relativeToURL:self.url] absoluteURL];
 }
 
 #pragma mark - checking methods
@@ -428,9 +439,29 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
 
 #pragma mark - cancel requests methods
 
+- (void)cancelAllHTTPOperationsWithMethod:(NSString *)method path:(NSString *)path {
+    [self cancelAllHTTPOperationsWithMethod:method paths:@[path]];
+}
+
 - (void)cancelAllHTTPOperationsWithMethod:(NSString *)method paths:(NSArray *)paths {
     for (NSString* path in paths) {
-        [self cancelAllHTTPOperationsWithMethod:method path:path];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wgnu"
+        NSString *pathToBeMatched = [[[self requestWithMethod:(method ?: @"GET") path:path parameters:nil] URL] path];
+#pragma clang diagnostic pop
+
+        for (NSOperation *operation in [self.operationQueue operations]) {
+            if (![operation isKindOfClass:[AFHTTPRequestOperation class]]) {
+                continue;
+            }
+
+            BOOL hasMatchingMethod = !method || [method isEqualToString:[[(AFHTTPRequestOperation *)operation request] HTTPMethod]];
+            BOOL hasMatchingPath = [[[[(AFHTTPRequestOperation *)operation request] URL] path] isEqual:pathToBeMatched];
+
+            if (hasMatchingMethod && hasMatchingPath) {
+                [operation cancel];
+            }
+        }
     }
 }
 
@@ -441,38 +472,29 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
     }
 }
 
-#pragma mark - HTTP Operation queue methods
+#pragma mark - HTTP Operation methods
 
-- (void)enqueueJSONRequest:(NSMutableURLRequest *)request
-                   success:(void (^)(id JSON))success
-                   failure:(void (^)(NSError *error))failure {
-    if (NO == [[[request allHTTPHeaderFields] allKeys] containsObject:@"Accept"]) {
-        [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    }
-    __weak __typeof(&*self)weakSelf = self;
-    XNGJSONRequestOperation *operation = nil;
-    operation = [XNGJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                 success:
-                 ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                     [weakSelf checkForDeprecation:response];
-                     if (success) {
-                         success(JSON);
-                     }
-                 } failure:
-                 ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                     [weakSelf checkForDeprecation:response];
-                     [weakSelf checkForGlobalErrors:response withJSON:JSON];
-                     
-                     if ([JSON isKindOfClass:[NSDictionary class]]) {
-                         error = [NSError xwsErrorWithStatusCode:response.statusCode
-                                                        userInfo:JSON];
-                     }
-                     
-                     if (failure) {
-                         failure(error);
-                     }
-                 }];
-    [self enqueueHTTPRequestOperation:operation];
+- (AFHTTPRequestOperation *)xng_HTTPRequestOperationWithRequest:(NSURLRequest *)request
+                                                        success:(void (^)(id responseObject))success
+                                                        failure:(void (^)(NSError *error))failure {
+    return [super HTTPRequestOperationWithRequest:request
+                                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self checkForDeprecation:operation.response];
+        if (success) {
+            success(responseObject);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // TODO: check if JSON is returned for errors too
+        [self checkForDeprecation:operation.response];
+        [self checkForGlobalErrors:operation.response withJSON:operation.responseObject];
+        if ([operation.responseObject isKindOfClass:[NSDictionary class]]) {
+            error = [NSError xwsErrorWithStatusCode:operation.response.statusCode
+                                           userInfo:operation.responseObject];
+        }
+        if (failure) {
+            failure(error);
+        }
+    }];
 }
 
 #pragma mark - Helper methods
