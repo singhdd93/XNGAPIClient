@@ -46,7 +46,7 @@
 
 - (void)cancelGetContactPathForOtherUserID:(NSString*)otherUserID {
     NSString *path = [self contactPathPathForUserID:@"me" otherUserID:otherUserID];
-    [self cancelAllHTTPOperationsWithMethod:@"GET" paths:@[path]];
+    [self cancelAllHTTPOperationsWithMethod:@"GET" path:path];
 }
 
 #pragma mark - private methods

@@ -105,7 +105,7 @@
 
 - (void)cancelAllJobSearchHTTPOperationsWithMethod:(NSString *)method {
     NSString *path = [self HTTPOperationPathForJobSearch];
-    [self cancelAllHTTPOperationsWithMethod:method paths:@[path]];
+    [self cancelAllHTTPOperationsWithMethod:method path:path];
 }
 
 @end

@@ -43,7 +43,18 @@ NSString * const XNGAPIClientDeprecationWarningNotification = @"com.xing.apiClie
 
 static XNGAPIClient *_sharedClient = nil;
 
++ (XNGAPIClient *)clientWithBaseURL:(NSURL *)url {
+    return [[XNGAPIClient alloc] initWithBaseURL:url];
+}
+
 + (XNGAPIClient *)sharedClient {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (_sharedClient == nil) {
+            NSURL *baseURL = [NSURL URLWithString:@"https://api.xing.com"];
+            _sharedClient = [[XNGAPIClient alloc] initWithBaseURL:baseURL];
+        }
+    });
     return _sharedClient;
 }
 
@@ -51,11 +62,8 @@ static XNGAPIClient *_sharedClient = nil;
     _sharedClient = sharedClient;
 }
 
-- (instancetype)initWithConsumerKey:(NSString *)key secret:(NSString *)secret {
-    NSURL *url = [NSURL URLWithString:@"https://api.xing.com"];
-    self = [super initWithBaseURL:url
-                              key:key
-                           secret:secret];
+- (id)initWithBaseURL:(NSURL *)url {
+    self = [super initWithBaseURL:url];
     if (self) {
         _oAuthHandler = [[XNGOAuthHandler alloc] init];
 #ifndef TARGET_OS_MAC
@@ -430,6 +438,10 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
 }
 
 #pragma mark - cancel requests methods
+
+- (void)cancelAllHTTPOperationsWithMethod:(NSString *)method path:(NSString *)path {
+    [self cancelAllHTTPOperationsWithMethod:method paths:@[path]];
+}
 
 - (void)cancelAllHTTPOperationsWithMethod:(NSString *)method paths:(NSArray *)paths {
     for (NSString* path in paths) {

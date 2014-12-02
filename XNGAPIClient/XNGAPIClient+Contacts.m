@@ -59,7 +59,7 @@
 
 - (void)cancelGetContactsForUserID:(NSString *)userID {
     NSString* path = [self pathForGetContactsWithUserID:userID];
-    [self cancelAllHTTPOperationsWithMethod:@"GET" paths:@[path]];
+    [self cancelAllHTTPOperationsWithMethod:@"GET" path:path];
 }
 
 - (void)getContactIDsForUserID:(NSString*)userID
@@ -85,7 +85,7 @@
 
 - (void)cancelGetContactIDsForUserID:(NSString *)userID {
     NSString* path = [self pathForGetContactsWithUserID:userID];
-    [self cancelAllHTTPOperationsWithMethod:@"GET" paths:@[path]];
+    [self cancelAllHTTPOperationsWithMethod:@"GET" path:path];
 }
 
 - (void)getSharedContactsForUserID:(NSString*)userID
@@ -122,7 +122,7 @@
 
 - (void)cancelGetSharedContactsForUserID:(NSString *)userID {
     NSString* path = [self pathForGetSharedContactsWithUserID:userID];
-    [self cancelAllHTTPOperationsWithMethod:@"GET" paths:@[path]];
+    [self cancelAllHTTPOperationsWithMethod:@"GET" path:path];
 }
 
 - (void)getContactsCountForUserID:(NSString*)userID

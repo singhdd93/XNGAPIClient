@@ -28,17 +28,11 @@ extern NSString * const XNGAPIClientInvalidTokenErrorNotification;
 extern NSString * const XNGAPIClientDeprecationErrorNotification;
 extern NSString * const XNGAPIClientDeprecationWarningNotification;
 
-/**
- * Designated intializer
- *
- * @param key consumerKey obtained from https://dev.xing.com
- * @param secret consumerSecret obtained from https://dev.xing.com
- */
-- (instancetype)initWithConsumerKey:(NSString *)key secret:(NSString *)secret;
-
++ (XNGAPIClient *)clientWithBaseURL:(NSURL *)url;
 + (XNGAPIClient *)sharedClient;
 + (void)setSharedClient:(XNGAPIClient *)sharedClient;
 - (void)addAcceptableContentTypes:(NSSet *)set;
+- (void)cancelAllHTTPOperationsWithMethod:(NSString *)method path:(NSString *)path;
 
 #pragma mark - Login / Logout
 

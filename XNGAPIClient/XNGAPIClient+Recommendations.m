@@ -62,7 +62,7 @@
 
 - (void)cancelAllGetContactRecommendationsHTTPOperations {
     NSString *path = [self pathForGetContactRecommendations];
-    [self cancelAllHTTPOperationsWithMethod:@"GET" paths:@[path]];
+    [self cancelAllHTTPOperationsWithMethod:@"GET" path:path];
 }
 
 #pragma mark - private methods
