@@ -121,6 +121,26 @@
      }];
 }
 
+- (void)testPostStatusMessageResponse {
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        return [request.URL.absoluteString isEqualToString:@"https://api.xing.com/v1/users/me/status_message"];
+    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+        NSData *responseData = [@"Status update has been posted" dataUsingEncoding:NSUTF8StringEncoding];
+        return [OHHTTPStubsResponse responseWithData:responseData statusCode:200 headers:nil];
+    }];
+
+    XCTestExpectation *stub = [self expectationWithDescription:@"stub"];
+    [[XNGAPIClient sharedClient] postStatusMessage:@"status message"
+                                           success:^(id JSON) {
+                                               expect(JSON).to.beNil();
+                                               [stub fulfill];
+                                           } failure:^(NSError *error) {
+                                               expect(YES).to.beFalsy();
+                                               [stub fulfill];
+                                           }];
+    [self waitForExpectationsWithTimeout:.5 handler:nil];
+}
+
 - (void)testPostStatusMessage {
     [self.testHelper executeCall:
      ^{
@@ -317,6 +337,27 @@
          [body removeObjectForKey:@"text"];
          expect([body allKeys]).to.haveCountOf(0);
      }];
+}
+
+- (void)testPostNewCommentResponse {
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        return [request.URL.absoluteString isEqualToString:@"https://api.xing.com/v1/activities/1/comments"];
+    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+        NSData *responseData = [@"The comment was created successfully" dataUsingEncoding:NSUTF8StringEncoding];
+        return [OHHTTPStubsResponse responseWithData:responseData statusCode:200 headers:nil];
+    }];
+
+    XCTestExpectation *stub = [self expectationWithDescription:@"stub"];
+    [[XNGAPIClient sharedClient] postNewComment:@"comment"
+                                     activityID:@"1"
+                                        success:^(id JSON) {
+                                            expect(JSON).to.beNil();
+                                            [stub fulfill];
+                                        } failure:^(NSError *error) {
+                                            expect(YES).to.beFalsy();
+                                            [stub fulfill];
+                                        }];
+    [self waitForExpectationsWithTimeout:.5 handler:nil];
 }
 
 - (void)testDeleteComment {

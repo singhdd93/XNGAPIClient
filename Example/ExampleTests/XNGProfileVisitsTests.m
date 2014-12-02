@@ -99,4 +99,24 @@
      }];
 }
 
+- (void)testReportProfileVisitResponse {
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        return [request.URL.absoluteString isEqualToString:@"https://api.xing.com/v1/users/1/visits"];
+    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+        NSData *responseData = [@"The profile visit was created successfully." dataUsingEncoding:NSUTF8StringEncoding];
+        return [OHHTTPStubsResponse responseWithData:responseData statusCode:200 headers:nil];
+    }];
+
+    XCTestExpectation *stub = [self expectationWithDescription:@"stub"];
+    [[XNGAPIClient sharedClient] postReportProfileVisitForUserID:@"1" success:^(id JSON) {
+        expect(JSON).to.beNil();
+        [stub fulfill];
+    } failure:^(NSError *error) {
+        expect(YES).to.beFalsy();
+        [stub fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:.5 handler:nil];
+}
+
 @end

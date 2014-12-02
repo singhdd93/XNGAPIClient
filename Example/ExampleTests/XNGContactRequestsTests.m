@@ -96,6 +96,28 @@
      }];
 }
 
+- (void)testPostCreateContactRequestResponse {
+    [OHHTTPStubs stubRequestsPassingTest:^BOOL(NSURLRequest *request) {
+        return [request.URL.absoluteString isEqualToString:@"https://api.xing.com/v1/users/2/contact_requests"];
+    } withStubResponse:^OHHTTPStubsResponse *(NSURLRequest *request) {
+        NSData *responseData = [@"Contact request was successfully sent" dataUsingEncoding:NSUTF8StringEncoding];
+        return [OHHTTPStubsResponse responseWithData:responseData statusCode:200 headers:nil];
+    }];
+
+    XCTestExpectation *stub = [self expectationWithDescription:@"stub"];
+    [[XNGAPIClient sharedClient] postCreateContactRequestToUserWithID:@"2"
+                                                              message:@"blalup"
+                                                              success:^(id JSON) {
+                                                                  expect(JSON).to.beNil();
+                                                                  [stub fulfill];
+                                                              } failure:^(NSError *error) {
+                                                                  expect(YES).to.beFalsy();
+                                                                  [stub fulfill];
+                                                              }];
+
+    [self waitForExpectationsWithTimeout:.5 handler:nil];
+}
+
 - (void)testPutConfirmContactRequest {
     [self.testHelper executeCall:
      ^{

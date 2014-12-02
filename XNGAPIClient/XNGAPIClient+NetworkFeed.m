@@ -20,6 +20,7 @@
 // THE SOFTWARE.
 
 #import "XNGAPIClient+NetworkFeed.h"
+#import "XNGAPIClient_Private.h"
 
 @implementation XNGAPIClient (NetworkFeed)
 
@@ -83,7 +84,12 @@
     parameters[@"message"] = statusMessage;
 
     NSString *path = @"v1/users/me/status_message";
-    [self postJSONPath:path parameters:parameters success:success failure:failure];
+    NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:parameters];
+    self.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [[self xng_HTTPRequestOperationWithRequest:request success:^(NSData *responseObject) {
+        success(nil);
+    } failure:failure] start];
 }
 
 - (void)postLink:(NSString*)uri
@@ -173,7 +179,12 @@
     parameters[@"text"] = comment;
 
     NSString *path = [NSString stringWithFormat:@"v1/activities/%@/comments", activityID];
-    [self postJSONPath:path parameters:parameters success:success failure:failure];
+    NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:parameters];
+    self.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+    [[self xng_HTTPRequestOperationWithRequest:request success:^(NSData *responseObject) {
+        success(nil);
+    } failure:failure] start];
 }
 
 - (void)deleteCommentWithID:(NSString*)commentID
