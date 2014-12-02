@@ -135,16 +135,6 @@
                failure:failure];
 }
 
-- (void)postRecommendActivityWithID:(NSString *)activityID
-                            success:(void (^)(id JSON))success
-                            failure:(void (^)(NSError *error))failure {
-
-    [self postRecommendActivityWithID:activityID
-                                 text:nil
-                              success:success
-                              failure:failure];
-}
-
 - (void)deleteActivityWithID:(NSString*)activityID
                      success:(void (^)(id JSON))success
                      failure:(void (^)(NSError *error))failure {

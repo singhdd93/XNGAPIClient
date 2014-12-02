@@ -194,30 +194,6 @@
      }];
 }
 
-- (void)testRecommendActivity {
-    [self.testHelper executeCall:
-     ^{
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-         [[XNGAPIClient sharedClient] postRecommendActivityWithID:@"1"
-                                                          success:nil
-                                                          failure:nil];
-#pragma clang diagnostic pop
-     }
-              withExpectations:
-     ^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
-         expect(request.URL.host).to.equal(@"api.xing.com");
-         expect(request.URL.path).to.equal(@"/v1/activities/1/share");
-         expect(request.HTTPMethod).to.equal(@"POST");
-
-         [self.testHelper removeOAuthParametersInQueryDict:query];
-
-         expect([query allKeys]).to.haveCountOf(0);
-
-         expect([body allKeys]).to.haveCountOf(0);
-     }];
-}
-
 - (void)testRecommendActivityWithOptionalText {
     [self.testHelper executeCall:
      ^{
