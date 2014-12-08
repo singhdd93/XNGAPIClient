@@ -107,16 +107,17 @@
         return [OHHTTPStubsResponse responseWithData:responseData statusCode:200 headers:nil];
     }];
 
-    XCTestExpectation *stub = [self expectationWithDescription:@"stub"];
+    __block BOOL blockReached;
     [[XNGAPIClient sharedClient] postReportProfileVisitForUserID:@"1" success:^(id JSON) {
         expect(JSON).to.beNil();
-        [stub fulfill];
+        blockReached = YES;
     } failure:^(NSError *error) {
         expect(YES).to.beFalsy();
-        [stub fulfill];
+        blockReached = YES;
     }];
 
-    [self waitForExpectationsWithTimeout:.5 handler:nil];
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeInterval:0.2 sinceDate:[NSDate date]]];
+    expect(blockReached).to.beTruthy();
 }
 
 @end
