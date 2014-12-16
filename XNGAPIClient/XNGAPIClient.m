@@ -75,7 +75,11 @@ static XNGAPIClient *_sharedClient = nil;
 }
 
 - (void)addAcceptableContentTypes:(NSSet *)set {
-    [self.responseSerializer setAcceptableContentTypes:set];
+    NSMutableSet *oldSet = [NSMutableSet setWithSet:self.responseSerializer.acceptableContentTypes];
+    for (NSString *contentType in set) {
+        [oldSet addObject:contentType];
+    }
+    [self.responseSerializer setAcceptableContentTypes:oldSet];
 }
 
 #pragma mark - Getters / Setters
@@ -348,9 +352,11 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
             failure:(void (^)(NSError *))failure {
     NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters];
     if (acceptHeader) {
+        [self addAcceptableContentTypes:[NSSet setWithObject:acceptHeader]];
         [request setValue:acceptHeader forHTTPHeaderField:@"Accept"];
     }
-    [[self xng_HTTPRequestOperationWithRequest:request success:success failure:failure] start];
+    NSOperation *operation = [self xng_HTTPRequestOperationWithRequest:request success:success failure:failure];
+    [self.operationQueue addOperation:operation];
 }
 
 - (void)putJSONPath:(NSString *)path
@@ -360,9 +366,11 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
             failure:(void (^)(NSError *))failure {
     NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:path parameters:parameters];
     if (acceptHeader) {
+        [self addAcceptableContentTypes:[NSSet setWithObject:acceptHeader]];
         [request setValue:acceptHeader forHTTPHeaderField:@"Accept"];
     }
-    [[self xng_HTTPRequestOperationWithRequest:request success:success failure:failure] start];
+    NSOperation *operation = [self xng_HTTPRequestOperationWithRequest:request success:success failure:failure];
+    [self.operationQueue addOperation:operation];
 }
 
 - (void)postJSONPath:(NSString *)path
@@ -372,9 +380,11 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
              failure:(void (^)(NSError *))failure {
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:parameters];
     if (acceptHeader) {
+        [self addAcceptableContentTypes:[NSSet setWithObject:acceptHeader]];
         [request setValue:acceptHeader forHTTPHeaderField:@"Accept"];
     }
-    [[self xng_HTTPRequestOperationWithRequest:request success:success failure:failure] start];
+    NSOperation *operation = [self xng_HTTPRequestOperationWithRequest:request success:success failure:failure];
+    [self.operationQueue addOperation:operation];
 }
 
 - (void)deleteJSONPath:(NSString *)path
@@ -384,9 +394,11 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
                failure:(void (^)(NSError *))failure {
     NSMutableURLRequest *request = [self requestWithMethod:@"DELETE" path:path parameters:parameters];
     if (acceptHeader) {
+        [self addAcceptableContentTypes:[NSSet setWithObject:acceptHeader]];
         [request setValue:acceptHeader forHTTPHeaderField:@"Accept"];
     }
-    [[self xng_HTTPRequestOperationWithRequest:request success:success failure:failure] start];
+    NSOperation *operation = [self xng_HTTPRequestOperationWithRequest:request success:success failure:failure];
+    [self.operationQueue addOperation:operation];
 }
 
 #pragma mark - OAuth related methods

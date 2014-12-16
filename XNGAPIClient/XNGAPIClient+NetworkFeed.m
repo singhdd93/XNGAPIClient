@@ -87,9 +87,12 @@
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:parameters];
     self.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [[self xng_HTTPRequestOperationWithRequest:request success:^(NSData *responseObject) {
-        success(nil);
-    } failure:failure] start];
+    NSOperation *operation = [self xng_HTTPRequestOperationWithRequest:request success:^(NSData *responseObject) {
+        if (success) {
+            success(nil);
+        }
+    } failure:failure];
+    [self.operationQueue addOperation:operation];
 }
 
 - (void)postLink:(NSString*)uri
@@ -182,9 +185,12 @@
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:parameters];
     self.responseSerializer = [AFHTTPResponseSerializer serializer];
 
-    [[self xng_HTTPRequestOperationWithRequest:request success:^(NSData *responseObject) {
-        success(nil);
-    } failure:failure] start];
+    NSOperation *operation = [self xng_HTTPRequestOperationWithRequest:request success:^(NSData *responseObject) {
+        if (success) {
+            success(nil);
+        }
+    } failure:failure];
+    [self.operationQueue addOperation:operation];
 }
 
 - (void)deleteCommentWithID:(NSString*)commentID
