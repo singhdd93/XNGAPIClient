@@ -281,8 +281,10 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
     parameters[@"x_auth_username"] = username;
     parameters[@"x_auth_password"] = password;
     parameters[@"x_auth_mode"] = @"client_auth";
+    parameters[@"oauth_consumer_key"] = self.key;
     
     NSString* path = [NSString stringWithFormat:@"%@/v1/xauth", self.baseURL];
+
     [self POST:path parameters:parameters success:success failure:failure];
 }
 

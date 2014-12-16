@@ -64,6 +64,9 @@
          expect([body valueForKey:@"x_auth_username"]).to.equal(@"username");
          [body removeObjectForKey:@"x_auth_username"];
 
+         expect([body valueForKey:@"oauth_consumer_key"]).to.equal(@"123");
+         [body removeObjectForKey:@"oauth_consumer_key"];
+
          expect([body allKeys]).to.haveCountOf(0);
 
          expect([query allKeys]).to.haveCountOf(0);
