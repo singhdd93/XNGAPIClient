@@ -164,10 +164,10 @@
         parameters[@"user_fields"] = userFields;
     }
     if (limit > 0) {
-        parameters[@"limit"] = @(limit).stringValue;
+        parameters[@"limit"] = @(limit);
     }
     if ( offset > 0 ) {
-        parameters[@"offset"] = @(offset).stringValue;
+        parameters[@"offset"] = @(offset);
     }
 
     NSString* path = [NSString stringWithFormat:@"v1/activities/%@/comments", activityID];
@@ -213,10 +213,10 @@
         parameters[@"user_fields"] = userFields;
     }
     if ( offset > 0 ) {
-        parameters[@"offset"] = @(offset).stringValue;
+        parameters[@"offset"] = @(offset);
     }
     if ( limit > 0 ) {
-        parameters[@"limit"] = @(limit).stringValue;
+        parameters[@"limit"] = @(limit);
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/activities/%@/likes", activityID];

@@ -35,11 +35,11 @@
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 
     if (limit) {
-        parameters[@"limit"] = @(limit).stringValue;
+        parameters[@"limit"] = @(limit);
     }
 
     if (offset) {
-        parameters[@"offset"] = @(offset).stringValue;
+        parameters[@"offset"] = @(offset);
     }
 
     if (orderBy == XNGContactsOrderOptionByLastName) {
@@ -70,10 +70,10 @@
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 
     if (limit) {
-        parameters[@"limit"] = @(limit).stringValue;
+        parameters[@"limit"] = @(limit);
     }
     if (offset) {
-        parameters[@"offset"] = @(offset).stringValue;
+        parameters[@"offset"] = @(offset);
     }
 
     NSString* path = [self pathForGetContactsWithUserID:userID];
@@ -98,11 +98,11 @@
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
 
     if (limit) {
-        parameters[@"limit"] = @(limit).stringValue;
+        parameters[@"limit"] = @(limit);
     }
 
     if (offset) {
-        parameters[@"offset"] = @(offset).stringValue;
+        parameters[@"offset"] = @(offset);
     }
 
     if (orderBy == XNGContactsOrderOptionByLastName) {
@@ -131,7 +131,7 @@
     NSParameterAssert(userID);
 
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    parameters[@"limit"] = @(0).stringValue;
+    parameters[@"limit"] = @(0);
 
     NSString *path = [self pathForGetContactsWithUserID:userID];
 

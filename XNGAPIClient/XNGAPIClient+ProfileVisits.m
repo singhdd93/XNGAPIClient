@@ -34,10 +34,10 @@
                       failure:(void (^)(NSError *error))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     if (limit) {
-        parameters[@"limit"] = @(limit).stringValue;
+        parameters[@"limit"] = @(limit);
     }
     if (offset) {
-        parameters[@"offset"] = @(offset).stringValue;
+        parameters[@"offset"] = @(offset);
     }
     if ([since length]) {
         parameters[@"since"] = since;
