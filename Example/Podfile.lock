@@ -24,9 +24,9 @@ PODS:
   - OCMock (3.1.1)
   - OHHTTPStubs (3.1.0)
   - SSKeychain (1.2.2)
-  - XNGAPIClient (1.0.0):
-    - XNGAPIClient/Core (= 1.0.0)
-  - XNGAPIClient/Core (1.0.0):
+  - XNGAPIClient (1.1.0):
+    - XNGAPIClient/Core (= 1.1.0)
+  - XNGAPIClient/Core (1.1.0):
     - SSKeychain (~> 1.2.0)
     - XNGOAuth1Client (~> 2.0.0)
   - XNGOAuth1Client (2.0.0):
@@ -48,7 +48,7 @@ SPEC CHECKSUMS:
   OCMock: f6cb8c162ab9d5620dddf411282c7b2c0ee78854
   OHHTTPStubs: 8b032ab399e356050010ed34613ee1761c6c8ae3
   SSKeychain: cc48bd3ad24fcd9125adb9e0d23dd50b8bbd08b9
-  XNGAPIClient: 10f63d53074d5df3b98e47c4e702c531cbd8bb1c
+  XNGAPIClient: 53c188688501fb6493a8cf85e038b7a19f8a2132
   XNGOAuth1Client: dc01d0daeb0afb87b8c954f000dee152c42bfca6
 
 COCOAPODS: 0.35.0
