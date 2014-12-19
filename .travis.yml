@@ -1,6 +1,7 @@
 language: objective-c
 osx_image: xcode61
 env: OS=8.1
-before_install: rake bootstrap
+podfile: Example/Podfile
+cache: bundler
 script: rake spec
 after_success: bundle exec slather
