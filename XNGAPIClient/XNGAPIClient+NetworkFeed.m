@@ -87,9 +87,12 @@
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:parameters];
     self.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [[self xng_HTTPRequestOperationWithRequest:request success:^(NSData *responseObject) {
-        success(nil);
-    } failure:failure] start];
+    NSOperation *operation = [self xng_HTTPRequestOperationWithRequest:request success:^(NSData *responseObject) {
+        if (success) {
+            success(nil);
+        }
+    } failure:failure];
+    [self.operationQueue addOperation:operation];
 }
 
 - (void)postLink:(NSString*)uri
@@ -161,10 +164,10 @@
         parameters[@"user_fields"] = userFields;
     }
     if (limit > 0) {
-        parameters[@"limit"] = @(limit).stringValue;
+        parameters[@"limit"] = @(limit);
     }
     if ( offset > 0 ) {
-        parameters[@"offset"] = @(offset).stringValue;
+        parameters[@"offset"] = @(offset);
     }
 
     NSString* path = [NSString stringWithFormat:@"v1/activities/%@/comments", activityID];
@@ -182,9 +185,12 @@
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:parameters];
     self.responseSerializer = [AFHTTPResponseSerializer serializer];
 
-    [[self xng_HTTPRequestOperationWithRequest:request success:^(NSData *responseObject) {
-        success(nil);
-    } failure:failure] start];
+    NSOperation *operation = [self xng_HTTPRequestOperationWithRequest:request success:^(NSData *responseObject) {
+        if (success) {
+            success(nil);
+        }
+    } failure:failure];
+    [self.operationQueue addOperation:operation];
 }
 
 - (void)deleteCommentWithID:(NSString*)commentID
@@ -207,10 +213,10 @@
         parameters[@"user_fields"] = userFields;
     }
     if ( offset > 0 ) {
-        parameters[@"offset"] = @(offset).stringValue;
+        parameters[@"offset"] = @(offset);
     }
     if ( limit > 0 ) {
-        parameters[@"limit"] = @(limit).stringValue;
+        parameters[@"limit"] = @(limit);
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/activities/%@/likes", activityID];

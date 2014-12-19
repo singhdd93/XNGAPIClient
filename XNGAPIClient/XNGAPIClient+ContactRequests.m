@@ -34,10 +34,10 @@
 
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     if (limit) {
-        parameters[@"limit"] = @(limit).stringValue;
+        parameters[@"limit"] = @(limit);
     }
     if (offset) {
-        parameters[@"offset"] = @(offset).stringValue;
+        parameters[@"offset"] = @(offset);
     }
     if ([userField length]) {
         parameters[@"user_fields"] = userField;
@@ -65,9 +65,12 @@
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:parameters];
     self.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [[self xng_HTTPRequestOperationWithRequest:request success:^(NSData *responseObject) {
-        success(nil);
-    } failure:failure] start];
+    NSOperation *operation = [self xng_HTTPRequestOperationWithRequest:request success:^(NSData *responseObject) {
+        if (success) {
+            success(nil);
+        }
+    } failure:failure];
+    [self.operationQueue addOperation:operation];
 }
 
 - (void)putConfirmContactRequestForUserID:(NSString*)userID

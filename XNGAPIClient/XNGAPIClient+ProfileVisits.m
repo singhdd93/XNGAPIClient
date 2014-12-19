@@ -34,10 +34,10 @@
                       failure:(void (^)(NSError *error))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     if (limit) {
-        parameters[@"limit"] = @(limit).stringValue;
+        parameters[@"limit"] = @(limit);
     }
     if (offset) {
-        parameters[@"offset"] = @(offset).stringValue;
+        parameters[@"offset"] = @(offset);
     }
     if ([since length]) {
         parameters[@"since"] = since;
@@ -62,9 +62,12 @@
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:nil];
     self.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [[self xng_HTTPRequestOperationWithRequest:request success:^(NSData *responseObject) {
-        success(nil);
-    } failure:failure] start];
+    NSOperation *operation = [self xng_HTTPRequestOperationWithRequest:request success:^(NSData *responseObject) {
+        if (success) {
+            success(nil);
+        }
+    } failure:failure];
+    [self.operationQueue addOperation:operation];
 }
 
 #pragma mark - private methods

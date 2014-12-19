@@ -54,11 +54,11 @@
     }
 
     if (age) {
-        parameters[@"age"] = @(age).stringValue;
+        parameters[@"age"] = @(age);
     }
 
     if (radius) {
-        parameters[@"radius"] = @(radius).stringValue;
+        parameters[@"radius"] = @(radius);
     }
 
     NSString *path = @"v1/users/me/nearby_users";
