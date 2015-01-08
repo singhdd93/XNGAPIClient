@@ -301,7 +301,6 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
          parameters:(NSDictionary *)parameters
             success:(void (^)(id JSON))success
             failure:(void (^)(NSError *error))failure {
-    self.responseSerializer = [AFJSONResponseSerializer serializer];
     [self getJSONPath:path
            parameters:parameters
          acceptHeader:nil
@@ -313,7 +312,6 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
          parameters:(NSDictionary *)parameters
             success:(void (^)(id JSON))success
             failure:(void (^)(NSError *error))failure {
-    self.responseSerializer = [AFJSONResponseSerializer serializer];
     [self putJSONPath:path
            parameters:parameters
          acceptHeader:nil
@@ -325,7 +323,6 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
           parameters:(NSDictionary *)parameters
              success:(void (^)(id JSON))success
              failure:(void (^)(NSError *error))failure {
-    self.responseSerializer = [AFJSONResponseSerializer serializer];
     [self postJSONPath:path
             parameters:parameters
           acceptHeader:nil
@@ -337,7 +334,6 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
             parameters:(NSDictionary *)parameters
                success:(void (^)(id JSON))success
                failure:(void (^)(NSError *error))failure {
-    self.responseSerializer = [AFJSONResponseSerializer serializer];
     [self deleteJSONPath:path
               parameters:parameters
             acceptHeader:nil
@@ -352,6 +348,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
        acceptHeader:(NSString *)acceptHeader
             success:(void (^)(id))success
             failure:(void (^)(NSError *))failure {
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
     NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters];
     if (acceptHeader) {
         [self addAcceptableContentTypes:[NSSet setWithObject:acceptHeader]];
@@ -366,6 +363,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
        acceptHeader:(NSString *)acceptHeader
             success:(void (^)(id))success
             failure:(void (^)(NSError *))failure {
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
     NSMutableURLRequest *request = [self requestWithMethod:@"PUT" path:path parameters:parameters];
     if (acceptHeader) {
         [self addAcceptableContentTypes:[NSSet setWithObject:acceptHeader]];
@@ -380,6 +378,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
         acceptHeader:(NSString *)acceptHeader
              success:(void (^)(id))success
              failure:(void (^)(NSError *))failure {
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
     NSMutableURLRequest *request = [self requestWithMethod:@"POST" path:path parameters:parameters];
     if (acceptHeader) {
         [self addAcceptableContentTypes:[NSSet setWithObject:acceptHeader]];
@@ -394,6 +393,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
           acceptHeader:(NSString *)acceptHeader
                success:(void (^)(id))success
                failure:(void (^)(NSError *))failure {
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
     NSMutableURLRequest *request = [self requestWithMethod:@"DELETE" path:path parameters:parameters];
     if (acceptHeader) {
         [self addAcceptableContentTypes:[NSSet setWithObject:acceptHeader]];
