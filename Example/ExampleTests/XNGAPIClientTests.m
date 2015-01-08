@@ -34,8 +34,9 @@
 }
 
 - (void)testSetUserAgent {
-    [[XNGAPIClient sharedClient] setUserAgent:@"XNGAPIClient/1.0"];
-    expect([XNGAPIClient sharedClient].defaultHeaders[@"User-Agent"]).to.equal(@"XNGAPIClient/1.0");
+    [[XNGAPIClient sharedClient] setUserAgent:@"XNGAPIClient/1.0 SomeOtherInformation/2.0"];
+    NSMutableURLRequest *request = [[XNGAPIClient sharedClient] requestWithMethod:@"GET" path:@"/some_path" parameters:nil];
+    expect([request allHTTPHeaderFields][@"User-Agent"]).to.equal(@"XNGAPIClient/1.0 SomeOtherInformation/2.0");
 }
 
 - (void)testLoginXAuth {
