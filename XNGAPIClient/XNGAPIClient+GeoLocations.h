@@ -34,7 +34,7 @@
                             longitude:(CGFloat)longitude
                                   ttl:(NSUInteger)ttl
                               success:(void (^)(id JSON))success
-                              failure:(void (^)(NSError *error))failure;
+                              failure:(void (^)(NSError *error))failure DEPRECATED_MSG_ATTRIBUTE("The Geo Location calls are deprecated. Please don't use them any longer. They will return a compatible empty response from the end of February 2015 on. Eventually the calls will be shut down completely.");
 
 /**
  Get the users that are near your current location....
@@ -45,7 +45,7 @@
                        radius:(NSUInteger)radius
                    userFields:(NSString *)userFields
                       success:(void (^)(id JSON))success
-                      failure:(void (^)(NSError *error))failure;
+                      failure:(void (^)(NSError *error))failure DEPRECATED_MSG_ATTRIBUTE("The Geo Location calls are deprecated. Please don't use them any longer. They will return a compatible empty response from the end of February 2015 on. Eventually the calls will be shut down completely.");
 
 
 @end
