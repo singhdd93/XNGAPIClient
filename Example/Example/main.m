@@ -3,7 +3,7 @@
 //  Example
 //
 //  Created by Piet Brauer on 06.05.14.
-//  Copyright (c) 2014 XING AG. All rights reserved.
+//  Copyright (c) 2015 XING AG. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
