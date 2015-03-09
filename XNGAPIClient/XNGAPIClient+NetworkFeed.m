@@ -95,12 +95,21 @@
     [self.operationQueue addOperation:operation];
 }
 
-- (void)postLink:(NSString*)uri
+- (void)postLink:(NSString *)uri
+         success:(void (^)(id JSON))success
+         failure:(void (^)(NSError *error))failure {
+    [self postLink:uri text:nil success:success failure:failure];
+}
+
+- (void)postLink:(NSString *)uri
+            text:(NSString *)text
          success:(void (^)(id JSON))success
          failure:(void (^)(NSError *error))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"uri"] = uri;
-
+    if ([text length] > 0) {
+        parameters[@"text"] = text;
+    }
     NSString *path = @"v1/users/me/share/link";
     [self postJSONPath:path parameters:parameters success:success failure:failure];
 }
