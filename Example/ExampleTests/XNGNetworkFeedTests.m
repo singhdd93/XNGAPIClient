@@ -190,6 +190,34 @@
      }];
 }
 
+- (void)testPostLinkWithComment {
+    [self.testHelper executeCall:
+     ^{
+         [[XNGAPIClient sharedClient] postLink:@"blalup"
+                                          text:@"plomPlom"
+                                       success:nil
+                                       failure:nil];
+     }
+                withExpectations:
+     ^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+         expect(request.URL.host).to.equal(@"api.xing.com");
+         expect(request.URL.path).to.equal(@"/v1/users/me/share/link");
+         expect(request.HTTPMethod).to.equal(@"POST");
+         
+         [self.testHelper removeOAuthParametersInQueryDict:query];
+         
+         expect([query allKeys]).to.haveCountOf(0);
+         
+         expect([body valueForKey:@"uri"]).to.equal(@"blalup");
+         [body removeObjectForKey:@"uri"];
+         
+         expect([body valueForKey:@"text"]).to.equal(@"plomPlom");
+         [body removeObjectForKey:@"text"];
+         
+         expect([body allKeys]).to.haveCountOf(0);
+     }];
+}
+
 - (void)testGetSingleActivity {
     [self.testHelper executeCall:
      ^{

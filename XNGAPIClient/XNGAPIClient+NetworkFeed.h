@@ -75,6 +75,16 @@
          failure:(void (^)(NSError *error))failure;
 
 /**
+ Create a new activity containing the link and text(optional)....
+ 
+ https://dev.xing.com/docs/post/users/me/share/link
+ */
+- (void)postLink:(NSString *)uri
+            text:(NSString *)text
+         success:(void (^)(id JSON))success
+         failure:(void (^)(NSError *error))failure;
+
+/**
  Returns a single activity. The response format is the same as the one in the network or user feed, even though a single activity will never be aggregated....
 
  https://dev.xing.com/docs/get/activities/:id
