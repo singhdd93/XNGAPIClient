@@ -29,6 +29,7 @@
 - (void)getConversationsWithLimit:(NSInteger)limit
                            offset:(NSInteger)offset
                        userFields:(NSString *)userFields
+                        stripHTML:(BOOL)stripHTML
                withLatestMessages:(NSInteger)latestMessagesCount
                           success:(void (^)(id JSON))success
                           failure:(void (^)(NSError *error))failure {
@@ -42,6 +43,9 @@
     }
     if (userFields) {
         parameters[@"user_fields"] = userFields;
+    }
+    if (stripHTML) {
+        parameters[@"strip_html"] = @"true";
     }
     if (latestMessagesCount) {
         parameters[@"with_latest_messages"] = @(latestMessagesCount);
@@ -79,12 +83,16 @@
 
 - (void)getConversationWithID:(NSString *)conversationID
                    userFields:(NSString *)userFields
+                    stripHTML:(BOOL)stripHTML
            withLatestMessages:(NSInteger)latestMessagesCount
                       success:(void (^)(id JSON))success
                       failure:(void (^)(NSError *error))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     if (userFields) {
         parameters[@"user_fields"] = userFields;
+    }
+    if (stripHTML) {
+        parameters[@"strip_html"] = @"true";
     }
     if (latestMessagesCount) {
         parameters[@"with_latest_messages"] = @(latestMessagesCount);
@@ -127,6 +135,7 @@
                                limit:(NSInteger)limit
                               offset:(NSInteger)offset
                           userFields:(NSString *)userFields
+                           stripHTML:(BOOL)stripHTML
                              success:(void (^)(id JSON))success
                              failure:(void (^)(NSError *error))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
@@ -135,6 +144,9 @@
     }
     if (offset) {
         parameters[@"offset"] = @(offset);
+    }
+    if (stripHTML) {
+        parameters[@"strip_html"] = @"true";
     }
     if ([userFields length]) {
         parameters[@"user_fields"] = userFields;
