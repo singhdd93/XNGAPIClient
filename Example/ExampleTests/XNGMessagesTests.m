@@ -28,6 +28,7 @@
          [[XNGAPIClient sharedClient] getConversationsWithLimit:0
                                                          offset:0
                                                      userFields:nil
+                                                      stripHTML:NO
                                              withLatestMessages:0
                                                         success:nil
                                                         failure:nil];
@@ -52,6 +53,7 @@
          [[XNGAPIClient sharedClient] getConversationsWithLimit:20
                                                          offset:40
                                                      userFields:@"display_name"
+                                                      stripHTML:YES
                                              withLatestMessages:60
                                                         success:nil
                                                         failure:nil];
@@ -72,6 +74,8 @@
          [query removeObjectForKey:@"with_latest_messages"];
          expect([query valueForKey:@"user_fields"]).to.equal(@"display_name");
          [query removeObjectForKey:@"user_fields"];
+         expect([query valueForKey:@"strip_html"]).to.equal(@"true");
+         [query removeObjectForKey:@"strip_html"];
 
          expect([query allKeys]).to.haveCountOf(0);
 
@@ -133,6 +137,7 @@
      ^{
          [[XNGAPIClient sharedClient] getConversationWithID:@"1"
                                                  userFields:nil
+                                                  stripHTML:NO
                                          withLatestMessages:0
                                                     success:nil
                                                     failure:nil];
@@ -156,6 +161,7 @@
      ^{
          [[XNGAPIClient sharedClient] getConversationWithID:@"1"
                                                  userFields:@"display_name"
+                                                  stripHTML:YES
                                          withLatestMessages:20
                                                     success:nil
                                                     failure:nil];
@@ -172,6 +178,8 @@
          [query removeObjectForKey:@"user_fields"];
          expect([query valueForKey:@"with_latest_messages"]).to.equal(@"20");
          [query removeObjectForKey:@"with_latest_messages"];
+         expect([query valueForKey:@"strip_html"]).to.equal(@"true");
+         [query removeObjectForKey:@"strip_html"];
 
          expect([query allKeys]).to.haveCountOf(0);
 
@@ -230,6 +238,7 @@
                                                              limit:0
                                                             offset:0
                                                         userFields:nil
+                                                         stripHTML:NO
                                                            success:nil
                                                            failure:nil];
      }

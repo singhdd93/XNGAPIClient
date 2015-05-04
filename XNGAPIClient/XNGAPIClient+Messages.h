@@ -31,6 +31,7 @@
 - (void)getConversationsWithLimit:(NSInteger)limit
                            offset:(NSInteger)offset
                        userFields:(NSString *)userFields
+                        stripHTML:(BOOL)stripHTML
                withLatestMessages:(NSInteger)latestMessagesCount
                           success:(void (^)(id JSON))success
                           failure:(void (^)(NSError *error))failure;
@@ -67,6 +68,7 @@
  */
 - (void)getConversationWithID:(NSString *)conversationID
                    userFields:(NSString *)userFields
+                    stripHTML:(BOOL)stripHTML
            withLatestMessages:(NSInteger)latestMessagesCount
                       success:(void (^)(id JSON))success
                       failure:(void (^)(NSError *error))failure;
@@ -99,6 +101,7 @@
                                limit:(NSInteger)limit
                               offset:(NSInteger)offset
                           userFields:(NSString *)userFields
+                           stripHTML:(BOOL)stripHTML
                              success:(void (^)(id JSON))success
                              failure:(void (^)(NSError *error))failure;
 
