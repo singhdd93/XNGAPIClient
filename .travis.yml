@@ -1,7 +1,8 @@
 language: objective-c
 osx_image: xcode61
 env: OS=8.1
-podfile: Example/Podfile
-cache: bundler
-script: rake spec
+install:
+  - bundle install 
+  - bundle exec pod install --project-directory=Example
+script: bundle exec rake spec
 after_success: bundle exec slather
