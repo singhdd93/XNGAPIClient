@@ -2,6 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 workspace '../XNGAPIClient'
 platform :ios, '7.0'
+plugin 'slather'
 
 target "Example" do
   pod 'XNGAPIClient', :path => '../XNGAPIClient.podspec'
@@ -11,11 +12,4 @@ target "ExampleTests" do
   pod 'Expecta'
   pod 'OHHTTPStubs', '= 3.1.0'
   pod 'OCMock'
-end
-
-begin
-  require 'slather'
-  Slather.prepare_pods(self)
-rescue LoadError
-  puts 'Slather has been disabled (not installed).'
 end
