@@ -30,4 +30,3 @@
 #import "XNGAPIClient+ProfileVisits.h"
 #import "XNGAPIClient+Recommendations.h"
 #import "XNGAPIClient+Invitations.h"
-#import "XNGAPIClient+GeoLocations.h"
