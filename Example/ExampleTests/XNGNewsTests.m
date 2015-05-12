@@ -1,6 +1,5 @@
 #import <XCTest/XCTest.h>
 #import "XNGTestHelper.h"
-#import "XNGAPIClient+News.h"
 #import <XNGAPIClient/XNGAPI.h>
 
 @interface XNGNewsTests : XCTestCase
