@@ -68,4 +68,80 @@
                              success:(void (^)(id JSON))success
                              failure:(void (^)(NSError *error))failure;
 
+/**
+ Delete a news article
+
+ https://dev.xing.com/docs/delete/news/articles/:id
+*/
+- (void)deleteArticleForArticleID:(NSString *)articleID
+                          version:(NSString *)version
+                          success:(void (^)(id JSON))success
+                          failure:(void (^)(NSError *error))failure;
+
+/**
+ Get all pages the user can edit
+
+ https://dev.xing.com/docs/get/users/me/news/pages/editable
+*/
+- (void)getEditablePagesWithLimit:(NSInteger)limit
+                           offset:(NSInteger)offset
+                          success:(void (^)(id JSON))success
+                          failure:(void (^)(NSError *error))failure;
+
+/**
+ Get all pages the user is following
+
+ https://dev.xing.com/docs/get/users/me/news/pages/following
+*/
+- (void)getFollowedPagesWithLimit:(NSInteger)limit
+                           offset:(NSInteger)offset
+                          success:(void (^)(id JSON))success
+                          failure:(void (^)(NSError *error))failure;
+
+/**
+ Like an article
+
+ https://dev.xing.com/docs/put/news/articles/:id/like
+*/
+- (void)putLikeArticleWithArticleID:(NSString *)articleID
+                            success:(void (^)(id JSON))success
+                            failure:(void (^)(NSError *error))failure;
+
+/**
+ Unlike an article
+
+ https://dev.xing.com/docs/delete/news/articles/:id/like
+*/
+- (void)deleteUnlikeArticleWithArticleID:(NSString *)articleID
+                                 success:(void (^)(id JSON))success
+                                 failure:(void (^)(NSError *error))failure;
+
+/**
+ List all likes of an article
+
+ https://dev.xing.com/docs/get/news/articles/:article_id/likes
+*/
+- (void)getLikesForArticleWithArticleID:(NSString *)articleID
+                             userFields:(NSString *)userFields
+                                  limit:(NSInteger)limit
+                                 offset:(NSInteger)offset
+                                success:(void (^)(id JSON))success
+                                failure:(void (^)(NSError *error))failure;
+
+/**
+ Create an article on a news page
+
+ https://dev.xing.com/docs/post/news/pages/:page_id/articles
+*/
+- (void)postCreateArticleWithPageID:(NSString *)pageID
+                          sourceURL:(NSString *)sourceURL
+                              title:(NSString *)title
+                        description:(NSString *)description
+                           imageURL:(NSString *)imageURL
+                   introductoryText:(NSString *)introductoryText
+                        publishedAt:(NSString *)publishedAt
+                             source:(NSString *)source
+                            success:(void (^)(id JSON))success
+                            failure:(void (^)(NSError *error))failure;
+
 @end
