@@ -429,5 +429,27 @@
     }];
 }
 
+- (void)testUpdateBirthday {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] putUpdateBirthDateWithDay:15
+                                                         month:6
+                                                          year:1991
+                                                       success:nil
+                                                       failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/birth_date");
+        expect(request.HTTPMethod).to.equal(@"PUT");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body valueForKey:@"day"]).to.equal(@"15");
+        [body removeObjectForKey:@"day"];
+        expect([body valueForKey:@"month"]).to.equal(@"6");
+        [body removeObjectForKey:@"month"];
+        expect([body valueForKey:@"year"]).to.equal(@"1991");
+        [body removeObjectForKey:@"year"];
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
 
 @end

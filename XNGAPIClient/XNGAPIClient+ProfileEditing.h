@@ -210,4 +210,15 @@ https://dev.xing.com/docs/put/users/me/private_address
                              success:(void (^)(id JSON))success
                              failure:(void (^)(NSError *error))failure;
 
+/**
+ Updates the users birth date
+
+ https://dev.xing.com/docs/put/users/me/birth_date
+*/
+- (void)putUpdateBirthDateWithDay:(NSInteger)day
+                            month:(NSInteger)month
+                             year:(NSInteger)year
+                          success:(void (^)(id JSON))success
+                          failure:(void (^)(NSError *error))failure;
+
 @end

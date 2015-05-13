@@ -416,6 +416,20 @@
     [self deleteJSONPath:path parameters:nil success:success failure:failure];
 }
 
+- (void)putUpdateBirthDateWithDay:(NSInteger)day
+                            month:(NSInteger)month
+                             year:(NSInteger)year
+                          success:(void (^)(id JSON))success
+                          failure:(void (^)(NSError *error))failure {
+    if (!day || !month || !year) {
+        return;
+    }
+
+    NSDictionary *parameters = @{@"day": @(day), @"month": @(month), @"year": @(year)};
+    NSString *path = @"v1/users/me/birth_date";
+    [self putJSONPath:path parameters:parameters success:success failure:failure];
+}
+
 #pragma mark - Helper
 
 - (NSString *)uuidImageName {
