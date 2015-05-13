@@ -221,4 +221,23 @@ https://dev.xing.com/docs/put/users/me/private_address
                           success:(void (^)(id JSON))success
                           failure:(void (^)(NSError *error))failure;
 
+/**
+ Updates URLs for the given web profile
+
+ https://dev.xing.com/docs/put/users/me/web_profiles/:profile
+*/
+- (void)putUpdateWebProfileWithIdentifier:(NSString *)identifier
+                                      url:(NSString *)URL
+                                  success:(void (^)(id JSON))success
+                                  failure:(void (^)(NSError *error))failure;
+
+/**
+ Delete a web profile from the users profile
+
+ https://dev.xing.com/docs/delete/users/me/web_profiles/:profile
+*/
+- (void)deleteWebProfileWithIdentifier:(NSString *)identifier
+                               success:(void (^)(id JSON))success
+                               failure:(void (^)(NSError *error))failure;
+
 @end

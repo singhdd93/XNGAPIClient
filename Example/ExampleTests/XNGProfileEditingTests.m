@@ -452,4 +452,37 @@
     }];
 }
 
+- (void)testUpdateWebProfile {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] putUpdateWebProfileWithIdentifier:@"twitter"
+                                                                   url:@"https://twitter.com/xingdevs"
+                                                               success:nil
+                                                               failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/web_profiles/twitter");
+        expect(request.HTTPMethod).to.equal(@"PUT");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body valueForKey:@"url"]).to.equal(@"https%3A%2F%2Ftwitter.com%2Fxingdevs");
+        [body removeObjectForKey:@"url"];
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
+- (void)testDeleteWebProfile {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] deleteWebProfileWithIdentifier:@"second life"
+                                                            success:nil
+                                                            failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/web_profiles/second life"); // weird test helper bevaviour
+        expect(request.HTTPMethod).to.equal(@"DELETE");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
 @end

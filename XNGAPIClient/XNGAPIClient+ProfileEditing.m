@@ -430,6 +430,35 @@
     [self putJSONPath:path parameters:parameters success:success failure:failure];
 }
 
+- (void)putUpdateWebProfileWithIdentifier:(NSString *)identifier
+                                      url:(NSString *)URL
+                                  success:(void (^)(id JSON))success
+                                  failure:(void (^)(NSError *error))failure {
+    if (!identifier) {
+        return;
+    }
+
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    if (URL) {
+        parameters[@"url"] = URL;
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/users/me/web_profiles/%@", identifier];
+    [self putJSONPath:path parameters:parameters success:success failure:failure];
+}
+
+- (void)deleteWebProfileWithIdentifier:(NSString *)identifier
+                               success:(void (^)(id JSON))success
+                               failure:(void (^)(NSError *error))failure {
+    if (!identifier) {
+        return;
+    }
+
+    identifier = [identifier stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet alphanumericCharacterSet]];
+    NSString *path = [NSString stringWithFormat:@"v1/users/me/web_profiles/%@", identifier];
+    [self deleteJSONPath:path parameters:nil success:success failure:failure];
+}
+
 #pragma mark - Helper
 
 - (NSString *)uuidImageName {
