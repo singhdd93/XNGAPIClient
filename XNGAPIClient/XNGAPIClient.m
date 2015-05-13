@@ -19,6 +19,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <XNGOAuth1Client/XNGOAuth1Client.h>
 #import "XNGAPIClient.h"
 #import "NSString+URLEncoding.h"
 #import "NSDictionary+Typecheck.h"
@@ -339,6 +340,24 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
             acceptHeader:nil
                  success:success
                  failure:failure];
+}
+
+#pragma mark - block-based PUT with JSON parameters
+
+- (void)putJSONPath:(NSString *)path
+     JSONParameters:(NSDictionary *)parameters
+            success:(void (^)(id JSON))success
+            failure:(void (^)(NSError *error))failure {
+    self.requestSerializer = [AFJSONRequestSerializer serializer];
+    NSMutableURLRequest *request = [self requestWithMethod:@"PUT"
+                                                      path:path
+                                                parameters:parameters];
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
+    AFHTTPRequestOperation *operation = [self xng_HTTPRequestOperationWithRequest:request
+                                                                          success:success
+                                                                          failure:failure];
+    [self.operationQueue addOperation:operation];
+    self.requestSerializer = [AFHTTPRequestSerializer serializer];
 }
 
 #pragma mark - block-based GET / PUT / POST / DELETE with optional accept headers
