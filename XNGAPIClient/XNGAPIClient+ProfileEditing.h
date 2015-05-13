@@ -191,4 +191,23 @@ https://dev.xing.com/docs/put/users/me/private_address
                     success:(void (^)(id JSON))success
                     failure:(void (^)(NSError *error))failure;
 
+/**
+ Updates the given language skill from the profile
+
+ https://dev.xing.com/docs/put/users/me/languages/:language
+*/
+- (void)putUpdateLanguageWithIdentifier:(NSString *)language
+                                  skill:(NSString *)skill
+                                success:(void (^)(id JSON))success
+                                failure:(void (^)(NSError *error))failure;
+
+/**
+ Deletes the given language skill from the profile
+
+ https://dev.xing.com/docs/delete/users/me/languages/:language
+*/
+- (void)deleteLanguageWithIdentifier:(NSString *)language
+                             success:(void (^)(id JSON))success
+                             failure:(void (^)(NSError *error))failure;
+
 @end

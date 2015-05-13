@@ -396,4 +396,38 @@
     }];
 }
 
+- (void)testUpdateLanguage {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] putUpdateLanguageWithIdentifier:@"de"
+                                                               skill:@"NATIVE"
+                                                             success:nil
+                                                             failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/languages/de");
+        expect(request.HTTPMethod).to.equal(@"PUT");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body valueForKey:@"skill"]).to.equal(@"NATIVE");
+        [body removeObjectForKey:@"skill"];
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
+- (void)testDeleteLanguage {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] deleteLanguageWithIdentifier:@"de"
+                                                          success:nil
+                                                          failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/languages/de");
+        expect(request.HTTPMethod).to.equal(@"DELETE");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
+
 @end

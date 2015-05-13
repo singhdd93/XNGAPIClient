@@ -388,6 +388,34 @@
     [self deleteJSONPath:path parameters:nil success:success failure:failure];
 }
 
+- (void)putUpdateLanguageWithIdentifier:(NSString *)language
+                                  skill:(NSString *)skill
+                                success:(void (^)(id JSON))success
+                                failure:(void (^)(NSError *error))failure {
+    if (!language) {
+        return;
+    }
+
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    if (skill) {
+        parameters[@"skill"] = skill;
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/users/me/languages/%@", language];
+    [self putJSONPath:path parameters:parameters success:success failure:failure];
+}
+
+- (void)deleteLanguageWithIdentifier:(NSString *)language
+                             success:(void (^)(id JSON))success
+                             failure:(void (^)(NSError *error))failure {
+    if (!language) {
+        return;
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/users/me/languages/%@", language];
+    [self deleteJSONPath:path parameters:nil success:success failure:failure];
+}
+
 #pragma mark - Helper
 
 - (NSString *)uuidImageName {
