@@ -240,4 +240,15 @@ https://dev.xing.com/docs/put/users/me/private_address
                                success:(void (^)(id JSON))success
                                failure:(void (^)(NSError *error))failure;
 
+/**
+ Update the users profile message
+
+ https://dev.xing.com/docs/put/users/:user_id/profile_message
+*/
+- (void)putUpdateProfileMessageWithUserID:(NSString *)userID
+                                  message:(NSString *)profileMessage
+                                 isPublic:(BOOL)isPublic
+                                  success:(void (^)(id JSON))success
+                                  failure:(void (^)(NSError *error))failure;
+
 @end

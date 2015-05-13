@@ -459,6 +459,25 @@
     [self deleteJSONPath:path parameters:nil success:success failure:failure];
 }
 
+- (void)putUpdateProfileMessageWithUserID:(NSString *)userID
+                                  message:(NSString *)profileMessage
+                                 isPublic:(BOOL)isPublic
+                                  success:(void (^)(id JSON))success
+                                  failure:(void (^)(NSError *error))failure {
+    if (!profileMessage || !userID) {
+        return;
+    }
+
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[@"message"] = profileMessage;
+    if (isPublic) {
+        parameters[@"public"] = @"true";
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/users/%@/profile_message", userID];
+    [self putJSONPath:path parameters:parameters success:success failure:failure];
+}
+
 #pragma mark - Helper
 
 - (NSString *)uuidImageName {

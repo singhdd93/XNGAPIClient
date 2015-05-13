@@ -1,6 +1,5 @@
 #import <XCTest/XCTest.h>
 #import "XNGTestHelper.h"
-#import "XNGAPIClient+ProfileEditing.h"
 #import <XNGAPIClient/UIImage+Base64Encoding.h>
 #import <XNGAPIClient/XNGAPI.h>
 
@@ -481,6 +480,27 @@
         expect(request.HTTPMethod).to.equal(@"DELETE");
 
         expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
+- (void)testUpdateProfileMessage {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] putUpdateProfileMessageWithUserID:@"456_789"
+                                                               message:@"Everything is awesome"
+                                                              isPublic:YES
+                                                               success:nil
+                                                               failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/456_789/profile_message");
+        expect(request.HTTPMethod).to.equal(@"PUT");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body valueForKey:@"message"]).to.equal(@"Everything%20is%20awesome");
+        [body removeObjectForKey:@"message"];
+        expect([body valueForKey:@"public"]).to.equal(@"true");
+        [body removeObjectForKey:@"public"];
         expect([body allKeys]).to.haveCountOf(0);
     }];
 }
