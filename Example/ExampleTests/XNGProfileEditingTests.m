@@ -127,4 +127,142 @@
     }];
 }
 
+- (void)testUpdateUsersBsuinessAddress {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] putUpdateUsersBusinessAddressWithCity:@"Hamburg"
+                                                                   country:@"DE"
+                                                                     email:@"iphone@xing.com"
+                                                                       fax:@"49|40|41913111"
+                                                               mobilePhone:@"49|173|4191310"
+                                                                     phone:@"49|40|4191310"
+                                                                  province:@"Hamburg"
+                                                                    street:@"Dammtorstr. 30"
+                                                                   zipCode:@"20354"
+                                                                   success:nil
+                                                                   failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/business_address");
+        expect(request.HTTPMethod).to.equal(@"PUT");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body valueForKey:@"city"]).to.equal(@"Hamburg");
+        [body removeObjectForKey:@"city"];
+        expect([body valueForKey:@"country"]).to.equal(@"DE");
+        [body removeObjectForKey:@"country"];
+        expect([body valueForKey:@"email"]).to.equal(@"iphone%40xing.com");
+        [body removeObjectForKey:@"email"];
+        expect([body valueForKey:@"fax"]).to.equal(@"49%7C40%7C41913111");
+        [body removeObjectForKey:@"fax"];
+        expect([body valueForKey:@"mobile_phone"]).to.equal(@"49%7C173%7C4191310");
+        [body removeObjectForKey:@"mobile_phone"];
+        expect([body valueForKey:@"phone"]).to.equal(@"49%7C40%7C4191310");
+        [body removeObjectForKey:@"phone"];
+        expect([body valueForKey:@"province"]).to.equal(@"Hamburg");
+        [body removeObjectForKey:@"province"];
+        expect([body valueForKey:@"street"]).to.equal(@"Dammtorstr.%2030");
+        [body removeObjectForKey:@"street"];
+        expect([body valueForKey:@"zip_code"]).to.equal(@"20354");
+        [body removeObjectForKey:@"zip_code"];
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
+- (void)testCreateSchool {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] postCreateSchoolWithName:@"Hogwarts"
+                                                    beginDate:@"1991"
+                                                       degree:@"Senior Magician"
+                                                      endDate:@"1998"
+                                                        notes:@"#1 hero"
+                                                      subject:@"Dark Arts"
+                                                      success:nil
+                                                      failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/educational_background/schools");
+        expect(request.HTTPMethod).to.equal(@"POST");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body valueForKey:@"name"]).to.equal(@"Hogwarts");
+        [body removeObjectForKey:@"name"];
+        expect([body valueForKey:@"begin_date"]).to.equal(@"1991");
+        [body removeObjectForKey:@"begin_date"];
+        expect([body valueForKey:@"degree"]).to.equal(@"Senior%20Magician");
+        [body removeObjectForKey:@"degree"];
+        expect([body valueForKey:@"end_date"]).to.equal(@"1998");
+        [body removeObjectForKey:@"end_date"];
+        expect([body valueForKey:@"notes"]).to.equal(@"%231%20hero");
+        [body removeObjectForKey:@"notes"];
+        expect([body valueForKey:@"subject"]).to.equal(@"Dark%20Arts");
+        [body removeObjectForKey:@"subject"];
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
+- (void)testUpdateSchool {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] putUpdateSchoolWithID:@"345"
+                                                      name:@"Hogwarts"
+                                                 beginDate:@"1991"
+                                                    degree:@"Senior Magician"
+                                                   endDate:@"1998"
+                                                     notes:@"#1 hero"
+                                                   subject:@"Dark Arts"
+                                                   success:nil
+                                                   failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/educational_background/schools/345");
+        expect(request.HTTPMethod).to.equal(@"PUT");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body valueForKey:@"name"]).to.equal(@"Hogwarts");
+        [body removeObjectForKey:@"name"];
+        expect([body valueForKey:@"begin_date"]).to.equal(@"1991");
+        [body removeObjectForKey:@"begin_date"];
+        expect([body valueForKey:@"degree"]).to.equal(@"Senior%20Magician");
+        [body removeObjectForKey:@"degree"];
+        expect([body valueForKey:@"end_date"]).to.equal(@"1998");
+        [body removeObjectForKey:@"end_date"];
+        expect([body valueForKey:@"notes"]).to.equal(@"%231%20hero");
+        [body removeObjectForKey:@"notes"];
+        expect([body valueForKey:@"subject"]).to.equal(@"Dark%20Arts");
+        [body removeObjectForKey:@"subject"];
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
+- (void)testDeleteSchool {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] deleteSchoolWithID:@"789"
+                                                success:nil
+                                                failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/educational_background/schools/789");
+        expect(request.HTTPMethod).to.equal(@"DELETE");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
+- (void)testUpdatePrimarySchool {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] putUpdatePrimarySchoolID:@"123"
+                                                      success:nil
+                                                      failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/educational_background/primary_school");
+        expect(request.HTTPMethod).to.equal(@"PUT");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body valueForKey:@"school_id"]).to.equal(@"123");
+        [body removeObjectForKey:@"school_id"];
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
 @end

@@ -68,4 +68,68 @@
                                      success:(void (^)(id JSON))success
                                      failure:(void (^)(NSError *error))failure;
 
+/**
+Update users business address
+
+https://dev.xing.com/docs/put/users/me/private_address
+*/
+- (void)putUpdateUsersBusinessAddressWithCity:(NSString *)city
+                                      country:(NSString *)country
+                                        email:(NSString *)email
+                                          fax:(NSString *)fax
+                                  mobilePhone:(NSString *)mobilePhone
+                                        phone:(NSString *)phone
+                                     province:(NSString *)province
+                                       street:(NSString *)street
+                                      zipCode:(NSString *)zipCode
+                                      success:(void (^)(id JSON))success
+                                      failure:(void (^)(NSError *error))failure;
+
+/**
+ Add a new school to the list of schools in the users profile.
+
+ https://dev.xing.com/docs/post/users/me/educational_background/schools
+*/
+- (void)postCreateSchoolWithName:(NSString *)name
+                       beginDate:(NSString *)beginDate
+                          degree:(NSString *)degree
+                         endDate:(NSString *)endDate
+                           notes:(NSString *)notes
+                         subject:(NSString *)subject
+                         success:(void (^)(id JSON))success
+                         failure:(void (^)(NSError *error))failure;
+
+/**
+ Update a school
+
+ https://dev.xing.com/docs/put/users/me/educational_background/schools/:id
+*/
+- (void)putUpdateSchoolWithID:(NSString *)id
+                         name:(NSString *)name
+                    beginDate:(NSString *)beginDate
+                       degree:(NSString *)degree
+                      endDate:(NSString *)endDate
+                        notes:(NSString *)notes
+                      subject:(NSString *)subject
+                      success:(void (^)(id JSON))success
+                      failure:(void (^)(NSError *error))failure;
+
+/**
+ Delete school
+
+ https://dev.xing.com/docs/delete/users/me/educational_background/schools/:id
+*/
+- (void)deleteSchoolWithID:(NSString *)id
+                   success:(void (^)(id JSON))success
+                   failure:(void (^)(NSError *error))failure;
+
+/**
+ Update the users primary school
+
+ https://dev.xing.com/docs/put/users/me/educational_background/primary_school
+*/
+- (void)putUpdatePrimarySchoolID:(NSString *)schoolID
+                         success:(void (^)(id JSON))success
+                         failure:(void (^)(NSError *error))failure;
+
 @end

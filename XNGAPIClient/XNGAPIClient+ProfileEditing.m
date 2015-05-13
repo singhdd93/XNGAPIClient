@@ -115,6 +115,144 @@
     [self putJSONPath:path parameters:parameters success:success failure:failure];
 }
 
+- (void)putUpdateUsersBusinessAddressWithCity:(NSString *)city
+                                      country:(NSString *)country
+                                        email:(NSString *)email
+                                          fax:(NSString *)fax
+                                  mobilePhone:(NSString *)mobilePhone
+                                        phone:(NSString *)phone
+                                     province:(NSString *)province
+                                       street:(NSString *)street
+                                      zipCode:(NSString *)zipCode
+                                      success:(void (^)(id JSON))success
+                                      failure:(void (^)(NSError *error))failure {
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    if (city) {
+        parameters[@"city"] = city;
+    }
+    if (country) {
+        parameters[@"country"] = country;
+    }
+    if (email) {
+        parameters[@"email"] = email;
+    }
+    if (fax) {
+        parameters[@"fax"] = fax;
+    }
+    if (mobilePhone) {
+        parameters[@"mobile_phone"] = mobilePhone;
+    }
+    if (phone) {
+        parameters[@"phone"] = phone;
+    }
+    if (province) {
+        parameters[@"province"] = province;
+    }
+    if (street) {
+        parameters[@"street"] = street;
+    }
+    if (zipCode) {
+        parameters[@"zip_code"] = zipCode;
+    }
+
+    NSString *path = @"v1/users/me/business_address";
+    [self putJSONPath:path parameters:parameters success:success failure:failure];
+}
+
+- (void)postCreateSchoolWithName:(NSString *)name
+                       beginDate:(NSString *)beginDate
+                          degree:(NSString *)degree
+                         endDate:(NSString *)endDate
+                           notes:(NSString *)notes
+                         subject:(NSString *)subject
+                         success:(void (^)(id JSON))success
+                         failure:(void (^)(NSError *error))failure {
+    if (!name) {
+        return;
+    }
+
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[@"name"] = name;
+    if (beginDate) {
+        parameters[@"begin_date"] = beginDate;
+    }
+    if (degree) {
+        parameters[@"degree"] = degree;
+    }
+    if (endDate) {
+        parameters[@"end_date"] = endDate;
+    }
+    if (notes) {
+        parameters[@"notes"] = notes;
+    }
+    if (subject) {
+        parameters[@"subject"] = subject;
+    }
+
+    NSString *path = @"v1/users/me/educational_background/schools";
+    [self postJSONPath:path parameters:parameters success:success failure:failure];
+}
+
+- (void)putUpdateSchoolWithID:(NSString *)id
+                         name:(NSString *)name
+                    beginDate:(NSString *)beginDate
+                       degree:(NSString *)degree
+                      endDate:(NSString *)endDate
+                        notes:(NSString *)notes
+                      subject:(NSString *)subject
+                      success:(void (^)(id JSON))success
+                      failure:(void (^)(NSError *error))failure {
+    if (!id) {
+        return;
+    }
+
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    if (name) {
+        parameters[@"name"] = name;
+    }
+    if (beginDate) {
+        parameters[@"begin_date"] = beginDate;
+    }
+    if (degree) {
+        parameters[@"degree"] = degree;
+    }
+    if (endDate) {
+        parameters[@"end_date"] = endDate;
+    }
+    if (notes) {
+        parameters[@"notes"] = notes;
+    }
+    if (subject) {
+        parameters[@"subject"] = subject;
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/users/me/educational_background/schools/%@", id];
+    [self putJSONPath:path parameters:parameters success:success failure:failure];
+}
+
+- (void)deleteSchoolWithID:(NSString *)id
+                   success:(void (^)(id JSON))success
+                   failure:(void (^)(NSError *))failure {
+    if (!id) {
+        return;
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/users/me/educational_background/schools/%@", id];
+    [self deleteJSONPath:path parameters:nil success:success failure:failure];
+}
+
+- (void)putUpdatePrimarySchoolID:(NSString *)schoolID
+                         success:(void (^)(id JSON))success
+                         failure:(void (^)(NSError *error))failure {
+    if (!schoolID) {
+        return;
+    }
+
+    NSDictionary *parameters = @{@"school_id": schoolID};
+    NSString *path = @"v1/users/me/educational_background/primary_school";
+    [self putJSONPath:path parameters:parameters success:success failure:failure];
+}
+
 
 #pragma mark - Helper
 
