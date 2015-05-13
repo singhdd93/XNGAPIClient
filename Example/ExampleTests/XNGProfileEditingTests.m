@@ -265,4 +265,21 @@
     }];
 }
 
+- (void)testAddQualification {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] postAddQualificationWithDescription:@"Magician"
+                                                                 success:nil
+                                                                 failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/educational_background/qualifications");
+        expect(request.HTTPMethod).to.equal(@"POST");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body valueForKey:@"description"]).to.equal(@"Magician");
+        [body removeObjectForKey:@"description"];
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
 @end

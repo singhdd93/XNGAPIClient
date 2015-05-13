@@ -253,6 +253,18 @@
     [self putJSONPath:path parameters:parameters success:success failure:failure];
 }
 
+- (void)postAddQualificationWithDescription:(NSString *)description
+                                    success:(void (^)(id JSON))success
+                                    failure:(void (^)(NSError *error))failure {
+    if (!description) {
+        return;
+    }
+
+    NSDictionary *parameters = @{@"description": description};
+    NSString *path = @"v1/users/me/educational_background/qualifications";
+    [self postJSONPath:path parameters:parameters success:success failure:failure];
+}
+
 
 #pragma mark - Helper
 

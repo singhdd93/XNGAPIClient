@@ -132,4 +132,13 @@ https://dev.xing.com/docs/put/users/me/private_address
                          success:(void (^)(id JSON))success
                          failure:(void (^)(NSError *error))failure;
 
+/**
+ Add a qualification to the users educational background
+
+ https://dev.xing.com/docs/post/users/me/educational_background/qualifications
+*/
+- (void)postAddQualificationWithDescription:(NSString *)description
+                                    success:(void (^)(id JSON))success
+                                    failure:(void (^)(NSError *error))failure;
+
 @end
