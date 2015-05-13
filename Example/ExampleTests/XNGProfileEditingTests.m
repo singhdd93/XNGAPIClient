@@ -1,0 +1,130 @@
+#import <XCTest/XCTest.h>
+#import "XNGTestHelper.h"
+#import "XNGAPIClient+ProfileEditing.h"
+#import <XNGAPIClient/UIImage+Base64Encoding.h>
+#import <XNGAPIClient/XNGAPI.h>
+
+@interface XNGProfileEditingTests : XCTestCase
+
+@property (nonatomic) XNGTestHelper *testHelper;
+
+@end
+
+@implementation XNGProfileEditingTests
+
+- (void)setUp {
+    [super setUp];
+
+    self.testHelper = [[XNGTestHelper alloc] init];
+    [self.testHelper setup];
+}
+
+- (void)tearDown {
+    [super tearDown];
+    [self.testHelper tearDown];
+}
+
+- (void)testUpdateWantsHavesInterests {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] putUpdateUsersGeneralInformationWithHaves:@"more kittens,tests"
+                                                                     interests:@"unit testing"
+                                                                         wants:@"100% test coverage, world peace"
+                                                                       success:nil
+                                                                       failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me");
+        expect(request.HTTPMethod).to.equal(@"PUT");
+
+        expect([query allKeys]).to.haveCountOf(0);
+
+        expect([body valueForKey:@"haves"]).to.equal(@"more%20kittens%2Ctests");
+        [body removeObjectForKey:@"haves"];
+        expect([body valueForKey:@"interests"]).to.equal(@"unit%20testing");
+        [body removeObjectForKey:@"interests"];
+        expect([body valueForKey:@"wants"]).to.equal(@"100%25%20test%20coverage%2C%20world%20peace");
+        [body removeObjectForKey:@"wants"];
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
+- (void)testUpdateUserProfilePicture {
+    __block UIImage *image = [UIImage imageNamed:@"testimage.jpg"];
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] putUpdateUsersProfilePictureWithImage:image
+                                                                   success:nil
+                                                                   failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/photo");
+        expect(request.HTTPMethod).to.equal(@"PUT");
+
+        expect([query allKeys]).to.haveCountOf(0);
+
+        NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                             options:0 error:nil];
+
+        NSDictionary *photo = [JSON valueForKey:@"photo"];
+        expect([photo valueForKey:@"file_name"]).toNot.beNil();
+        expect([photo valueForKey:@"content"]).to.equal([image xng_base64]);
+        expect([photo valueForKey:@"mime_type"]).to.equal(@"image/jpeg");
+        expect(body).toNot.beNil();
+    }];
+}
+
+- (void)testDeleteUsersProfilePicture {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] deleteUsersProfilePictureWithSuccess:nil
+                                                                  failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/photo");
+        expect(request.HTTPMethod).to.equal(@"DELETE");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
+- (void)testUpdateUsersPrivateAddress {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] putUpdateUsersPrivateAddressWithCity:@"Hamburg"
+                                                                  country:@"DE"
+                                                                    email:@"iphone@xing.com"
+                                                                      fax:@"49|40|41913111"
+                                                              mobilePhone:@"49|173|4191310"
+                                                                    phone:@"49|40|4191310"
+                                                                 province:@"Hamburg"
+                                                                   street:@"Dammtorstr. 30"
+                                                                  zipCode:@"20354"
+                                                                  success:nil
+                                                                  failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/private_address");
+        expect(request.HTTPMethod).to.equal(@"PUT");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body valueForKey:@"city"]).to.equal(@"Hamburg");
+        [body removeObjectForKey:@"city"];
+        expect([body valueForKey:@"country"]).to.equal(@"DE");
+        [body removeObjectForKey:@"country"];
+        expect([body valueForKey:@"email"]).to.equal(@"iphone%40xing.com");
+        [body removeObjectForKey:@"email"];
+        expect([body valueForKey:@"fax"]).to.equal(@"49%7C40%7C41913111");
+        [body removeObjectForKey:@"fax"];
+        expect([body valueForKey:@"mobile_phone"]).to.equal(@"49%7C173%7C4191310");
+        [body removeObjectForKey:@"mobile_phone"];
+        expect([body valueForKey:@"phone"]).to.equal(@"49%7C40%7C4191310");
+        [body removeObjectForKey:@"phone"];
+        expect([body valueForKey:@"province"]).to.equal(@"Hamburg");
+        [body removeObjectForKey:@"province"];
+        expect([body valueForKey:@"street"]).to.equal(@"Dammtorstr.%2030");
+        [body removeObjectForKey:@"street"];
+        expect([body valueForKey:@"zip_code"]).to.equal(@"20354");
+        [body removeObjectForKey:@"zip_code"];
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
+@end

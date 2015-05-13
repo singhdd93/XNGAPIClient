@@ -31,3 +31,4 @@
 #import "XNGAPIClient+Recommendations.h"
 #import "XNGAPIClient+Invitations.h"
 #import "XNGAPIClient+News.h"
+#import "XNGAPIClient+ProfileEditing.h"
