@@ -141,4 +141,54 @@ https://dev.xing.com/docs/put/users/me/private_address
                                     success:(void (^)(id JSON))success
                                     failure:(void (^)(NSError *error))failure;
 
+/**
+ Add a new company to the list of companies in the users profile.
+
+ https://dev.xing.com/docs/post/users/me/professional_experience/companies
+*/
+- (void)postAddCompanyWithName:(NSString *)name
+                         title:(NSString *)title
+                      industry:(NSString *)industry
+              formOfEmployment:(NSString *)formOfEmployment
+                     beginDate:(NSString *)beginDate
+                   careerLevel:(NSString *)careerLevel
+                   companySize:(NSString *)companySize
+                   description:(NSString *)description
+                    discipline:(NSString *)discipline
+                       endDate:(NSString *)endDate
+                      untilNow:(BOOL)untilNow
+                           url:(NSString *)URL
+                       success:(void (^)(id JSON))success
+                       failure:(void (^)(NSError *error))failure;
+
+/**
+ Update a company
+
+ https://dev.xing.com/docs/put/users/me/professional_experience/companies/:id
+*/
+- (void)putUpdateCompanyWithID:(NSString *)id
+                          name:(NSString *)name
+                         title:(NSString *)title
+                      industry:(NSString *)industry
+              formOfEmployment:(NSString *)formOfEmployment
+                     beginDate:(NSString *)beginDate
+                   careerLevel:(NSString *)careerLevel
+                   companySize:(NSString *)companySize
+                   description:(NSString *)description
+                    discipline:(NSString *)discipline
+                       endDate:(NSString *)endDate
+                      untilNow:(BOOL)untilNow
+                           url:(NSString *)URL
+                       success:(void (^)(id JSON))success
+                       failure:(void (^)(NSError *error))failure;
+
+/**
+ Delete a company from the users profile
+
+ https://dev.xing.com/docs/delete/users/me/professional_experience/companies/:id
+*/
+- (void)deleteCompanyWithID:(NSString *)id
+                    success:(void (^)(id JSON))success
+                    failure:(void (^)(NSError *error))failure;
+
 @end

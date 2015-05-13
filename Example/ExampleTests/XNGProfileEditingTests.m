@@ -282,4 +282,118 @@
     }];
 }
 
+- (void)testAddCompany {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] postAddCompanyWithName:@"XING AG"
+                                                      title:@"XNGAPIClient Developer"
+                                                   industry:@"INTERNET"
+                                           formOfEmployment:@"VOLUNTEER"
+                                                  beginDate:@"2013"
+                                                careerLevel:@"SENIOR_EXECUTIVE"
+                                                companySize:@"501-1000"
+                                                description:@"XING AG"
+                                                 discipline:@"IT_AND_SOFTWARE_DEVELOPMENT"
+                                                    endDate:nil
+                                                   untilNow:YES
+                                                        url:@"https://xing.com"
+                                                    success:nil
+                                                    failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/professional_experience/companies");
+        expect(request.HTTPMethod).to.equal(@"POST");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body valueForKey:@"name"]).to.equal(@"XING%20AG");
+        [body removeObjectForKey:@"name"];
+        expect([body valueForKey:@"title"]).to.equal(@"XNGAPIClient%20Developer");
+        [body removeObjectForKey:@"title"];
+        expect([body valueForKey:@"industry"]).to.equal(@"INTERNET");
+        [body removeObjectForKey:@"industry"];
+        expect([body valueForKey:@"form_of_employment"]).to.equal(@"VOLUNTEER");
+        [body removeObjectForKey:@"form_of_employment"];
+        expect([body valueForKey:@"begin_date"]).to.equal(@"2013");
+        [body removeObjectForKey:@"begin_date"];
+        expect([body valueForKey:@"career_level"]).to.equal(@"SENIOR_EXECUTIVE");
+        [body removeObjectForKey:@"career_level"];
+        expect([body valueForKey:@"company_size"]).to.equal(@"501-1000");
+        [body removeObjectForKey:@"company_size"];
+        expect([body valueForKey:@"description"]).to.equal(@"XING%20AG");
+        [body removeObjectForKey:@"description"];
+        expect([body valueForKey:@"discipline"]).to.equal(@"IT_AND_SOFTWARE_DEVELOPMENT");
+        [body removeObjectForKey:@"discipline"];
+        expect([body valueForKey:@"end_date"]).to.beNil();
+        expect([body valueForKey:@"until_now"]).to.equal(@"true");
+        [body removeObjectForKey:@"until_now"];
+        expect([body valueForKey:@"url"]).to.equal(@"https%3A%2F%2Fxing.com");
+        [body removeObjectForKey:@"url"];
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
+- (void)testUpdateCompany {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] putUpdateCompanyWithID:@"456"
+                                                       name:@"XING AG"
+                                                      title:@"XNGAPIClient Developer"
+                                                   industry:@"INTERNET"
+                                           formOfEmployment:@"VOLUNTEER"
+                                                  beginDate:@"2013"
+                                                careerLevel:@"SENIOR_EXECUTIVE"
+                                                companySize:@"501-1000"
+                                                description:@"XING AG"
+                                                 discipline:@"IT_AND_SOFTWARE_DEVELOPMENT"
+                                                    endDate:nil
+                                                   untilNow:YES
+                                                        url:@"https://xing.com"
+                                                    success:nil
+                                                    failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/professional_experience/companies/456");
+        expect(request.HTTPMethod).to.equal(@"PUT");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body valueForKey:@"name"]).to.equal(@"XING%20AG");
+        [body removeObjectForKey:@"name"];
+        expect([body valueForKey:@"title"]).to.equal(@"XNGAPIClient%20Developer");
+        [body removeObjectForKey:@"title"];
+        expect([body valueForKey:@"industry"]).to.equal(@"INTERNET");
+        [body removeObjectForKey:@"industry"];
+        expect([body valueForKey:@"form_of_employment"]).to.equal(@"VOLUNTEER");
+        [body removeObjectForKey:@"form_of_employment"];
+        expect([body valueForKey:@"begin_date"]).to.equal(@"2013");
+        [body removeObjectForKey:@"begin_date"];
+        expect([body valueForKey:@"career_level"]).to.equal(@"SENIOR_EXECUTIVE");
+        [body removeObjectForKey:@"career_level"];
+        expect([body valueForKey:@"company_size"]).to.equal(@"501-1000");
+        [body removeObjectForKey:@"company_size"];
+        expect([body valueForKey:@"description"]).to.equal(@"XING%20AG");
+        [body removeObjectForKey:@"description"];
+        expect([body valueForKey:@"discipline"]).to.equal(@"IT_AND_SOFTWARE_DEVELOPMENT");
+        [body removeObjectForKey:@"discipline"];
+        expect([body valueForKey:@"end_date"]).to.beNil();
+        expect([body valueForKey:@"until_now"]).to.equal(@"true");
+        [body removeObjectForKey:@"until_now"];
+        expect([body valueForKey:@"url"]).to.equal(@"https%3A%2F%2Fxing.com");
+        [body removeObjectForKey:@"url"];
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
+- (void)testDeleteCompany {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] deleteCompanyWithID:@"567"
+                                                 success:nil
+                                                 failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/professional_experience/companies/567");
+        expect(request.HTTPMethod).to.equal(@"DELETE");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
 @end

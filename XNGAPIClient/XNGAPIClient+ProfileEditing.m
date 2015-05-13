@@ -265,6 +265,128 @@
     [self postJSONPath:path parameters:parameters success:success failure:failure];
 }
 
+- (void)postAddCompanyWithName:(NSString *)name
+                         title:(NSString *)title
+                      industry:(NSString *)industry
+              formOfEmployment:(NSString *)formOfEmployment
+                     beginDate:(NSString *)beginDate
+                   careerLevel:(NSString *)careerLevel
+                   companySize:(NSString *)companySize
+                   description:(NSString *)description
+                    discipline:(NSString *)discipline
+                       endDate:(NSString *)endDate
+                      untilNow:(BOOL)untilNow
+                           url:(NSString *)URL
+                       success:(void (^)(id JSON))success
+                       failure:(void (^)(NSError *error))failure {
+    if (!formOfEmployment || !industry || !name || !title) {
+        return;
+    }
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[@"form_of_employment"] = formOfEmployment;
+    parameters[@"industry"] = industry;
+    parameters[@"name"] = name;
+    parameters[@"title"] = title;
+    if (beginDate) {
+        parameters[@"begin_date"] = beginDate;
+    }
+    if (careerLevel) {
+        parameters[@"career_level"] = careerLevel;
+    }
+    if (companySize) {
+        parameters[@"company_size"] = companySize;
+    }
+    if (description) {
+        parameters[@"description"] = description;
+    }
+    if (discipline) {
+        parameters[@"discipline"] = discipline;
+    }
+    if (endDate) {
+        parameters[@"end_date"] = endDate;
+    }
+    if (untilNow) {
+        parameters[@"until_now"] = @"true";
+    }
+    if (URL) {
+        parameters[@"url"] = URL;
+    }
+
+    NSString *path = @"v1/users/me/professional_experience/companies";
+    [self postJSONPath:path parameters:parameters success:success failure:failure];
+}
+
+- (void)putUpdateCompanyWithID:(NSString *)id
+                          name:(NSString *)name
+                         title:(NSString *)title
+                      industry:(NSString *)industry
+              formOfEmployment:(NSString *)formOfEmployment
+                     beginDate:(NSString *)beginDate
+                   careerLevel:(NSString *)careerLevel
+                   companySize:(NSString *)companySize
+                   description:(NSString *)description
+                    discipline:(NSString *)discipline
+                       endDate:(NSString *)endDate
+                      untilNow:(BOOL)untilNow
+                           url:(NSString *)URL
+                       success:(void (^)(id JSON))success
+                       failure:(void (^)(NSError *error))failure {
+    if (!id) {
+        return;
+    }
+
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    if (formOfEmployment) {
+        parameters[@"form_of_employment"] = formOfEmployment;
+    }
+    if (industry) {
+        parameters[@"industry"] = industry;
+    }
+    if (name) {
+        parameters[@"name"] = name;
+    }
+    if (title) {
+        parameters[@"title"] = title;
+    }
+    if (beginDate) {
+        parameters[@"begin_date"] = beginDate;
+    }
+    if (careerLevel) {
+        parameters[@"career_level"] = careerLevel;
+    }
+    if (companySize) {
+        parameters[@"company_size"] = companySize;
+    }
+    if (description) {
+        parameters[@"description"] = description;
+    }
+    if (discipline) {
+        parameters[@"discipline"] = discipline;
+    }
+    if (endDate) {
+        parameters[@"end_date"] = endDate;
+    }
+    if (untilNow) {
+        parameters[@"until_now"] = @"true";
+    }
+    if (URL) {
+        parameters[@"url"] = URL;
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/users/me/professional_experience/companies/%@", id];
+    [self putJSONPath:path parameters:parameters success:success failure:failure];
+}
+
+- (void)deleteCompanyWithID:(NSString *)id
+                    success:(void (^)(id JSON))success
+                    failure:(void (^)(NSError *error))failure {
+    if (!id) {
+        return;
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/users/me/professional_experience/companies/%@", id];
+    [self deleteJSONPath:path parameters:nil success:success failure:failure];
+}
 
 #pragma mark - Helper
 
