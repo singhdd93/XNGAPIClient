@@ -19,16 +19,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XNGAPIClient.h"
-#import "XNGAPIClient+UserProfiles.h"
-#import "XNGAPIClient+Jobs.h"
-#import "XNGAPIClient+Messages.h"
-#import "XNGAPIClient+Contacts.h"
-#import "XNGAPIClient+ContactRequests.h"
-#import "XNGAPIClient+ContactPath.h"
-#import "XNGAPIClient+NetworkFeed.h"
-#import "XNGAPIClient+ProfileVisits.h"
-#import "XNGAPIClient+Recommendations.h"
-#import "XNGAPIClient+Invitations.h"
-#import "XNGAPIClient+News.h"
-#import "XNGAPIClient+ProfileEditing.h"
+#import <UIKit/UIKit.h>
+
+@interface UIImage (Base64Encoding)
+
+- (NSString *)xng_base64;
+
+@end

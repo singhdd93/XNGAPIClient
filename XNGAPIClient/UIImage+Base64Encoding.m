@@ -19,16 +19,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XNGAPIClient.h"
-#import "XNGAPIClient+UserProfiles.h"
-#import "XNGAPIClient+Jobs.h"
-#import "XNGAPIClient+Messages.h"
-#import "XNGAPIClient+Contacts.h"
-#import "XNGAPIClient+ContactRequests.h"
-#import "XNGAPIClient+ContactPath.h"
-#import "XNGAPIClient+NetworkFeed.h"
-#import "XNGAPIClient+ProfileVisits.h"
-#import "XNGAPIClient+Recommendations.h"
-#import "XNGAPIClient+Invitations.h"
-#import "XNGAPIClient+News.h"
-#import "XNGAPIClient+ProfileEditing.h"
+#import "UIImage+Base64Encoding.h"
+
+@implementation UIImage (Base64Encoding)
+
+- (NSString *)xng_base64 {
+    CGFloat compression = 0.9f;
+    CGFloat maxCompression = 0.1f;
+    int maxFileSize = 200*1024;
+
+    NSData *imageData = UIImageJPEGRepresentation(self, compression);
+
+    while ([imageData length] > maxFileSize && compression > maxCompression)
+    {
+        compression -= 0.1;
+        imageData = UIImageJPEGRepresentation(self, compression);
+    }
+
+    return [imageData base64EncodedStringWithOptions:0];
+}
+
+@end

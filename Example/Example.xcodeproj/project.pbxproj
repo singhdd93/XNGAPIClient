@@ -10,6 +10,7 @@
 		0EA44E4280C443BB8CE84DCE /* libPods-Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FFF7241F10694E5E8CA58225 /* libPods-Example.a */; };
 		1643A10D71B0EC84B0A516AA /* XNGRecommendationsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643AFC4256E6288F923ED6B /* XNGRecommendationsTests.m */; };
 		1643A149A66B6BE320329E1D /* NSError+XWSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643A72C999772F53335AE59 /* NSError+XWSTests.m */; };
+		1643A3DA23454C5F05420A8D /* XNGProfileEditingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643A1771ED19D3973CF7148 /* XNGProfileEditingTests.m */; };
 		1643A51ABC9FD1AC2186E944 /* XNGProfileVisitsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643A7C8C9FB8D20E18C7396 /* XNGProfileVisitsTests.m */; };
 		1643A75D126FBFC481C7A27D /* XNGMessagesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643AA0D6F0BD980AF7E9EBC /* XNGMessagesTests.m */; };
 		1643A8A43A005008F929F750 /* XNGAPIClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643A6E307349FA2D5A1B65D /* XNGAPIClientTests.m */; };
@@ -25,6 +26,7 @@
 		1643AECE2FE6634A0735484B /* NSString+URLEncodingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643A25171307614EC2D7CB1 /* NSString+URLEncodingTests.m */; };
 		5128AA8B014F48469A16EF85 /* libPods-ExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C98DCF1A56C42639595EAC3 /* libPods-ExampleTests.a */; };
 		6A1023521A27707000EE8E95 /* NSDictionary+TypecheckTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A1023511A27707000EE8E95 /* NSDictionary+TypecheckTests.m */; };
+		F04CD0761B03216000DC96FA /* testimage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1643AD018F509477C8C5C8B8 /* testimage.jpg */; };
 		F057E0A819191BD400C0E1E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F057E0A719191BD400C0E1E6 /* Foundation.framework */; };
 		F057E0AA19191BD400C0E1E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F057E0A919191BD400C0E1E6 /* CoreGraphics.framework */; };
 		F057E0AC19191BD400C0E1E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F057E0AB19191BD400C0E1E6 /* UIKit.framework */; };
@@ -54,6 +56,7 @@
 /* Begin PBXFileReference section */
 		076EF159C3685AB2BA9219E6 /* Pods-ExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ExampleTests/Pods-ExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		1643A084DAC3C8283DACA333 /* XNGNetworkFeedTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XNGNetworkFeedTests.m; sourceTree = "<group>"; };
+		1643A1771ED19D3973CF7148 /* XNGProfileEditingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XNGProfileEditingTests.m; sourceTree = "<group>"; };
 		1643A1BE0D90AA10F861D306 /* XNGUserProfilesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XNGUserProfilesTests.m; sourceTree = "<group>"; };
 		1643A25171307614EC2D7CB1 /* NSString+URLEncodingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncodingTests.m"; sourceTree = "<group>"; };
 		1643A2A4CFEAFA48AC0987C4 /* XNGInvitationsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XNGInvitationsTests.m; sourceTree = "<group>"; };
@@ -66,6 +69,7 @@
 		1643A9644DF4ED1A49F5B3F1 /* XNGOAuthHandlerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XNGOAuthHandlerTests.m; sourceTree = "<group>"; };
 		1643AA0D6F0BD980AF7E9EBC /* XNGMessagesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XNGMessagesTests.m; sourceTree = "<group>"; };
 		1643ACA11BF850D9880AAE2F /* XNGNewsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XNGNewsTests.m; sourceTree = "<group>"; };
+		1643AD018F509477C8C5C8B8 /* testimage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = testimage.jpg; sourceTree = "<group>"; };
 		1643AD2F2CEB9F334E420780 /* XNGContactPathTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XNGContactPathTests.m; sourceTree = "<group>"; };
 		1643AFC4256E6288F923ED6B /* XNGRecommendationsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XNGRecommendationsTests.m; sourceTree = "<group>"; };
 		55AB9B73B0DAE5C94E8F123E /* Pods-ExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ExampleTests/Pods-ExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -214,6 +218,7 @@
 				1643A25171307614EC2D7CB1 /* NSString+URLEncodingTests.m */,
 				1643A72C999772F53335AE59 /* NSError+XWSTests.m */,
 				1643ACA11BF850D9880AAE2F /* XNGNewsTests.m */,
+				1643A1771ED19D3973CF7148 /* XNGProfileEditingTests.m */,
 			);
 			path = ExampleTests;
 			sourceTree = "<group>";
@@ -226,6 +231,7 @@
 				F057E0DE1919250300C0E1E6 /* XNGTestHelper.m */,
 				F057E0C819191BD400C0E1E6 /* ExampleTests-Info.plist */,
 				F057E0C919191BD400C0E1E6 /* InfoPlist.strings */,
+				1643AD018F509477C8C5C8B8 /* testimage.jpg */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -310,6 +316,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F04CD0761B03216000DC96FA /* testimage.jpg in Resources */,
 				F057E0B219191BD400C0E1E6 /* InfoPlist.strings in Resources */,
 				F057E0BA19191BD400C0E1E6 /* Images.xcassets in Resources */,
 			);
@@ -421,6 +428,7 @@
 				1643AECE2FE6634A0735484B /* NSString+URLEncodingTests.m in Sources */,
 				1643A149A66B6BE320329E1D /* NSError+XWSTests.m in Sources */,
 				1643AC1B40B4DBAF70D8E1AD /* XNGNewsTests.m in Sources */,
+				1643A3DA23454C5F05420A8D /* XNGProfileEditingTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
