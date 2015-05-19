@@ -25,4 +25,6 @@
 
 - (NSString *)xng_base64;
 
+- (NSString *)xng_uuidImageName;
+
 @end
