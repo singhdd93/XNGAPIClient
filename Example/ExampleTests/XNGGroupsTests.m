@@ -408,4 +408,34 @@
     }];
 }
 
+- (void)testDeletePost {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] deletePostWithPostID:@"45_tr"
+                                                  success:nil
+                                                  failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/groups/forums/posts/45_tr");
+        expect(request.HTTPMethod).to.equal(@"DELETE");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
+- (void)testLeaveGroup {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] deleteLeaveGroupWithGroupID:@"34_oi"
+                                                         success:nil
+                                                         failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/groups/34_oi/memberships");
+        expect(request.HTTPMethod).to.equal(@"DELETE");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
 @end

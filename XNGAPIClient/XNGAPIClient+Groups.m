@@ -387,4 +387,26 @@
     [self postJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
+- (void)deletePostWithPostID:(NSString *)postID
+                     success:(void (^)(id JSON))success
+                     failure:(void (^)(NSError *))failure {
+    if (!postID) {
+        return;
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/groups/forums/posts/%@", postID];
+    [self deleteJSONPath:path parameters:nil success:success failure:failure];
+}
+
+- (void)deleteLeaveGroupWithGroupID:(NSString *)groupID
+                            success:(void (^)(id JSON))success
+                            failure:(void (^)(NSError *))failure {
+    if (!groupID) {
+        return;
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/groups/%@/memberships", groupID];
+    [self deleteJSONPath:path parameters:nil success:success failure:failure];
+}
+
 @end

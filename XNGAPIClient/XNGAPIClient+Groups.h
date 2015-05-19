@@ -219,4 +219,22 @@
                                  success:(void (^)(id JSON))success
                                  failure:(void (^)(NSError *))failure;
 
+/**
+ Delete a post from a group
+
+ https://dev.xing.com/docs/delete/groups/forums/posts/:post_id
+ */
+- (void)deletePostWithPostID:(NSString *)postID
+                     success:(void (^)(id JSON))success
+                     failure:(void (^)(NSError *))failure;
+
+/**
+ Leave a group
+
+ https://dev.xing.com/docs/delete/groups/:group_id/memberships
+*/
+- (void)deleteLeaveGroupWithGroupID:(NSString *)groupID
+                            success:(void (^)(id JSON))success
+                            failure:(void (^)(NSError *))failure;
+
 @end
