@@ -138,4 +138,15 @@
                             success:(void (^)(id JSON))success
                             failure:(void (^)(NSError *))failure;
 
+/**
+ Add a comment to a post
+
+ https://dev.xing.com/docs/post/groups/forums/posts/:post_id/comments
+ */
+- (void)postCommentOnGroupPostWithPostID:(NSString *)postID
+                                 content:(NSString *)content
+                                   image:(UIImage *)image
+                                 success:(void (^)(id JSON))success
+                                 failure:(void (^)(NSError *))failure;
+
 @end

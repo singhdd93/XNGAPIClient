@@ -1,6 +1,7 @@
 #import <XCTest/XCTest.h>
 #import "XNGTestHelper.h"
 #import <XNGAPIClient/XNGAPI.h>
+#import <XNGAPIClient/UIImage+Base64Encoding.h>
 
 @interface XNGGroupsTests : XCTestCase
 
@@ -246,6 +247,33 @@
         [query removeObjectForKey:@"user_fields"];
         expect([query allKeys]).to.haveCountOf(0);
         expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
+- (void)testPostComment {
+    __block UIImage *image = [UIImage imageNamed:@"testimage.jpg"];
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] postCommentOnGroupPostWithPostID:@"345"
+                                                              content:@"Awesome post"
+                                                                image:image
+                                                              success:nil
+                                                              failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/groups/forums/posts/345/comments");
+        expect(request.HTTPMethod).to.equal(@"POST");
+
+        expect([query allKeys]).to.haveCountOf(0);
+
+        NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                             options:0 error:nil];
+
+        expect([JSON valueForKey:@"content"]).to.equal(@"Awesome post");
+        NSDictionary *photo = [JSON valueForKey:@"image"];
+        expect([photo valueForKey:@"file_name"]).toNot.beNil();
+        expect([photo valueForKey:@"content"]).to.equal([image xng_base64]);
+        expect([photo valueForKey:@"mime_type"]).to.equal(@"image/jpeg");
+        expect(body).toNot.beNil();
     }];
 }
 

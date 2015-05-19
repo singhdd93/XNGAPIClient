@@ -20,6 +20,7 @@
 // THE SOFTWARE.
 
 #import "XNGAPIClient+Groups.h"
+#import "UIImage+Base64Encoding.h"
 
 @implementation XNGAPIClient (Groups)
 
@@ -249,6 +250,32 @@
 
     NSString *path = [NSString stringWithFormat:@"v1/groups/forums/posts/%@/comments", postID];
     [self getJSONPath:path parameters:parameters success:success failure:failure];
+}
+
+- (void)postCommentOnGroupPostWithPostID:(NSString *)postID
+                                 content:(NSString *)content
+                                   image:(UIImage *)image
+                                 success:(void (^)(id JSON))success
+                                 failure:(void (^)(NSError *))failure {
+    if (!postID | !content) {
+        return;
+    }
+
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[@"content"] = content;
+    if (image) {
+        parameters[@"image"] = @{
+                                 @"file_name": [image xng_uuidImageName],
+                                 @"mime_type": @"image/jpeg",
+                                 @"content": [image xng_base64]
+                                 };
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/groups/forums/posts/%@/comments", postID];
+    [self postJSONPath:path
+       JSONParameters:parameters
+              success:success
+              failure:failure];
 }
 
 @end
