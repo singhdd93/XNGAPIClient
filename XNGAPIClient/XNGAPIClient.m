@@ -360,6 +360,22 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
     self.requestSerializer = [AFHTTPRequestSerializer serializer];
 }
 
+- (void)postJSONPath:(NSString *)path
+      JSONParameters:(NSDictionary *)parameters
+             success:(void (^)(id JSON))success
+             failure:(void (^)(NSError *error))failure {
+    self.requestSerializer = [AFJSONRequestSerializer serializer];
+    NSMutableURLRequest *request = [self requestWithMethod:@"POST"
+                                                      path:path
+                                                parameters:parameters];
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
+    AFHTTPRequestOperation *operation = [self xng_HTTPRequestOperationWithRequest:request
+                                                                          success:success
+                                                                          failure:failure];
+    [self.operationQueue addOperation:operation];
+    self.requestSerializer = [AFHTTPRequestSerializer serializer];
+}
+
 #pragma mark - block-based GET / PUT / POST / DELETE with optional accept headers
 
 - (void)getJSONPath:(NSString *)path
