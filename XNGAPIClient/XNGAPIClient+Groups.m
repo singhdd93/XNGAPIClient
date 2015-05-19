@@ -73,7 +73,29 @@
     if (offset) {
         parameters[@"offset"] = @(offset);
     }
+
     NSString *path = @"v1/groups/find";
+    [self getJSONPath:path parameters:parameters success:success failure:failure];
+}
+
+- (void)getForumsForGroupWithGroupID:(NSString *)groupID
+                               limit:(NSInteger)limit
+                              offset:(NSInteger)offset
+                             success:(void (^)(id JSON))success
+                             failure:(void (^)(NSError *))failure {
+    if (!groupID) {
+        return;
+    }
+
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    if (limit) {
+        parameters[@"limit"] = @(limit);
+    }
+    if (offset) {
+        parameters[@"offset"] = @(offset);
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/groups/%@/forums", groupID];
     [self getJSONPath:path parameters:parameters success:success failure:failure];
 }
 

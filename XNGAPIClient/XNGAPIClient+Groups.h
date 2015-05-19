@@ -48,4 +48,15 @@
                           success:(void (^)(id JSON))success
                           failure:(void (^)(NSError *))failure;
 
+/**
+ Get the forums of a group
+
+ https://dev.xing.com/docs/get/groups/:group_id/forums
+ */
+- (void)getForumsForGroupWithGroupID:(NSString *)groupID
+                               limit:(NSInteger)limit
+                              offset:(NSInteger)offset
+                             success:(void (^)(id JSON))success
+                             failure:(void (^)(NSError *))failure;
+
 @end
