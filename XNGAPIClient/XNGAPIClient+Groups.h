@@ -106,4 +106,14 @@
                            offset:(NSInteger)offset
                           success:(void (^)(id JSON))success
                           failure:(void (^)(NSError *))failure;
+
+/**
+ Like a post
+
+ https://dev.xing.com/docs/put/groups/forums/posts/:post_id/like
+*/
+- (void)putLikeAPostWithPostID:(NSString *)postID
+                       success:(void (^)(id JSON))success
+                       failure:(void (^)(NSError *))failure;
+
 @end
