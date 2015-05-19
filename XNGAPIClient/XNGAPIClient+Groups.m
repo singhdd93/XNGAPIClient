@@ -336,4 +336,15 @@
     [self deleteJSONPath:path parameters:nil success:success failure:failure];
 }
 
+- (void)putMarkGroupAsReadWithGroupID:(NSString *)groupID
+                              success:(void (^)(id JSON))success
+                              failure:(void (^)(NSError *))failure {
+    if (!groupID) {
+        return;
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/groups/%@/read", groupID];
+    [self putJSONPath:path parameters:nil success:success failure:failure];
+}
+
 @end

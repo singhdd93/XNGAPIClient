@@ -188,4 +188,13 @@
                                   success:(void (^)(id JSON))success
                                   failure:(void (^)(NSError *))failure;
 
+/**
+ Mark a group as read
+
+ https://dev.xing.com/docs/put/groups/:group_id/read
+*/
+- (void)putMarkGroupAsReadWithGroupID:(NSString *)groupID
+                              success:(void (^)(id JSON))success
+                              failure:(void (^)(NSError *))failure;
+
 @end

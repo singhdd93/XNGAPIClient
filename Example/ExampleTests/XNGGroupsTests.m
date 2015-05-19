@@ -346,4 +346,19 @@
     }];
 }
 
+- (void)testMarkGroupAsRead {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] putMarkGroupAsReadWithGroupID:@"789_efv"
+                                                           success:nil
+                                                           failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/groups/789_efv/read");
+        expect(request.HTTPMethod).to.equal(@"PUT");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
 @end
