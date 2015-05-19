@@ -314,4 +314,26 @@
     [self getJSONPath:path parameters:parameters success:success failure:failure];
 }
 
+- (void)putLikeACommentWithCommentID:(NSString *)commentID
+                             success:(void (^)(id JSON))success
+                             failure:(void (^)(NSError *))failure {
+    if (!commentID) {
+        return;
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/groups/forums/posts/comments/%@/like", commentID];
+    [self putJSONPath:path parameters:nil success:success failure:failure];
+}
+
+- (void)deleteUnlikeACommentWithCommentID:(NSString *)commentID
+                                  success:(void (^)(id JSON))success
+                                  failure:(void (^)(NSError *))failure {
+    if (!commentID) {
+        return;
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/groups/forums/posts/comments/%@/like", commentID];
+    [self deleteJSONPath:path parameters:nil success:success failure:failure];
+}
+
 @end

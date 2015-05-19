@@ -316,4 +316,34 @@
     }];
 }
 
+- (void)testLikeAComment {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] putLikeACommentWithCommentID:@"123"
+                                                          success:nil
+                                                          failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/groups/forums/posts/comments/123/like");
+        expect(request.HTTPMethod).to.equal(@"PUT");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
+- (void)testUnlikeAComment {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] deleteUnlikeACommentWithCommentID:@"456"
+                                                               success:nil
+                                                               failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/groups/forums/posts/comments/456/like");
+        expect(request.HTTPMethod).to.equal(@"DELETE");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
 @end

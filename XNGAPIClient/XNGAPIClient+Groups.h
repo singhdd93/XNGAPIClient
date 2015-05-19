@@ -170,4 +170,22 @@
                                 success:(void (^)(id JSON))success
                                 failure:(void (^)(NSError *))failure;
 
+/**
+ Like a comment
+
+ https://dev.xing.com/docs/put/groups/forums/posts/comments/:comment_id/like
+ */
+- (void)putLikeACommentWithCommentID:(NSString *)commentID
+                             success:(void (^)(id JSON))success
+                             failure:(void (^)(NSError *))failure;
+
+/**
+ Unlike a comment
+
+ https://dev.xing.com/docs/delete/groups/forums/posts/comments/:comment_id/like
+*/
+- (void)deleteUnlikeACommentWithCommentID:(NSString *)commentID
+                                  success:(void (^)(id JSON))success
+                                  failure:(void (^)(NSError *))failure;
+
 @end
