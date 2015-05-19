@@ -41,6 +41,7 @@
 		F057E0DA191924BC00C0E1E6 /* XNGExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F057E0D7191924BC00C0E1E6 /* XNGExampleViewController.m */; };
 		F057E0DB191924BC00C0E1E6 /* XNGLoginWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F057E0D9191924BC00C0E1E6 /* XNGLoginWebViewController.m */; };
 		F057E0DF1919250300C0E1E6 /* XNGTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F057E0DE1919250300C0E1E6 /* XNGTestHelper.m */; };
+		F0FD5D0C1B0B04310064E378 /* XNGGroupsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0FD5D0B1B0B04310064E378 /* XNGGroupsTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		F057E0DC1919250300C0E1E6 /* XNGTestHelper_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XNGTestHelper_Private.h; sourceTree = "<group>"; };
 		F057E0DD1919250300C0E1E6 /* XNGTestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XNGTestHelper.h; sourceTree = "<group>"; };
 		F057E0DE1919250300C0E1E6 /* XNGTestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XNGTestHelper.m; sourceTree = "<group>"; };
+		F0FD5D0B1B0B04310064E378 /* XNGGroupsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XNGGroupsTests.m; sourceTree = "<group>"; };
 		FFF7241F10694E5E8CA58225 /* libPods-Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -219,6 +221,7 @@
 				1643A72C999772F53335AE59 /* NSError+XWSTests.m */,
 				1643ACA11BF850D9880AAE2F /* XNGNewsTests.m */,
 				1643A1771ED19D3973CF7148 /* XNGProfileEditingTests.m */,
+				F0FD5D0B1B0B04310064E378 /* XNGGroupsTests.m */,
 			);
 			path = ExampleTests;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				1643A149A66B6BE320329E1D /* NSError+XWSTests.m in Sources */,
 				1643AC1B40B4DBAF70D8E1AD /* XNGNewsTests.m in Sources */,
 				1643A3DA23454C5F05420A8D /* XNGProfileEditingTests.m in Sources */,
+				F0FD5D0C1B0B04310064E378 /* XNGGroupsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

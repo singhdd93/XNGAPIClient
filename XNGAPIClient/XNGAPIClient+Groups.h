@@ -20,16 +20,21 @@
 // THE SOFTWARE.
 
 #import "XNGAPIClient.h"
-#import "XNGAPIClient+UserProfiles.h"
-#import "XNGAPIClient+Jobs.h"
-#import "XNGAPIClient+Messages.h"
-#import "XNGAPIClient+Contacts.h"
-#import "XNGAPIClient+ContactRequests.h"
-#import "XNGAPIClient+ContactPath.h"
-#import "XNGAPIClient+NetworkFeed.h"
-#import "XNGAPIClient+ProfileVisits.h"
-#import "XNGAPIClient+Recommendations.h"
-#import "XNGAPIClient+Invitations.h"
-#import "XNGAPIClient+News.h"
-#import "XNGAPIClient+ProfileEditing.h"
-#import "XNGAPIClient+Groups.h"
+
+@interface XNGAPIClient (Groups)
+
+/**
+ Get the list of groups the given user belongs to.
+
+ https://dev.xing.com/docs/get/users/:user_id/groups
+*/
+- (void)getUsersGroupsWithUserID:(NSString *)userID
+                           limit:(NSInteger)limit
+                          offset:(NSInteger)offset
+                         orderBy:(NSString *)orderBy
+                      userFields:(NSString *)userFields
+                 withLatestPosts:(NSInteger)numberOfLatestPosts
+                         success:(void (^)(id JSON))success
+                         failure:(void (^)(NSError *))failure;
+
+@end
