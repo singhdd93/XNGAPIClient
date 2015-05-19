@@ -292,4 +292,28 @@
     }];
 }
 
+- (void)testGetLikesForComment {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] getLikesForCommentWithCommentID:@"987"
+                                                          userFields:@"display_name"
+                                                               limit:1
+                                                              offset:4
+                                                             success:nil
+                                                             failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/groups/forums/posts/comments/987/likes");
+        expect(request.HTTPMethod).to.equal(@"GET");
+
+        expect([query valueForKey:@"limit"]).to.equal(@"1");
+        [query removeObjectForKey:@"limit"];
+        expect([query valueForKey:@"offset"]).to.equal(@"4");
+        [query removeObjectForKey:@"offset"];
+        expect([query valueForKey:@"user_fields"]).to.equal(@"display_name");
+        [query removeObjectForKey:@"user_fields"];
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
 @end

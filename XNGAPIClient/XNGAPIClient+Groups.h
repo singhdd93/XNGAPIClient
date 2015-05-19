@@ -158,4 +158,16 @@
                                       success:(void (^)(id JSON))success
                                       failure:(void (^)(NSError *))failure;
 
+/**
+ Get the likes of a comment
+
+ https://dev.xing.com/docs/get/groups/forums/posts/comments/:comment_id/likes
+*/
+- (void)getLikesForCommentWithCommentID:(NSString *)commentID
+                             userFields:(NSString *)userFields
+                                  limit:(NSInteger)limit
+                                 offset:(NSInteger)offset
+                                success:(void (^)(id JSON))success
+                                failure:(void (^)(NSError *))failure;
+
 @end

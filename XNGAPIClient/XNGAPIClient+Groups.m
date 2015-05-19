@@ -289,4 +289,29 @@
     [self deleteJSONPath:path parameters:nil success:success failure:failure];
 }
 
+- (void)getLikesForCommentWithCommentID:(NSString *)commentID
+                             userFields:(NSString *)userFields
+                                  limit:(NSInteger)limit
+                                 offset:(NSInteger)offset
+                                success:(void (^)(id JSON))success
+                                failure:(void (^)(NSError *))failure {
+    if (!commentID) {
+        return;
+    }
+
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    if (limit) {
+        parameters[@"limit"] = @(limit);
+    }
+    if (offset) {
+        parameters[@"offset"] = @(offset);
+    }
+    if (userFields) {
+        parameters[@"user_fields"] = userFields;
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/groups/forums/posts/comments/%@/likes", commentID];
+    [self getJSONPath:path parameters:parameters success:success failure:failure];
+}
+
 @end
