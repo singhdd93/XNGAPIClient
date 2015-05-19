@@ -95,4 +95,15 @@
                             success:(void (^)(id JSON))success
                             failure:(void (^)(NSError *))failure;
 
+/**
+ Get the likes of a post
+
+ https://dev.xing.com/docs/get/groups/forums/posts/:post_id/likes
+*/
+- (void)getLikesForPostWithPostID:(NSString *)postID
+                       userFields:(NSString *)userFields
+                            limit:(NSInteger)limit
+                           offset:(NSInteger)offset
+                          success:(void (^)(id JSON))success
+                          failure:(void (^)(NSError *))failure;
 @end
