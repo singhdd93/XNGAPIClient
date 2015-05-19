@@ -149,4 +149,13 @@
                                  success:(void (^)(id JSON))success
                                  failure:(void (^)(NSError *))failure;
 
+/**
+ Delete a comment of a post
+
+ https://dev.xing.com/docs/delete/groups/forums/posts/comments/:comment_id
+ */
+- (void)deleteCommentOnGroupPostWithCommentID:(NSString *)commentID
+                                      success:(void (^)(id JSON))success
+                                      failure:(void (^)(NSError *))failure;
+
 @end

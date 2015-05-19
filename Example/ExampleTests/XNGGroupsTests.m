@@ -277,4 +277,19 @@
     }];
 }
 
+- (void)testDeleteAComment {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] deleteCommentOnGroupPostWithCommentID:@"345"
+                                                                   success:nil
+                                                                   failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/groups/forums/posts/comments/345");
+        expect(request.HTTPMethod).to.equal(@"DELETE");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
 @end

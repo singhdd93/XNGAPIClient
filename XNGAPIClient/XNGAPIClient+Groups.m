@@ -278,4 +278,15 @@
               failure:failure];
 }
 
+- (void)deleteCommentOnGroupPostWithCommentID:(NSString *)commentID
+                                      success:(void (^)(id JSON))success
+                                      failure:(void (^)(NSError *))failure {
+    if (!commentID) {
+        return;
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/groups/forums/posts/comments/%@", commentID];
+    [self deleteJSONPath:path parameters:nil success:success failure:failure];
+}
+
 @end
