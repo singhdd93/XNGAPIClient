@@ -123,4 +123,22 @@
     }];
 }
 
+- (void)testGetPostInForum {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] getGroupPostWithPostID:@"345"
+                                                 userFields:@"display_name"
+                                                    success:nil
+                                                    failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/groups/forums/posts/345");
+        expect(request.HTTPMethod).to.equal(@"GET");
+
+        expect([query valueForKey:@"user_fields"]).to.equal(@"display_name");
+        [query removeObjectForKey:@"user_fields"];
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
 @end

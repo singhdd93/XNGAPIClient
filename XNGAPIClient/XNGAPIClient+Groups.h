@@ -71,5 +71,16 @@
                              offset:(NSInteger)offset
                             success:(void (^)(id JSON))success
                             failure:(void (^)(NSError *))failure;
+/**
+ Show a post in a group
+
+ https://dev.xing.com/docs/get/groups/forums/posts/:post_id
+*/
+
+- (void)getGroupPostWithPostID:(NSString *)postID
+                    userFields:(NSString *)userFields
+                       success:(void (^)(id JSON))success
+                       failure:(void (^)(NSError *))failure;
+
 
 @end

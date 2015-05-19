@@ -128,4 +128,21 @@
     [self getJSONPath:path parameters:parameters success:success failure:failure];
 }
 
+- (void)getGroupPostWithPostID:(NSString *)postID
+                    userFields:(NSString *)userFields
+                       success:(void (^)(id JSON))success
+                       failure:(void (^)(NSError *))failure {
+    if (!postID) {
+        return;
+    }
+
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    if (userFields) {
+        parameters[@"user_fields"] = userFields;
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/groups/forums/posts/%@", postID];
+    [self getJSONPath:path parameters:parameters success:success failure:failure];
+}
+
 @end
