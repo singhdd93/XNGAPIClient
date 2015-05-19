@@ -347,4 +347,15 @@
     [self putJSONPath:path parameters:nil success:success failure:failure];
 }
 
+- (void)postJoinGroupWithGroupID:(NSString *)groupID
+                         success:(void (^)(id JSON))success
+                         failure:(void (^)(NSError *))failure {
+    if (!groupID) {
+        return;
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/groups/%@/memberships", groupID];
+    [self postJSONPath:path parameters:nil success:success failure:failure];
+}
+
 @end

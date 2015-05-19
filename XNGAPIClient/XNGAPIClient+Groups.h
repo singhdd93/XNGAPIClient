@@ -197,4 +197,13 @@
                               success:(void (^)(id JSON))success
                               failure:(void (^)(NSError *))failure;
 
+/**
+ Join a group
+
+ https://dev.xing.com/docs/post/groups/:group_id/memberships
+*/
+- (void)postJoinGroupWithGroupID:(NSString *)groupID
+                         success:(void (^)(id JSON))success
+                         failure:(void (^)(NSError *))failure;
+
 @end

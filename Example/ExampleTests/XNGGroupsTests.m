@@ -361,4 +361,19 @@
     }];
 }
 
+- (void)testJoinGroup {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] postJoinGroupWithGroupID:@"45_wer"
+                                                      success:nil
+                                                      failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/groups/45_wer/memberships");
+        expect(request.HTTPMethod).to.equal(@"POST");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
 @end
