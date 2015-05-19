@@ -116,4 +116,13 @@
                        success:(void (^)(id JSON))success
                        failure:(void (^)(NSError *))failure;
 
+/**
+ Unlike a post
+
+ https://dev.xing.com/docs/put/groups/forums/posts/:post_id/like
+ */
+- (void)deleteUnlikeAPostWithPostID:(NSString *)postID
+                            success:(void (^)(id JSON))success
+                            failure:(void (^)(NSError *))failure;
+
 @end
