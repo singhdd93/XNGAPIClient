@@ -10,4 +10,5 @@ dependencies:
 test:
   override:
     - bundle exec rake spec
+  post:
     - bundle exec slather
