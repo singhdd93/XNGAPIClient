@@ -358,4 +358,33 @@
     [self postJSONPath:path parameters:nil success:success failure:failure];
 }
 
+- (void)postCreatePostInForumWithForumID:(NSString *)forumID
+                                   title:(NSString *)title
+                                 content:(NSString *)content
+                                   image:(UIImage *)image
+                              userFields:(NSString *)userFields
+                                 success:(void (^)(id JSON))success
+                                 failure:(void (^)(NSError *))failure {
+    if (!forumID || !title || !content) {
+        return;
+    }
+
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[@"title"] = title;
+    parameters[@"content"] = content;
+    if (userFields) {
+        parameters[@"user_fields"] = userFields;
+    }
+    if (image) {
+        parameters[@"image"] = @{
+                                 @"file_name": [image xng_uuidImageName],
+                                 @"mime_type": @"image/jpeg",
+                                 @"content": [image xng_base64]
+                                 };
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/groups/forums/%@/posts", forumID];
+    [self postJSONPath:path JSONParameters:parameters success:success failure:failure];
+}
+
 @end

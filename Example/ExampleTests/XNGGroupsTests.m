@@ -376,4 +376,36 @@
     }];
 }
 
+- (void)testCreatePost {
+    __block UIImage *image = [UIImage imageNamed:@"testimage.jpg"];
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] postCreatePostInForumWithForumID:@"52_ju"
+                                                                title:@"Big airplane over Hamburg"
+                                                              content:@"The Ju 52 is currently over Hamburg."
+                                                                image:image
+                                                           userFields:@"display_name"
+                                                              success:nil
+                                                              failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/groups/forums/52_ju/posts");
+        expect(request.HTTPMethod).to.equal(@"POST");
+
+        expect([query allKeys]).to.haveCountOf(0);
+
+        NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
+                                                             options:0 error:nil];
+
+        expect([JSON valueForKey:@"title"]).to.equal(@"Big airplane over Hamburg");
+        expect([JSON valueForKey:@"content"]).to.equal(@"The Ju 52 is currently over Hamburg.");
+        expect([JSON valueForKey:@"user_fields"]).to.equal(@"display_name");
+
+        NSDictionary *photo = [JSON valueForKey:@"image"];
+        expect([photo valueForKey:@"file_name"]).toNot.beNil();
+        expect([photo valueForKey:@"content"]).to.equal([image xng_base64]);
+        expect([photo valueForKey:@"mime_type"]).to.equal(@"image/jpeg");
+        expect(body).toNot.beNil();
+    }];
+}
+
 @end

@@ -206,4 +206,17 @@
                          success:(void (^)(id JSON))success
                          failure:(void (^)(NSError *))failure;
 
+/**
+ Create a post in a group
+
+ https://dev.xing.com/docs/post/groups/forums/:forum_id/posts
+ */
+- (void)postCreatePostInForumWithForumID:(NSString *)forumID
+                                   title:(NSString *)title
+                                 content:(NSString *)content
+                                   image:(UIImage *)image
+                              userFields:(NSString *)userFields
+                                 success:(void (^)(id JSON))success
+                                 failure:(void (^)(NSError *))failure;
+
 @end
