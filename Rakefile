@@ -6,7 +6,11 @@ end
 
 desc "Runs the specs [EMPTY]"
 task :spec do
-  sh 'xcodebuild -workspace XNGAPIClient.xcworkspace -scheme \'Example\' -destination platform=\'iOS Simulator\',OS=$OS,name=\'iPhone 5s\' test -sdk iphonesimulator | xcpretty -tc; exit ${PIPESTATUS[0]}'
+  command = 'set -o pipefail && xcodebuild -workspace XNGAPIClient.xcworkspace -scheme \'Example\' -destination platform=\'iOS Simulator\',OS=$OS,name=\'iPhone 5s\' test -sdk iphonesimulator | xcpretty -tc'
+  if ENV["CIRCLE_BRANCH"]
+    command << " -r junit --output $CIRCLE_TEST_REPORTS/xcode/results.xml"
+  end
+  sh command
 end
 
 task :version do
