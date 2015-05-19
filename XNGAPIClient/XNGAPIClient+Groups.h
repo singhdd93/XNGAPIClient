@@ -37,4 +37,15 @@
                          success:(void (^)(id JSON))success
                          failure:(void (^)(NSError *))failure;
 
+/**
+ Find groups by keywords
+
+ https://dev.xing.com/docs/get/groups/find
+*/
+- (void)getFindGroupsWithKeywords:(NSString *)keywords
+                            limit:(NSInteger)limit
+                           offset:(NSInteger)offset
+                          success:(void (^)(id JSON))success
+                          failure:(void (^)(NSError *))failure;
+
 @end

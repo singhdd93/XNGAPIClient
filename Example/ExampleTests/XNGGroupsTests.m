@@ -52,4 +52,27 @@
     }];
 }
 
+- (void)testFindGroups {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] getFindGroupsWithKeywords:@"developers,ios"
+                                                         limit:10
+                                                        offset:21
+                                                       success:nil
+                                                       failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/groups/find");
+        expect(request.HTTPMethod).to.equal(@"GET");
+
+        expect([query valueForKey:@"limit"]).to.equal(@"10");
+        [query removeObjectForKey:@"limit"];
+        expect([query valueForKey:@"offset"]).to.equal(@"21");
+        [query removeObjectForKey:@"offset"];
+        expect([query valueForKey:@"keywords"]).to.equal(@"developers%2Cios");
+        [query removeObjectForKey:@"keywords"];
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
 @end

@@ -56,4 +56,25 @@
     [self getJSONPath:path parameters:parameters success:success failure:failure];
 }
 
+- (void)getFindGroupsWithKeywords:(NSString *)keywords
+                            limit:(NSInteger)limit
+                           offset:(NSInteger)offset
+                          success:(void (^)(id JSON))success
+                          failure:(void (^)(NSError *))failure {
+    if (!keywords) {
+        return;
+    }
+
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[@"keywords"] = keywords;
+    if (limit) {
+        parameters[@"limit"] = @(limit);
+    }
+    if (offset) {
+        parameters[@"offset"] = @(offset);
+    }
+    NSString *path = @"v1/groups/find";
+    [self getJSONPath:path parameters:parameters success:success failure:failure];
+}
+
 @end
