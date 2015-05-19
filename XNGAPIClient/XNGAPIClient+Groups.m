@@ -145,4 +145,33 @@
     [self getJSONPath:path parameters:parameters success:success failure:failure];
 }
 
+- (void)getPostsForGroupWithGroupID:(NSString *)groupID
+                     excludeContent:(BOOL)excludeContent
+                         userFields:(NSString *)userFields
+                              limit:(NSInteger)limit
+                             offset:(NSInteger)offset
+                            success:(void (^)(id JSON))success
+                            failure:(void (^)(NSError *))failure {
+    if (!groupID) {
+        return;
+    }
+
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    if (limit) {
+        parameters[@"limit"] = @(limit);
+    }
+    if (offset) {
+        parameters[@"offset"] = @(offset);
+    }
+    if (userFields) {
+        parameters[@"user_fields"] = userFields;
+    }
+    if (excludeContent) {
+        parameters[@"exclude_content"] = @(excludeContent);
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/groups/%@/posts", groupID];
+    [self getJSONPath:path parameters:parameters success:success failure:failure];
+}
+
 @end

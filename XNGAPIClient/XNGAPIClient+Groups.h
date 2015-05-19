@@ -82,5 +82,17 @@
                        success:(void (^)(id JSON))success
                        failure:(void (^)(NSError *))failure;
 
+/**
+ Get all the posts of a group
+
+ https://dev.xing.com/docs/get/groups/:group_id/posts
+*/
+- (void)getPostsForGroupWithGroupID:(NSString *)groupID
+                     excludeContent:(BOOL)excludeContent
+                         userFields:(NSString *)userFields
+                              limit:(NSInteger)limit
+                             offset:(NSInteger)offset
+                            success:(void (^)(id JSON))success
+                            failure:(void (^)(NSError *))failure;
 
 @end

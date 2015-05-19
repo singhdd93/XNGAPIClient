@@ -141,4 +141,31 @@
     }];
 }
 
+- (void)testGetGroupsPosts {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] getPostsForGroupWithGroupID:@"987"
+                                                  excludeContent:YES
+                                                      userFields:@"display_name"
+                                                           limit:4
+                                                          offset:5
+                                                         success:nil
+                                                         failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/groups/987/posts");
+        expect(request.HTTPMethod).to.equal(@"GET");
+
+        expect([query valueForKey:@"limit"]).to.equal(@"4");
+        [query removeObjectForKey:@"limit"];
+        expect([query valueForKey:@"offset"]).to.equal(@"5");
+        [query removeObjectForKey:@"offset"];
+        expect([query valueForKey:@"exclude_content"]).to.equal(@"1");
+        [query removeObjectForKey:@"exclude_content"];
+        expect([query valueForKey:@"user_fields"]).to.equal(@"display_name");
+        [query removeObjectForKey:@"user_fields"];
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
 @end
