@@ -125,4 +125,17 @@
                             success:(void (^)(id JSON))success
                             failure:(void (^)(NSError *))failure;
 
+/**
+ Get the comments of a post
+
+ https://dev.xing.com/docs/get/groups/forums/posts/:post_id/comments
+*/
+- (void)getCommentsOfPostWithPostID:(NSString *)postID
+                      sortDirection:(NSString *)sortDirection
+                         userFields:(NSString *)userFields
+                              limit:(NSInteger)limit
+                             offset:(NSInteger)offset
+                            success:(void (^)(id JSON))success
+                            failure:(void (^)(NSError *))failure;
+
 @end

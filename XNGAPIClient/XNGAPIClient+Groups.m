@@ -221,4 +221,34 @@
     [self deleteJSONPath:path parameters:nil success:success failure:failure];
 }
 
+- (void)getCommentsOfPostWithPostID:(NSString *)postID
+                      sortDirection:(NSString *)sortDirection
+                         userFields:(NSString *)userFields
+                              limit:(NSInteger)limit
+                             offset:(NSInteger)offset
+                            success:(void (^)(id JSON))success
+                            failure:(void (^)(NSError *))failure {
+    if (!postID) {
+        return;
+    }
+
+
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    if (sortDirection) {
+        parameters[@"sort_direction"] = sortDirection;
+    }
+    if (limit) {
+        parameters[@"limit"] = @(limit);
+    }
+    if (offset) {
+        parameters[@"offset"] = @(offset);
+    }
+    if (userFields) {
+        parameters[@"user_fields"] = userFields;
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/groups/forums/posts/%@/comments", postID];
+    [self getJSONPath:path parameters:parameters success:success failure:failure];
+}
+
 @end
