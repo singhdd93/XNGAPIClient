@@ -1,0 +1,13 @@
+machine:
+  environment:
+    OS: 8.3
+  xcode:
+    version: "6.3.1"
+dependencies:
+  pre:
+    - bundle install 
+    - bundle exec pod install --project-directory=Example
+test:
+  override:
+    - bundle exec rake spec
+    - bundle exec slather
