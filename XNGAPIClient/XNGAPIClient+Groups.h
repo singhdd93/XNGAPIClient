@@ -59,4 +59,17 @@
                              success:(void (^)(id JSON))success
                              failure:(void (^)(NSError *))failure;
 
+/**
+ Get the posts of a forum
+
+ https://dev.xing.com/docs/get/groups/forums/:forum_id/posts
+ */
+- (void)getPostsForForumWithForumID:(NSString *)forumID
+                     excludeContent:(BOOL)excludeContent
+                         userFields:(NSString *)userFields
+                              limit:(NSInteger)limit
+                             offset:(NSInteger)offset
+                            success:(void (^)(id JSON))success
+                            failure:(void (^)(NSError *))failure;
+
 @end
