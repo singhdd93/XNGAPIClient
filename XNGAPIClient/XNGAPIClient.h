@@ -123,6 +123,14 @@ extern NSString * const XNGAPIClientDeprecationWarningNotification;
             success:(void (^)(id JSON))success
             failure:(void (^)(NSError *error))failure;
 
+/**
+ use this method to make a JSON encoded PUT call to the public XING API.
+ */
+- (void)postJSONPath:(NSString *)path
+      JSONParameters:(NSDictionary *)parameters
+             success:(void (^)(id JSON))success
+             failure:(void (^)(NSError *error))failure;
+
 #pragma mark - block-based GET / PUT / POST / DELETE with optional accept headers
 
 /**

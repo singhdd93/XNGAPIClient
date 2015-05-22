@@ -33,3 +33,4 @@
 #import "XNGAPIClient+News.h"
 #import "XNGAPIClient+ProfileEditing.h"
 #import "XNGAPIClient+Bookmarks.h"
+#import "XNGAPIClient+Groups.h"

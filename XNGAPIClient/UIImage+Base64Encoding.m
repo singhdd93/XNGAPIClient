@@ -39,4 +39,8 @@
     return [imageData base64EncodedStringWithOptions:0];
 }
 
+- (NSString *)xng_uuidImageName {
+    return [NSString stringWithFormat:@"%@.jpg", [[NSUUID UUID] UUIDString]];
+}
+
 @end

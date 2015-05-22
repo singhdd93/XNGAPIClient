@@ -53,7 +53,7 @@
 
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"photo"] = @{
-            @"file_name": [self uuidImageName],
+            @"file_name": [image xng_uuidImageName],
             @"mime_type": @"image/jpeg",
             @"content": [image xng_base64]
     };
@@ -476,12 +476,6 @@
 
     NSString *path = [NSString stringWithFormat:@"v1/users/%@/profile_message", userID];
     [self putJSONPath:path parameters:parameters success:success failure:failure];
-}
-
-#pragma mark - Helper
-
-- (NSString *)uuidImageName {
-    return [NSString stringWithFormat:@"%@.jpg", [[NSUUID UUID] UUIDString]];
 }
 
 @end

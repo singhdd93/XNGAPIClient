@@ -26,6 +26,7 @@
 		1643AECE2FE6634A0735484B /* NSString+URLEncodingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643A25171307614EC2D7CB1 /* NSString+URLEncodingTests.m */; };
 		5128AA8B014F48469A16EF85 /* libPods-ExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C98DCF1A56C42639595EAC3 /* libPods-ExampleTests.a */; };
 		6A1023521A27707000EE8E95 /* NSDictionary+TypecheckTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A1023511A27707000EE8E95 /* NSDictionary+TypecheckTests.m */; };
+		7ABF25CA1B0F3207000267FD /* XNGGroupsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABF25C91B0F3207000267FD /* XNGGroupsTests.m */; };
 		F04CD0761B03216000DC96FA /* testimage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1643AD018F509477C8C5C8B8 /* testimage.jpg */; };
 		F057E0A819191BD400C0E1E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F057E0A719191BD400C0E1E6 /* Foundation.framework */; };
 		F057E0AA19191BD400C0E1E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F057E0A919191BD400C0E1E6 /* CoreGraphics.framework */; };
@@ -42,6 +43,7 @@
 		F057E0DB191924BC00C0E1E6 /* XNGLoginWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F057E0D9191924BC00C0E1E6 /* XNGLoginWebViewController.m */; };
 		F057E0DF1919250300C0E1E6 /* XNGTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F057E0DE1919250300C0E1E6 /* XNGTestHelper.m */; };
 		F0D68D671B0CA01100399E0F /* XNGBookmarkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0D68D661B0CA01100399E0F /* XNGBookmarkTests.m */; };
+		F0FD5D0C1B0B04310064E378 /* XNGGroupsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0FD5D0B1B0B04310064E378 /* XNGGroupsTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,7 @@
 		1643AFC4256E6288F923ED6B /* XNGRecommendationsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XNGRecommendationsTests.m; sourceTree = "<group>"; };
 		55AB9B73B0DAE5C94E8F123E /* Pods-ExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ExampleTests/Pods-ExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6A1023511A27707000EE8E95 /* NSDictionary+TypecheckTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+TypecheckTests.m"; sourceTree = "<group>"; };
+		7ABF25C91B0F3207000267FD /* XNGGroupsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XNGGroupsTests.m; sourceTree = "<group>"; };
 		7C98DCF1A56C42639595EAC3 /* libPods-ExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		88140310DB1AA62CD86FF2AA /* Pods-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.release.xcconfig"; sourceTree = "<group>"; };
 		B1AD3DB097FD4B6F6456C751 /* Pods-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Example/Pods-Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -205,6 +208,7 @@
 			children = (
 				F057E0C719191BD400C0E1E6 /* Supporting Files */,
 				1643A6E307349FA2D5A1B65D /* XNGAPIClientTests.m */,
+				7ABF25C91B0F3207000267FD /* XNGGroupsTests.m */,
 				1643AD2F2CEB9F334E420780 /* XNGContactPathTests.m */,
 				1643A53C138516963FA4E2C5 /* XNGContactRequestsTests.m */,
 				1643A38FF3CD825259617F3E /* XNGContactsTests.m */,
@@ -418,6 +422,7 @@
 				1643A93D038ABA2E9806F5A3 /* XNGContactPathTests.m in Sources */,
 				6A1023521A27707000EE8E95 /* NSDictionary+TypecheckTests.m in Sources */,
 				1643A8AC5105128C531DFCA1 /* XNGContactRequestsTests.m in Sources */,
+				7ABF25CA1B0F3207000267FD /* XNGGroupsTests.m in Sources */,
 				1643AB63AFEBDD11B0704AA0 /* XNGContactsTests.m in Sources */,
 				1643AAEF9E7881B1B9AF466A /* XNGInvitationsTests.m in Sources */,
 				1643A96C03D19E122B690D2D /* XNGJobsTests.m in Sources */,
