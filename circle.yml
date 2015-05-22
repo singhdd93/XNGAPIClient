@@ -4,7 +4,7 @@ machine:
   xcode:
     version: "6.3.1"
 dependencies:
-  pre:
+  override:
     - bundle install 
     - bundle exec pod install --project-directory=Example
 test:

@@ -20,17 +20,37 @@
 // THE SOFTWARE.
 
 #import "XNGAPIClient.h"
-#import "XNGAPIClient+UserProfiles.h"
-#import "XNGAPIClient+Jobs.h"
-#import "XNGAPIClient+Messages.h"
-#import "XNGAPIClient+Contacts.h"
-#import "XNGAPIClient+ContactRequests.h"
-#import "XNGAPIClient+ContactPath.h"
-#import "XNGAPIClient+NetworkFeed.h"
-#import "XNGAPIClient+ProfileVisits.h"
-#import "XNGAPIClient+Recommendations.h"
-#import "XNGAPIClient+Invitations.h"
-#import "XNGAPIClient+News.h"
-#import "XNGAPIClient+ProfileEditing.h"
-#import "XNGAPIClient+Bookmarks.h"
-#import "XNGAPIClient+Groups.h"
+
+@interface XNGAPIClient (Bookmarks)
+
+/**
+ Get list of bookmarks
+
+ https://dev.xing.com/docs/get/users/:user_id/bookmarks
+*/
+- (void)getBookmarksForUserWithID:(NSString *)userID
+                       userFields:(NSString *)userFields
+                            limit:(NSInteger)limit
+                           offset:(NSInteger)offset
+                          success:(void (^)(id JSON))success
+                          failure:(void (^)(NSError *error))failure;
+
+/**
+ Create a bookmark
+
+ https://dev.xing.com/docs/put/users/:user_id/bookmarks/:id
+*/
+- (void)putCreateBookmarkForUserID:(NSString *)userID
+                           success:(void (^)(id JSON))success
+                           failure:(void (^)(NSError *error))failure;
+
+/**
+ Delete a bookmark
+
+ https://dev.xing.com/docs/delete/users/:user_id/bookmarks/:id
+ */
+- (void)deleteBookmarkForUserID:(NSString *)userID
+                        success:(void (^)(id JSON))success
+                        failure:(void (^)(NSError *error))failure;
+
+@end
