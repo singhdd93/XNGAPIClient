@@ -38,6 +38,15 @@ static NSString *kAccessTokenName = @"AccessToken";//Keychain username
 
 @implementation XNGOAuthHandler
 
+- (instancetype)init {
+    self = [super init];
+
+    if (self) {
+        [SSKeychain setAccessibilityType:kSecAttrAccessibleAfterFirstUnlock];
+    }
+
+    return self;
+}
 
 #pragma mark - handling oauth consumer/secret
 
