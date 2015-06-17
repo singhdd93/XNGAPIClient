@@ -252,6 +252,7 @@
     [self getJSONPath:path parameters:parameters success:success failure:failure];
 }
 
+#ifdef TARGET_OS_IPHONE
 - (void)postCommentOnGroupPostWithPostID:(NSString *)postID
                                  content:(NSString *)content
                                    image:(UIImage *)image
@@ -277,6 +278,7 @@
               success:success
               failure:failure];
 }
+#endif
 
 - (void)deleteCommentOnGroupPostWithCommentID:(NSString *)commentID
                                       success:(void (^)(id JSON))success
@@ -358,6 +360,7 @@
     [self postJSONPath:path parameters:nil success:success failure:failure];
 }
 
+#ifdef TARGET_OS_IPHONE
 - (void)postCreatePostInForumWithForumID:(NSString *)forumID
                                    title:(NSString *)title
                                  content:(NSString *)content
@@ -386,6 +389,7 @@
     NSString *path = [NSString stringWithFormat:@"v1/groups/forums/%@/posts", forumID];
     [self postJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
+#endif
 
 - (void)deletePostWithPostID:(NSString *)postID
                      success:(void (^)(id JSON))success
