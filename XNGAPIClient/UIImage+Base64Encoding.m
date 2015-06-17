@@ -21,7 +21,6 @@
 
 #import "UIImage+Base64Encoding.h"
 
-#ifdef TARGET_OS_IPHONE
 @implementation UIImage (Base64Encoding)
 
 - (NSString *)xng_base64 {
@@ -45,4 +44,3 @@
 }
 
 @end
-#endif

@@ -252,7 +252,6 @@
     [self getJSONPath:path parameters:parameters success:success failure:failure];
 }
 
-#ifdef TARGET_OS_IPHONE
 - (void)postCommentOnGroupPostWithPostID:(NSString *)postID
                                  content:(NSString *)content
                                    image:(UIImage *)image
@@ -278,7 +277,6 @@
               success:success
               failure:failure];
 }
-#endif
 
 - (void)deleteCommentOnGroupPostWithCommentID:(NSString *)commentID
                                       success:(void (^)(id JSON))success

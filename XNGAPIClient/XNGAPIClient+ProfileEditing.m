@@ -44,7 +44,6 @@
     [self putJSONPath:path parameters:parameters success:success failure:failure];
 }
 
-#ifdef TARGET_OS_IPHONE
 - (void)putUpdateUsersProfilePictureWithImage:(UIImage *)image
                                       success:(void (^)(id JSON))success
                                       failure:(void (^)(NSError *error))failure {
@@ -65,7 +64,6 @@
               success:success
               failure:failure];
 }
-#endif
 
 - (void)deleteUsersProfilePictureWithSuccess:(void (^)(id JSON))success
                                      failure:(void (^)(NSError *error))failure {

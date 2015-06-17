@@ -3,7 +3,6 @@ Pod::Spec.new do |s|
   s.version = "2.0.0"
   s.license = 'MIT'
   s.ios.deployment_target = '6.0'
-  s.osx.deployment_target = '10.8'
   s.summary = 'The official Objective-C client for the XING API'
   s.author  = {
     'XING iOS Team' => 'iphonedev@xing.com'
@@ -20,7 +19,7 @@ Pod::Spec.new do |s|
     sp.source_files = 'XNGAPIClient/*.{h,m}'
     sp.dependency 'SSKeychain', '~> 1.2.0'
     sp.dependency 'XNGOAuth1Client', '~> 2.0.0'
-    sp.frameworks = 'Security','SystemConfiguration'
+    sp.frameworks = 'Security','SystemConfiguration', 'UIKit'
   end
 
   s.subspec 'NSDictionary-Typecheck' do |sp|
