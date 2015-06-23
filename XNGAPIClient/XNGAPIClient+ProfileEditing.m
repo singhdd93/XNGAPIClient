@@ -41,7 +41,7 @@
     }
 
     NSString *path = @"v1/users/me";
-    [self putJSONPath:path parameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
 - (void)putUpdateUsersProfilePictureWithImage:(UIImage *)image
@@ -112,7 +112,7 @@
     }
 
     NSString *path = @"v1/users/me/private_address";
-    [self putJSONPath:path parameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
 - (void)putUpdateUsersBusinessAddressWithCity:(NSString *)city
@@ -156,7 +156,7 @@
     }
 
     NSString *path = @"v1/users/me/business_address";
-    [self putJSONPath:path parameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
 - (void)postCreateSchoolWithName:(NSString *)name
@@ -190,7 +190,7 @@
     }
 
     NSString *path = @"v1/users/me/educational_background/schools";
-    [self postJSONPath:path parameters:parameters success:success failure:failure];
+    [self postJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
 - (void)putUpdateSchoolWithID:(NSString *)id
@@ -227,7 +227,7 @@
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/users/me/educational_background/schools/%@", id];
-    [self putJSONPath:path parameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
 - (void)deleteSchoolWithID:(NSString *)id
@@ -250,7 +250,7 @@
 
     NSDictionary *parameters = @{@"school_id": schoolID};
     NSString *path = @"v1/users/me/educational_background/primary_school";
-    [self putJSONPath:path parameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
 - (void)postAddQualificationWithDescription:(NSString *)description
@@ -262,7 +262,7 @@
 
     NSDictionary *parameters = @{@"description": description};
     NSString *path = @"v1/users/me/educational_background/qualifications";
-    [self postJSONPath:path parameters:parameters success:success failure:failure];
+    [self postJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
 - (void)postAddCompanyWithName:(NSString *)name
@@ -313,7 +313,7 @@
     }
 
     NSString *path = @"v1/users/me/professional_experience/companies";
-    [self postJSONPath:path parameters:parameters success:success failure:failure];
+    [self postJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
 - (void)putUpdateCompanyWithID:(NSString *)id
@@ -374,7 +374,7 @@
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/users/me/professional_experience/companies/%@", id];
-    [self putJSONPath:path parameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
 - (void)deleteCompanyWithID:(NSString *)id
@@ -402,7 +402,7 @@
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/users/me/languages/%@", language];
-    [self putJSONPath:path parameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
 - (void)deleteLanguageWithIdentifier:(NSString *)language
@@ -427,7 +427,7 @@
 
     NSDictionary *parameters = @{@"day": @(day), @"month": @(month), @"year": @(year)};
     NSString *path = @"v1/users/me/birth_date";
-    [self putJSONPath:path parameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
 - (void)putUpdateWebProfileWithIdentifier:(NSString *)identifier
@@ -444,7 +444,7 @@
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/users/me/web_profiles/%@", identifier];
-    [self putJSONPath:path parameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
 - (void)deleteWebProfileWithIdentifier:(NSString *)identifier
@@ -475,7 +475,7 @@
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/users/%@/profile_message", userID];
-    [self putJSONPath:path parameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
 @end
