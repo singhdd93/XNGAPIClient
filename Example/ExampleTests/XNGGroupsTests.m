@@ -265,11 +265,8 @@
 
         expect([query allKeys]).to.haveCountOf(0);
 
-        NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
-                                                             options:0 error:nil];
-
-        expect([JSON valueForKey:@"content"]).to.equal(@"Awesome post");
-        NSDictionary *photo = [JSON valueForKey:@"image"];
+        expect([body valueForKey:@"content"]).to.equal(@"Awesome post");
+        NSDictionary *photo = [body valueForKey:@"image"];
         expect([photo valueForKey:@"file_name"]).toNot.beNil();
         expect([photo valueForKey:@"content"]).to.equal([image xng_base64]);
         expect([photo valueForKey:@"mime_type"]).to.equal(@"image/jpeg");
@@ -393,14 +390,11 @@
 
         expect([query allKeys]).to.haveCountOf(0);
 
-        NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
-                                                             options:0 error:nil];
+        expect([body valueForKey:@"title"]).to.equal(@"Big airplane over Hamburg");
+        expect([body valueForKey:@"content"]).to.equal(@"The Ju 52 is currently over Hamburg.");
+        expect([body valueForKey:@"user_fields"]).to.equal(@"display_name");
 
-        expect([JSON valueForKey:@"title"]).to.equal(@"Big airplane over Hamburg");
-        expect([JSON valueForKey:@"content"]).to.equal(@"The Ju 52 is currently over Hamburg.");
-        expect([JSON valueForKey:@"user_fields"]).to.equal(@"display_name");
-
-        NSDictionary *photo = [JSON valueForKey:@"image"];
+        NSDictionary *photo = [body valueForKey:@"image"];
         expect([photo valueForKey:@"file_name"]).toNot.beNil();
         expect([photo valueForKey:@"content"]).to.equal([image xng_base64]);
         expect([photo valueForKey:@"mime_type"]).to.equal(@"image/jpeg");

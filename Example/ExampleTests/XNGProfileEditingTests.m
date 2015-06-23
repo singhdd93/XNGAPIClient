@@ -60,10 +60,7 @@
 
         expect([query allKeys]).to.haveCountOf(0);
 
-        NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:request.HTTPBody
-                                                             options:0 error:nil];
-
-        NSDictionary *photo = [JSON valueForKey:@"photo"];
+        NSDictionary *photo = [body valueForKey:@"photo"];
         expect([photo valueForKey:@"file_name"]).toNot.beNil();
         expect([photo valueForKey:@"content"]).to.equal([image xng_base64]);
         expect([photo valueForKey:@"mime_type"]).to.equal(@"image/jpeg");
