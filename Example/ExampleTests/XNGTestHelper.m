@@ -126,7 +126,7 @@
         NSMutableDictionary *body;
 
         NSString *contentType = [request.allHTTPHeaderFields valueForKey:@"Content-Type"];
-        if ([contentType isEqualToString:@"application/json; charset=utf-8"]) {
+        if ([contentType containsString:@"application/json"]) {
             body = [self dictFromJSONData:request.HTTPBody];
         } else {
             NSString *bodyString = [self stringFromData:request.HTTPBody];
