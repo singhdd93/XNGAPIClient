@@ -208,7 +208,7 @@
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/groups/forums/posts/%@/like", postID];
-    [self putJSONPath:path parameters:nil success:success failure:failure];
+    [self putJSONPath:path JSONParameters:nil success:success failure:failure];
 }
 
 - (void)deleteUnlikeAPostWithPostID:(NSString *)postID
@@ -322,7 +322,7 @@
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/groups/forums/posts/comments/%@/like", commentID];
-    [self putJSONPath:path parameters:nil success:success failure:failure];
+    [self putJSONPath:path JSONParameters:nil success:success failure:failure];
 }
 
 - (void)deleteUnlikeACommentWithCommentID:(NSString *)commentID
@@ -344,7 +344,7 @@
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/groups/%@/read", groupID];
-    [self putJSONPath:path parameters:nil success:success failure:failure];
+    [self putJSONPath:path JSONParameters:nil success:success failure:failure];
 }
 
 - (void)postJoinGroupWithGroupID:(NSString *)groupID
@@ -355,7 +355,7 @@
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/groups/%@/memberships", groupID];
-    [self postJSONPath:path parameters:nil success:success failure:failure];
+    [self postJSONPath:path JSONParameters:nil success:success failure:failure];
 }
 
 #ifdef TARGET_OS_IPHONE
