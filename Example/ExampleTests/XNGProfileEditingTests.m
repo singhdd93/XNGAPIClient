@@ -37,11 +37,11 @@
 
         expect([query allKeys]).to.haveCountOf(0);
 
-        expect([body valueForKey:@"haves"]).to.equal(@"more%20kittens%2Ctests");
+        expect([body valueForKey:@"haves"]).to.equal(@"more kittens,tests");
         [body removeObjectForKey:@"haves"];
-        expect([body valueForKey:@"interests"]).to.equal(@"unit%20testing");
+        expect([body valueForKey:@"interests"]).to.equal(@"unit testing");
         [body removeObjectForKey:@"interests"];
-        expect([body valueForKey:@"wants"]).to.equal(@"100%25%20test%20coverage%2C%20world%20peace");
+        expect([body valueForKey:@"wants"]).to.equal(@"100% test coverage, world peace");
         [body removeObjectForKey:@"wants"];
         expect([body allKeys]).to.haveCountOf(0);
     }];
@@ -105,17 +105,17 @@
         [body removeObjectForKey:@"city"];
         expect([body valueForKey:@"country"]).to.equal(@"DE");
         [body removeObjectForKey:@"country"];
-        expect([body valueForKey:@"email"]).to.equal(@"iphone%40xing.com");
+        expect([body valueForKey:@"email"]).to.equal(@"iphone@xing.com");
         [body removeObjectForKey:@"email"];
-        expect([body valueForKey:@"fax"]).to.equal(@"49%7C40%7C41913111");
+        expect([body valueForKey:@"fax"]).to.equal(@"49|40|41913111");
         [body removeObjectForKey:@"fax"];
-        expect([body valueForKey:@"mobile_phone"]).to.equal(@"49%7C173%7C4191310");
+        expect([body valueForKey:@"mobile_phone"]).to.equal(@"49|173|4191310");
         [body removeObjectForKey:@"mobile_phone"];
-        expect([body valueForKey:@"phone"]).to.equal(@"49%7C40%7C4191310");
+        expect([body valueForKey:@"phone"]).to.equal(@"49|40|4191310");
         [body removeObjectForKey:@"phone"];
         expect([body valueForKey:@"province"]).to.equal(@"Hamburg");
         [body removeObjectForKey:@"province"];
-        expect([body valueForKey:@"street"]).to.equal(@"Dammtorstr.%2030");
+        expect([body valueForKey:@"street"]).to.equal(@"Dammtorstr. 30");
         [body removeObjectForKey:@"street"];
         expect([body valueForKey:@"zip_code"]).to.equal(@"20354");
         [body removeObjectForKey:@"zip_code"];
@@ -123,7 +123,7 @@
     }];
 }
 
-- (void)testUpdateUsersBsuinessAddress {
+- (void)testUpdateUsersBusinessAddress {
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] putUpdateUsersBusinessAddressWithCity:@"Hamburg"
                                                                    country:@"DE"
@@ -146,17 +146,17 @@
         [body removeObjectForKey:@"city"];
         expect([body valueForKey:@"country"]).to.equal(@"DE");
         [body removeObjectForKey:@"country"];
-        expect([body valueForKey:@"email"]).to.equal(@"iphone%40xing.com");
+        expect([body valueForKey:@"email"]).to.equal(@"iphone@xing.com");
         [body removeObjectForKey:@"email"];
-        expect([body valueForKey:@"fax"]).to.equal(@"49%7C40%7C41913111");
+        expect([body valueForKey:@"fax"]).to.equal(@"49|40|41913111");
         [body removeObjectForKey:@"fax"];
-        expect([body valueForKey:@"mobile_phone"]).to.equal(@"49%7C173%7C4191310");
+        expect([body valueForKey:@"mobile_phone"]).to.equal(@"49|173|4191310");
         [body removeObjectForKey:@"mobile_phone"];
-        expect([body valueForKey:@"phone"]).to.equal(@"49%7C40%7C4191310");
+        expect([body valueForKey:@"phone"]).to.equal(@"49|40|4191310");
         [body removeObjectForKey:@"phone"];
         expect([body valueForKey:@"province"]).to.equal(@"Hamburg");
         [body removeObjectForKey:@"province"];
-        expect([body valueForKey:@"street"]).to.equal(@"Dammtorstr.%2030");
+        expect([body valueForKey:@"street"]).to.equal(@"Dammtorstr. 30");
         [body removeObjectForKey:@"street"];
         expect([body valueForKey:@"zip_code"]).to.equal(@"20354");
         [body removeObjectForKey:@"zip_code"];
@@ -184,13 +184,13 @@
         [body removeObjectForKey:@"name"];
         expect([body valueForKey:@"begin_date"]).to.equal(@"1991");
         [body removeObjectForKey:@"begin_date"];
-        expect([body valueForKey:@"degree"]).to.equal(@"Senior%20Magician");
+        expect([body valueForKey:@"degree"]).to.equal(@"Senior Magician");
         [body removeObjectForKey:@"degree"];
         expect([body valueForKey:@"end_date"]).to.equal(@"1998");
         [body removeObjectForKey:@"end_date"];
-        expect([body valueForKey:@"notes"]).to.equal(@"%231%20hero");
+        expect([body valueForKey:@"notes"]).to.equal(@"#1 hero");
         [body removeObjectForKey:@"notes"];
-        expect([body valueForKey:@"subject"]).to.equal(@"Dark%20Arts");
+        expect([body valueForKey:@"subject"]).to.equal(@"Dark Arts");
         [body removeObjectForKey:@"subject"];
         expect([body allKeys]).to.haveCountOf(0);
     }];
@@ -217,13 +217,13 @@
         [body removeObjectForKey:@"name"];
         expect([body valueForKey:@"begin_date"]).to.equal(@"1991");
         [body removeObjectForKey:@"begin_date"];
-        expect([body valueForKey:@"degree"]).to.equal(@"Senior%20Magician");
+        expect([body valueForKey:@"degree"]).to.equal(@"Senior Magician");
         [body removeObjectForKey:@"degree"];
         expect([body valueForKey:@"end_date"]).to.equal(@"1998");
         [body removeObjectForKey:@"end_date"];
-        expect([body valueForKey:@"notes"]).to.equal(@"%231%20hero");
+        expect([body valueForKey:@"notes"]).to.equal(@"#1 hero");
         [body removeObjectForKey:@"notes"];
-        expect([body valueForKey:@"subject"]).to.equal(@"Dark%20Arts");
+        expect([body valueForKey:@"subject"]).to.equal(@"Dark Arts");
         [body removeObjectForKey:@"subject"];
         expect([body allKeys]).to.haveCountOf(0);
     }];
@@ -300,9 +300,9 @@
         expect(request.HTTPMethod).to.equal(@"POST");
 
         expect([query allKeys]).to.haveCountOf(0);
-        expect([body valueForKey:@"name"]).to.equal(@"XING%20AG");
+        expect([body valueForKey:@"name"]).to.equal(@"XING AG");
         [body removeObjectForKey:@"name"];
-        expect([body valueForKey:@"title"]).to.equal(@"XNGAPIClient%20Developer");
+        expect([body valueForKey:@"title"]).to.equal(@"XNGAPIClient Developer");
         [body removeObjectForKey:@"title"];
         expect([body valueForKey:@"industry"]).to.equal(@"INTERNET");
         [body removeObjectForKey:@"industry"];
@@ -314,14 +314,14 @@
         [body removeObjectForKey:@"career_level"];
         expect([body valueForKey:@"company_size"]).to.equal(@"501-1000");
         [body removeObjectForKey:@"company_size"];
-        expect([body valueForKey:@"description"]).to.equal(@"XING%20AG");
+        expect([body valueForKey:@"description"]).to.equal(@"XING AG");
         [body removeObjectForKey:@"description"];
         expect([body valueForKey:@"discipline"]).to.equal(@"IT_AND_SOFTWARE_DEVELOPMENT");
         [body removeObjectForKey:@"discipline"];
         expect([body valueForKey:@"end_date"]).to.beNil();
         expect([body valueForKey:@"until_now"]).to.equal(@"true");
         [body removeObjectForKey:@"until_now"];
-        expect([body valueForKey:@"url"]).to.equal(@"https%3A%2F%2Fxing.com");
+        expect([body valueForKey:@"url"]).to.equal(@"https://xing.com");
         [body removeObjectForKey:@"url"];
         expect([body allKeys]).to.haveCountOf(0);
     }];
@@ -350,9 +350,9 @@
         expect(request.HTTPMethod).to.equal(@"PUT");
 
         expect([query allKeys]).to.haveCountOf(0);
-        expect([body valueForKey:@"name"]).to.equal(@"XING%20AG");
+        expect([body valueForKey:@"name"]).to.equal(@"XING AG");
         [body removeObjectForKey:@"name"];
-        expect([body valueForKey:@"title"]).to.equal(@"XNGAPIClient%20Developer");
+        expect([body valueForKey:@"title"]).to.equal(@"XNGAPIClient Developer");
         [body removeObjectForKey:@"title"];
         expect([body valueForKey:@"industry"]).to.equal(@"INTERNET");
         [body removeObjectForKey:@"industry"];
@@ -364,14 +364,14 @@
         [body removeObjectForKey:@"career_level"];
         expect([body valueForKey:@"company_size"]).to.equal(@"501-1000");
         [body removeObjectForKey:@"company_size"];
-        expect([body valueForKey:@"description"]).to.equal(@"XING%20AG");
+        expect([body valueForKey:@"description"]).to.equal(@"XING AG");
         [body removeObjectForKey:@"description"];
         expect([body valueForKey:@"discipline"]).to.equal(@"IT_AND_SOFTWARE_DEVELOPMENT");
         [body removeObjectForKey:@"discipline"];
         expect([body valueForKey:@"end_date"]).to.beNil();
         expect([body valueForKey:@"until_now"]).to.equal(@"true");
         [body removeObjectForKey:@"until_now"];
-        expect([body valueForKey:@"url"]).to.equal(@"https%3A%2F%2Fxing.com");
+        expect([body valueForKey:@"url"]).to.equal(@"https://xing.com");
         [body removeObjectForKey:@"url"];
         expect([body allKeys]).to.haveCountOf(0);
     }];
@@ -438,11 +438,11 @@
         expect(request.HTTPMethod).to.equal(@"PUT");
 
         expect([query allKeys]).to.haveCountOf(0);
-        expect([body valueForKey:@"day"]).to.equal(@"15");
+        expect([body valueForKey:@"day"]).to.equal(@15);
         [body removeObjectForKey:@"day"];
-        expect([body valueForKey:@"month"]).to.equal(@"6");
+        expect([body valueForKey:@"month"]).to.equal(@6);
         [body removeObjectForKey:@"month"];
-        expect([body valueForKey:@"year"]).to.equal(@"1991");
+        expect([body valueForKey:@"year"]).to.equal(@1991);
         [body removeObjectForKey:@"year"];
         expect([body allKeys]).to.haveCountOf(0);
     }];
@@ -460,7 +460,7 @@
         expect(request.HTTPMethod).to.equal(@"PUT");
 
         expect([query allKeys]).to.haveCountOf(0);
-        expect([body valueForKey:@"url"]).to.equal(@"https%3A%2F%2Ftwitter.com%2Fxingdevs");
+        expect([body valueForKey:@"url"]).to.equal(@"https://twitter.com/xingdevs");
         [body removeObjectForKey:@"url"];
         expect([body allKeys]).to.haveCountOf(0);
     }];
@@ -494,7 +494,7 @@
         expect(request.HTTPMethod).to.equal(@"PUT");
 
         expect([query allKeys]).to.haveCountOf(0);
-        expect([body valueForKey:@"message"]).to.equal(@"Everything%20is%20awesome");
+        expect([body valueForKey:@"message"]).to.equal(@"Everything is awesome");
         [body removeObjectForKey:@"message"];
         expect([body valueForKey:@"public"]).to.equal(@"true");
         [body removeObjectForKey:@"public"];
