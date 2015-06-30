@@ -364,10 +364,11 @@
         parameters[@"discipline"] = discipline;
     }
     if (endDate) {
+        parameters[@"until_now"] = [NSNumber numberWithBool:NO];
         parameters[@"end_date"] = endDate;
-    }
-    if (untilNow) {
-        parameters[@"until_now"] = @"true";
+    } else {
+        parameters[@"until_now"] = [NSNumber numberWithBool:untilNow];
+        parameters[@"end_date"] = [NSNull null];
     }
     if (URL) {
         parameters[@"url"] = URL;
