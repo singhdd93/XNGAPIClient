@@ -340,7 +340,7 @@
                                                 description:@"XING AG"
                                                  discipline:@"IT_AND_SOFTWARE_DEVELOPMENT"
                                                     endDate:nil
-                                                   untilNow:YES
+                                                   untilNow:@(YES)
                                                         url:@"https://xing.com"
                                                     success:nil
                                                     failure:nil];
