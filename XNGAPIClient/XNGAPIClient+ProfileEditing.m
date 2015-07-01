@@ -327,7 +327,7 @@
                    description:(NSString *)description
                     discipline:(NSString *)discipline
                        endDate:(NSString *)endDate
-                      untilNow:(BOOL)untilNow
+                      untilNow:(NSNumber *)untilNow
                            url:(NSString *)URL
                        success:(void (^)(id JSON))success
                        failure:(void (^)(NSError *error))failure {
@@ -364,10 +364,11 @@
         parameters[@"discipline"] = discipline;
     }
     if (endDate) {
+        parameters[@"until_now"] = @(NO);
         parameters[@"end_date"] = endDate;
-    }
-    if (untilNow) {
-        parameters[@"until_now"] = @"true";
+    } else if (untilNow) {
+        parameters[@"until_now"] = untilNow;
+        parameters[@"end_date"] = [NSNull null];
     }
     if (URL) {
         parameters[@"url"] = URL;

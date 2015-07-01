@@ -340,7 +340,7 @@
                                                 description:@"XING AG"
                                                  discipline:@"IT_AND_SOFTWARE_DEVELOPMENT"
                                                     endDate:nil
-                                                   untilNow:YES
+                                                   untilNow:@(YES)
                                                         url:@"https://xing.com"
                                                     success:nil
                                                     failure:nil];
@@ -368,8 +368,9 @@
         [body removeObjectForKey:@"description"];
         expect([body valueForKey:@"discipline"]).to.equal(@"IT_AND_SOFTWARE_DEVELOPMENT");
         [body removeObjectForKey:@"discipline"];
-        expect([body valueForKey:@"end_date"]).to.beNil();
-        expect([body valueForKey:@"until_now"]).to.equal(@"true");
+        expect([body valueForKey:@"end_date"]).to.equal([NSNull null]);
+        [body removeObjectForKey:@"end_date"];
+        expect([body valueForKey:@"until_now"]).to.equal(@(YES));
         [body removeObjectForKey:@"until_now"];
         expect([body valueForKey:@"url"]).to.equal(@"https://xing.com");
         [body removeObjectForKey:@"url"];

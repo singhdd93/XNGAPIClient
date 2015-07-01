@@ -165,6 +165,8 @@ https://dev.xing.com/docs/put/users/me/private_address
  Update a company
 
  https://dev.xing.com/docs/put/users/me/professional_experience/companies/:id
+ 
+ Note: Use a boolean NSNumber on `untilNow` parameter.
 */
 - (void)putUpdateCompanyWithID:(NSString *)id
                           name:(NSString *)name
@@ -177,7 +179,7 @@ https://dev.xing.com/docs/put/users/me/private_address
                    description:(NSString *)description
                     discipline:(NSString *)discipline
                        endDate:(NSString *)endDate
-                      untilNow:(BOOL)untilNow
+                      untilNow:(NSNumber *)untilNow
                            url:(NSString *)URL
                        success:(void (^)(id JSON))success
                        failure:(void (^)(NSError *error))failure;
