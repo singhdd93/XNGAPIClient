@@ -26,12 +26,29 @@
 
 #pragma mark - public methods
 
+// DEPRECATED
 - (void)getVisitsWithLimit:(NSInteger)limit
-                       offset:(NSInteger)offset
-                        since:(NSString *)since
-                    stripHTML:(BOOL)stripHTML
-                      success:(void (^)(id JSON))success
-                      failure:(void (^)(NSError *error))failure {
+                    offset:(NSInteger)offset
+                     since:(NSString *)since
+                 stripHTML:(BOOL)stripHTML
+                   success:(void (^)(id JSON))success
+                   failure:(void (^)(NSError *error))failure {
+    [self getVisitsWithLimit:limit
+                      offset:offset
+                       since:since
+      numberOfSharedContacts:0
+                   stripHTML:stripHTML
+                     success:success
+                     failure:failure];
+}
+
+- (void)getVisitsWithLimit:(NSInteger)limit
+                    offset:(NSInteger)offset
+                     since:(NSString *)since
+    numberOfSharedContacts:(NSUInteger)numberOfSharedContacts
+                 stripHTML:(BOOL)stripHTML
+                   success:(void (^)(id JSON))success
+                   failure:(void (^)(NSError *error))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     if (limit) {
         parameters[@"limit"] = @(limit);
@@ -44,6 +61,11 @@
     }
     if (stripHTML) {
         parameters[@"strip_html"] = @"true";
+    }
+    
+    if (numberOfSharedContacts > 0) {
+        numberOfSharedContacts = MIN(numberOfSharedContacts, 10);
+        parameters[@"shared_contacts"] = @(numberOfSharedContacts);
     }
 
     NSString *path = [self visitsPath];

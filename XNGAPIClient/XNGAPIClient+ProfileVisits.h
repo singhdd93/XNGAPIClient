@@ -31,9 +31,17 @@
 - (void)getVisitsWithLimit:(NSInteger)limit
                     offset:(NSInteger)offset
                      since:(NSString *)since
+    numberOfSharedContacts:(NSUInteger)numberOfSharedContacts  // Default is 0, maximum are 10 shared contacts
                  stripHTML:(BOOL)stripHTML
                    success:(void (^)(id JSON))success
                    failure:(void (^)(NSError *error))failure;
+
+- (void)getVisitsWithLimit:(NSInteger)limit
+                    offset:(NSInteger)offset
+                     since:(NSString *)since
+                 stripHTML:(BOOL)stripHTML
+                   success:(void (^)(id JSON))success
+                   failure:(void (^)(NSError *error))failure DEPRECATED_MSG_ATTRIBUTE("Please use getVisitsWithLimit:offset:numberOfSharedContacts:stripHTML:success:failure instead");;
 
 /**
  Cancel all get visits operation that are currently running/queued.
