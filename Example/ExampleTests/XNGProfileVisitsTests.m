@@ -28,6 +28,7 @@
          [[XNGAPIClient sharedClient] getVisitsWithLimit:0
                                                   offset:0
                                                    since:nil
+                                  numberOfSharedContacts:0
                                                stripHTML:NO
                                                  success:nil
                                                  failure:nil];
@@ -52,6 +53,7 @@
          [[XNGAPIClient sharedClient] getVisitsWithLimit:20
                                                   offset:40
                                                    since:@"some_date"
+                                  numberOfSharedContacts:10
                                                stripHTML:YES
                                                  success:nil
                                                  failure:nil];
@@ -71,6 +73,8 @@
          [query removeObjectForKey:@"strip_html"];
          expect([query valueForKey:@"since"]).to.equal(@"some_date");
          [query removeObjectForKey:@"since"];
+         expect([query valueForKey:@"shared_contacts"]).to.equal(@"10");
+         [query removeObjectForKey:@"shared_contacts"];
 
          expect([query allKeys]).to.haveCountOf(0);
 
