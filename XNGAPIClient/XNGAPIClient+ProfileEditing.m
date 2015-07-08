@@ -241,9 +241,9 @@
     [self deleteJSONPath:path parameters:nil success:success failure:failure];
 }
 
-- (void)putUpdatePrimarySchoolID:(NSString *)schoolID
-                         success:(void (^)(id JSON))success
-                         failure:(void (^)(NSError *error))failure {
+- (void)putUpdatePrimarySchoolWithID:(NSString *)schoolID
+                             success:(void (^)(id JSON))success
+                             failure:(void (^)(NSError *error))failure {
     if (!schoolID) {
         return;
     }

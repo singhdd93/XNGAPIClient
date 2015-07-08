@@ -128,9 +128,9 @@ https://dev.xing.com/docs/put/users/me/private_address
 
  https://dev.xing.com/docs/put/users/me/educational_background/primary_school
 */
-- (void)putUpdatePrimarySchoolID:(NSString *)schoolID
-                         success:(void (^)(id JSON))success
-                         failure:(void (^)(NSError *error))failure;
+- (void)putUpdatePrimarySchoolWithID:(NSString *)schoolID
+                             success:(void (^)(id JSON))success
+                             failure:(void (^)(NSError *error))failure;
 
 /**
  Add a qualification to the users educational background

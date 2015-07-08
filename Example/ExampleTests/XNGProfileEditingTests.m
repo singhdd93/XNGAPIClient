@@ -246,9 +246,9 @@
 
 - (void)testUpdatePrimarySchool {
     [self.testHelper executeCall:^{
-        [[XNGAPIClient sharedClient] putUpdatePrimarySchoolID:@"123"
-                                                      success:nil
-                                                      failure:nil];
+        [[XNGAPIClient sharedClient] putUpdatePrimarySchoolWithID:@"123"
+                                                          success:nil
+                                                          failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
         expect(request.URL.host).to.equal(@"api.xing.com");
         expect(request.URL.path).to.equal(@"/v1/users/me/educational_background/primary_school");
