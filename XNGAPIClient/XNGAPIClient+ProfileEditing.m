@@ -389,6 +389,18 @@
     [self deleteJSONPath:path parameters:nil success:success failure:failure];
 }
 
+- (void)putUpdatePrimaryCompanyWithID:(NSString *)companyID
+                              success:(void (^)(id JSON))success
+                              failure:(void (^)(NSError *error))failure {
+    if (!companyID) {
+        return;
+    }
+
+    NSDictionary *parameters = @{@"company_id": companyID};
+    NSString *path = @"/v1/users/me/professional_experience/primary_company";
+    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
+}
+
 - (void)putUpdateLanguageWithIdentifier:(NSString *)language
                                   skill:(NSString *)skill
                                 success:(void (^)(id JSON))success

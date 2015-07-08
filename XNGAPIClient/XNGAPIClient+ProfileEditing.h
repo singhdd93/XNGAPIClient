@@ -194,6 +194,15 @@ https://dev.xing.com/docs/put/users/me/private_address
                     failure:(void (^)(NSError *error))failure;
 
 /**
+ Update a company to be the primary company
+
+ https://dev.xing.com/docs/put/users/me/professional_experience/primary_company
+ */
+- (void)putUpdatePrimaryCompanyWithID:(NSString *)companyID
+                              success:(void (^)(id JSON))success
+                              failure:(void (^)(NSError *error))failure;
+
+/**
  Updates the given language skill from the profile
 
  https://dev.xing.com/docs/put/users/me/languages/:language
