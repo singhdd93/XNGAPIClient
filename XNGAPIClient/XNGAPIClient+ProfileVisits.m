@@ -27,11 +27,12 @@
 #pragma mark - public methods
 
 - (void)getVisitsWithLimit:(NSInteger)limit
-                       offset:(NSInteger)offset
-                        since:(NSString *)since
-                    stripHTML:(BOOL)stripHTML
-                      success:(void (^)(id JSON))success
-                      failure:(void (^)(NSError *error))failure {
+                    offset:(NSInteger)offset
+                     since:(NSString *)since
+    numberOfSharedContacts:(NSUInteger)numberOfSharedContacts
+                 stripHTML:(BOOL)stripHTML
+                   success:(void (^)(id JSON))success
+                   failure:(void (^)(NSError *error))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     if (limit) {
         parameters[@"limit"] = @(limit);
@@ -44,6 +45,11 @@
     }
     if (stripHTML) {
         parameters[@"strip_html"] = @"true";
+    }
+    
+    if (numberOfSharedContacts > 0) {
+        numberOfSharedContacts = MIN(numberOfSharedContacts, 10);
+        parameters[@"shared_contacts"] = @(numberOfSharedContacts);
     }
 
     NSString *path = [self visitsPath];
