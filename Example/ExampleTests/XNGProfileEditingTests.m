@@ -246,9 +246,9 @@
 
 - (void)testUpdatePrimarySchool {
     [self.testHelper executeCall:^{
-        [[XNGAPIClient sharedClient] putUpdatePrimarySchoolID:@"123"
-                                                      success:nil
-                                                      failure:nil];
+        [[XNGAPIClient sharedClient] putUpdatePrimarySchoolWithID:@"123"
+                                                          success:nil
+                                                          failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
         expect(request.URL.host).to.equal(@"api.xing.com");
         expect(request.URL.path).to.equal(@"/v1/users/me/educational_background/primary_school");
@@ -389,6 +389,23 @@
         expect(request.HTTPMethod).to.equal(@"DELETE");
 
         expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
+- (void)testUpdatePrimaryCompany {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] putUpdatePrimaryCompanyWithID:@"123"
+                                                           success:nil
+                                                           failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/professional_experience/primary_company");
+        expect(request.HTTPMethod).to.equal(@"PUT");
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body valueForKey:@"company_id"]).to.equal(@"123");
+        [body removeObjectForKey:@"company_id"];
         expect([body allKeys]).to.haveCountOf(0);
     }];
 }

@@ -128,9 +128,9 @@ https://dev.xing.com/docs/put/users/me/private_address
 
  https://dev.xing.com/docs/put/users/me/educational_background/primary_school
 */
-- (void)putUpdatePrimarySchoolID:(NSString *)schoolID
-                         success:(void (^)(id JSON))success
-                         failure:(void (^)(NSError *error))failure;
+- (void)putUpdatePrimarySchoolWithID:(NSString *)schoolID
+                             success:(void (^)(id JSON))success
+                             failure:(void (^)(NSError *error))failure;
 
 /**
  Add a qualification to the users educational background
@@ -192,6 +192,15 @@ https://dev.xing.com/docs/put/users/me/private_address
 - (void)deleteCompanyWithID:(NSString *)id
                     success:(void (^)(id JSON))success
                     failure:(void (^)(NSError *error))failure;
+
+/**
+ Update a company to be the primary company
+
+ https://dev.xing.com/docs/put/users/me/professional_experience/primary_company
+ */
+- (void)putUpdatePrimaryCompanyWithID:(NSString *)companyID
+                              success:(void (^)(id JSON))success
+                              failure:(void (^)(NSError *error))failure;
 
 /**
  Updates the given language skill from the profile
