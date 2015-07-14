@@ -148,7 +148,7 @@ https://dev.xing.com/docs/put/users/me/private_address
 */
 - (void)postAddCompanyWithName:(NSString *)name
                          title:(NSString *)title
-                      industry:(NSString *)industry
+                    industries:(NSString *)industries
               formOfEmployment:(NSString *)formOfEmployment
                      beginDate:(NSString *)beginDate
                    careerLevel:(NSString *)careerLevel
@@ -171,7 +171,7 @@ https://dev.xing.com/docs/put/users/me/private_address
 - (void)putUpdateCompanyWithID:(NSString *)id
                           name:(NSString *)name
                          title:(NSString *)title
-                      industry:(NSString *)industry
+                    industries:(NSString *)industries
               formOfEmployment:(NSString *)formOfEmployment
                      beginDate:(NSString *)beginDate
                    careerLevel:(NSString *)careerLevel
