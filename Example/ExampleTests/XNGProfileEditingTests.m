@@ -282,7 +282,7 @@
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] postAddCompanyWithName:@"XING AG"
                                                       title:@"XNGAPIClient Developer"
-                                                   industry:@"INTERNET"
+                                                 industries:@"210100"
                                            formOfEmployment:@"VOLUNTEER"
                                                   beginDate:@"2013"
                                                 careerLevel:@"SENIOR_EXECUTIVE"
@@ -304,8 +304,8 @@
         [body removeObjectForKey:@"name"];
         expect([body valueForKey:@"title"]).to.equal(@"XNGAPIClient Developer");
         [body removeObjectForKey:@"title"];
-        expect([body valueForKey:@"industry"]).to.equal(@"INTERNET");
-        [body removeObjectForKey:@"industry"];
+        expect([body valueForKey:@"industries"]).to.equal(@"210100");
+        [body removeObjectForKey:@"industries"];
         expect([body valueForKey:@"form_of_employment"]).to.equal(@"VOLUNTEER");
         [body removeObjectForKey:@"form_of_employment"];
         expect([body valueForKey:@"begin_date"]).to.equal(@"2013");
@@ -332,7 +332,7 @@
         [[XNGAPIClient sharedClient] putUpdateCompanyWithID:@"456"
                                                        name:@"XING AG"
                                                       title:@"XNGAPIClient Developer"
-                                                   industry:@"INTERNET"
+                                                 industries:@"210100"
                                            formOfEmployment:@"VOLUNTEER"
                                                   beginDate:@"2013"
                                                 careerLevel:@"SENIOR_EXECUTIVE"
@@ -354,8 +354,8 @@
         [body removeObjectForKey:@"name"];
         expect([body valueForKey:@"title"]).to.equal(@"XNGAPIClient Developer");
         [body removeObjectForKey:@"title"];
-        expect([body valueForKey:@"industry"]).to.equal(@"INTERNET");
-        [body removeObjectForKey:@"industry"];
+        expect([body valueForKey:@"industries"]).to.equal(@"210100");
+        [body removeObjectForKey:@"industries"];
         expect([body valueForKey:@"form_of_employment"]).to.equal(@"VOLUNTEER");
         [body removeObjectForKey:@"form_of_employment"];
         expect([body valueForKey:@"begin_date"]).to.equal(@"2013");

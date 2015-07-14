@@ -267,7 +267,7 @@
 
 - (void)postAddCompanyWithName:(NSString *)name
                          title:(NSString *)title
-                      industry:(NSString *)industry
+                    industries:(NSString *)industries
               formOfEmployment:(NSString *)formOfEmployment
                      beginDate:(NSString *)beginDate
                    careerLevel:(NSString *)careerLevel
@@ -279,12 +279,12 @@
                            url:(NSString *)URL
                        success:(void (^)(id JSON))success
                        failure:(void (^)(NSError *error))failure {
-    if (!formOfEmployment || !industry || !name || !title) {
+    if (!formOfEmployment || !industries || !name || !title) {
         return;
     }
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"form_of_employment"] = formOfEmployment;
-    parameters[@"industry"] = industry;
+    parameters[@"industries"] = industries;
     parameters[@"name"] = name;
     parameters[@"title"] = title;
     if (beginDate) {
@@ -319,7 +319,7 @@
 - (void)putUpdateCompanyWithID:(NSString *)id
                           name:(NSString *)name
                          title:(NSString *)title
-                      industry:(NSString *)industry
+                    industries:(NSString *)industries
               formOfEmployment:(NSString *)formOfEmployment
                      beginDate:(NSString *)beginDate
                    careerLevel:(NSString *)careerLevel
@@ -339,8 +339,8 @@
     if (formOfEmployment) {
         parameters[@"form_of_employment"] = formOfEmployment;
     }
-    if (industry) {
-        parameters[@"industry"] = industry;
+    if (industries) {
+        parameters[@"industries"] = industries;
     }
     if (name) {
         parameters[@"name"] = name;
