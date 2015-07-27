@@ -156,7 +156,7 @@ https://dev.xing.com/docs/put/users/me/private_address
                    description:(NSString *)description
                     discipline:(NSString *)discipline
                        endDate:(NSString *)endDate
-                      untilNow:(BOOL)untilNow
+                      untilNow:(NSNumber *)untilNow
                            url:(NSString *)URL
                        success:(void (^)(id JSON))success
                        failure:(void (^)(NSError *error))failure;
