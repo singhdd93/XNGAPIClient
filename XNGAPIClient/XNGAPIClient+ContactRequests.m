@@ -50,6 +50,26 @@
               failure:failure];
 }
 
+- (void)getSentContactRequestsWithLimit:(NSInteger)limit
+                                 offset:(NSInteger)offset
+                                success:(void (^)(id JSON))success
+                                failure:(void (^)(NSError *error))failure {
+
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    if (limit) {
+        parameters[@"limit"] = @(limit);
+    }
+    if (offset) {
+        parameters[@"offset"] = @(offset);
+    }
+
+    NSString *path = @"v1/users/me/contact_requests/sent";
+    [self getJSONPath:path
+           parameters:parameters
+              success:success
+              failure:failure];
+}
+
 - (void)postCreateContactRequestToUserWithID:(NSString*)userID
                                      message:(NSString*)message
                                      success:(void (^)(id JSON))success

@@ -35,6 +35,17 @@
                             failure:(void (^)(NSError *error))failure;
 
 /**
+ Lists all pending contact requests the specified user has sent.
+
+ https://dev.xing.com/docs/get/users/:user_id/contact_requests/sent
+ */
+- (void)getSentContactRequestsWithLimit:(NSInteger)limit
+                                 offset:(NSInteger)offset
+                                success:(void (^)(id JSON))success
+                                failure:(void (^)(NSError *error))failure;
+
+
+/**
  Initiates a contact request between the current user (sender) and the specified user (recipient).
 
  https://dev.xing.com/docs/post/users/:user_id/contact_requests
