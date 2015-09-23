@@ -71,6 +71,32 @@
      }];
 }
 
+- (void)testGetSentContactRequestsWithLimitAndOffset {
+    [self.testHelper executeCall:
+     ^{
+         [[XNGAPIClient sharedClient] getSentContactRequestsWithLimit:20
+                                                           offset:40
+                                                          success:nil
+                                                          failure:nil];
+     }
+               withExpectations:
+     ^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+         expect(request.URL.host).to.equal(@"api.xing.com");
+         expect(request.URL.path).to.equal(@"/v1/users/me/contact_requests/sent");
+         expect(request.HTTPMethod).to.equal(@"GET");
+
+         [self.testHelper removeOAuthParametersInQueryDict:query];
+
+         expect([query valueForKey:@"limit"]).to.equal(@"20");
+         [query removeObjectForKey:@"limit"];
+         expect([query valueForKey:@"offset"]).to.equal(@"40");
+         [query removeObjectForKey:@"offset"];
+         expect([query allKeys]).to.haveCountOf(0);
+
+         expect([body allKeys]).to.haveCountOf(0);
+     }];
+}
+
 - (void)testPostCreateContactRequest {
     [self.testHelper executeCall:
      ^{
