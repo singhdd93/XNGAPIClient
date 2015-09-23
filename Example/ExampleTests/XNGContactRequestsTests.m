@@ -75,9 +75,9 @@
     [self.testHelper executeCall:
      ^{
          [[XNGAPIClient sharedClient] getSentContactRequestsWithLimit:20
-                                                           offset:40
-                                                          success:nil
-                                                          failure:nil];
+                                                               offset:40
+                                                              success:nil
+                                                              failure:nil];
      }
                withExpectations:
      ^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {

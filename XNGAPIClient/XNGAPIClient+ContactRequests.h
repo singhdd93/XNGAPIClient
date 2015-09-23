@@ -40,9 +40,9 @@
  https://dev.xing.com/docs/get/users/:user_id/contact_requests/sent
  */
 - (void)getSentContactRequestsWithLimit:(NSInteger)limit
-                             offset:(NSInteger)offset
-                            success:(void (^)(id JSON))success
-                            failure:(void (^)(NSError *error))failure;
+                                 offset:(NSInteger)offset
+                                success:(void (^)(id JSON))success
+                                failure:(void (^)(NSError *error))failure;
 
 
 /**
