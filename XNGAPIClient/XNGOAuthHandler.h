@@ -19,7 +19,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "AFNetworking.h"
+#import <AFNetworking/AFNetworking.h>
 
 @interface XNGOAuthHandler : NSObject
 @property (nonatomic, strong, readonly) NSString *accessToken;
