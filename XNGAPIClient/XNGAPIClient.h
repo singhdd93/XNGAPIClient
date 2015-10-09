@@ -20,6 +20,7 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import <XNGOAuth1Client/XNGOAuth1Client.h>
 
 @interface XNGAPIClient : XNGOAuth1Client
