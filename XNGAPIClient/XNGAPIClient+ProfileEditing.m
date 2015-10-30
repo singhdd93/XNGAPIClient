@@ -24,17 +24,29 @@
 
 @implementation XNGAPIClient (ProfileEditing)
 
-- (void)putUpdateUsersGeneralInformationWithHaves:(NSString *)haves
-                                        interests:(NSString *)interests
-                                            wants:(NSString *)wants
-                                          success:(void (^)(id JSON))success
-                                          failure:(void (^)(NSError *error))failure {
+- (void)putUpdateUsersGeneralInformationWithAcademicTitle:(NSString *)academicTitle
+                                         employmentStatus:(NSString *)employmentStatus
+                                                    haves:(NSString *)haves
+                                                interests:(NSString *)interests
+                                            organisations:(NSString *)organisations
+                                                    wants:(NSString *)wants
+                                                  success:(void (^)(id JSON))success
+                                                  failure:(void (^)(NSError *error))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    if (academicTitle) {
+        parameters[@"academic_title"] = academicTitle;
+    }
+    if (employmentStatus) {
+        parameters[@"employment_status"] = employmentStatus;
+    }
     if (haves) {
         parameters[@"haves"] = haves;
     }
     if (interests) {
         parameters[@"interests"] = interests;
+    }
+    if (organisations) {
+        parameters[@"organisation_member"] = organisations;
     }
     if (wants) {
         parameters[@"wants"] = wants;

@@ -25,11 +25,12 @@
 
 - (void)testUpdateWantsHavesInterests {
     [self.testHelper executeCall:^{
-        [[XNGAPIClient sharedClient] putUpdateUsersGeneralInformationWithHaves:@"more kittens,tests"
-                                                                     interests:@"unit testing"
-                                                                         wants:@"100% test coverage, world peace"
-                                                                       success:nil
-                                                                       failure:nil];
+        [[XNGAPIClient sharedClient] putUpdateUsersGeneralInformationWithAcademicTitle:@"Dr."
+                                                                      employmentStatus:@"ENTREPRENEUR"
+                                                                                 haves:@"more kittens,tests"
+                                                                             interests:@"unit testing"
+                                                                         organisations:@"greenpeace,GEMA"
+                                                                                 wants:@"100% test coverage, world peace" success:nil failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
         expect(request.URL.host).to.equal(@"api.xing.com");
         expect(request.URL.path).to.equal(@"/v1/users/me");
@@ -37,12 +38,19 @@
 
         expect([query allKeys]).to.haveCountOf(0);
 
+        expect([body valueForKey:@"academic_title"]).to.equal(@"Dr.");
+        [body removeObjectForKey:@"academic_title"];
+        expect([body valueForKey:@"employment_status"]).to.equal(@"ENTREPRENEUR");
+        [body removeObjectForKey:@"employment_status"];
         expect([body valueForKey:@"haves"]).to.equal(@"more kittens,tests");
         [body removeObjectForKey:@"haves"];
         expect([body valueForKey:@"interests"]).to.equal(@"unit testing");
         [body removeObjectForKey:@"interests"];
+        expect([body valueForKey:@"organisation_member"]).to.equal(@"greenpeace,GEMA");
+        [body removeObjectForKey:@"organisation_member"];
         expect([body valueForKey:@"wants"]).to.equal(@"100% test coverage, world peace");
         [body removeObjectForKey:@"wants"];
+
         expect([body allKeys]).to.haveCountOf(0);
     }];
 }
