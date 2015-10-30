@@ -28,11 +28,14 @@
 
  https://dev.xing.com/docs/put/users/me
 */
-- (void)putUpdateUsersGeneralInformationWithHaves:(NSString *)haves
-                                        interests:(NSString *)interests
-                                            wants:(NSString *)wants
-                                          success:(void (^)(id JSON))success
-                                          failure:(void (^)(NSError *error))failure;
+- (void)putUpdateUsersGeneralInformationWithAcademicTitle:(NSString *)academicTitle
+                                         employmentStatus:(NSString *)employmentStatus
+                                                    haves:(NSString *)haves
+                                                interests:(NSString *)interests
+                                            organisations:(NSString *)organisations
+                                                    wants:(NSString *)wants
+                                                  success:(void (^)(id JSON))success
+                                                  failure:(void (^)(NSError *error))failure;
 
 /**
  Update users profile picture
