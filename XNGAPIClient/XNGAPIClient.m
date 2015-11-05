@@ -103,7 +103,9 @@ static XNGAPIClient *_sharedClient = nil;
 #pragma mark - handling login / logout
 
 - (BOOL)isLoggedin {
-    return [self.oAuthHandler hasAccessToken];
+    return [self.oAuthHandler hasAccessToken] &&
+        [self.oAuthHandler hasTokenSecret] &&
+        [self.oAuthHandler hasUserID];
 }
 
 - (void)logout {
