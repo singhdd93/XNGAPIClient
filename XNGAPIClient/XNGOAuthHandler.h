@@ -41,5 +41,9 @@
 
 - (BOOL)hasAccessToken;
 
+- (BOOL)hasTokenSecret;
+
+- (BOOL)hasUserID;
+
 
 @end

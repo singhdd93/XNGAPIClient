@@ -65,6 +65,14 @@ static NSString *kAccessTokenName = @"AccessToken";//Keychain username
     return (self.accessToken != nil) && (self.accessToken.length > 0);
 }
 
+- (BOOL)hasTokenSecret {
+    return (self.tokenSecret != nil) && (self.tokenSecret.length > 0);
+}
+
+- (BOOL)hasUserID {
+    return (self.userID != nil) && (self.userID.length > 0);
+}
+
 - (NSString *)accessToken {
 	if (_accessToken == nil) {
 		NSError *error;
