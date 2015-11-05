@@ -62,7 +62,15 @@ static NSString *kAccessTokenName = @"AccessToken";//Keychain username
 }
 
 - (BOOL)hasAccessToken {
-    return (self.accessToken != nil) && (self.accessToken.length > 0);
+    return self.accessToken.length > 0;
+}
+
+- (BOOL)hasTokenSecret {
+    return self.tokenSecret.length > 0;
+}
+
+- (BOOL)hasUserID {
+    return self.userID.length > 0;
 }
 
 - (NSString *)accessToken {
@@ -146,7 +154,9 @@ static NSString *kAccessTokenName = @"AccessToken";//Keychain username
     if (error) {
         NSAssert(NO,@"Could not save into keychain");
 
-        failure(error);
+        if (failure) {
+            failure(error);
+        }
         return;
     }
 
