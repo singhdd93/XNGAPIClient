@@ -151,7 +151,7 @@ static NSString *kAccessTokenName = @"AccessToken";//Keychain username
     NSAssert( !error, @"KeychainTokenSecretWriteError: %@",error);
     _tokenSecret = accessTokenSecret;
 
-    if (error) {
+    if (error && failure) {
         NSAssert(NO,@"Could not save into keychain");
 
         failure(error);
