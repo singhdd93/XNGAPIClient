@@ -1,5 +1,5 @@
 coverage_service: coveralls
-ci_service: circleci
+ci_service: travis_ci
 xcodeproj: Example/Example.xcodeproj
 source_directory: XNGAPIClient
 ignore:
