@@ -34,3 +34,4 @@
 #import "XNGAPIClient+ProfileEditing.h"
 #import "XNGAPIClient+Bookmarks.h"
 #import "XNGAPIClient+Groups.h"
+#import "XNGAPIClient+Events.h"
