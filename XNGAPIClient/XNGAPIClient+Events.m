@@ -176,7 +176,7 @@
     parameters[@"selected"] = participation;
 
     NSString *path = [NSString stringWithFormat:@"v1/events/%@/rsvp", eventID];
-    [self putJSONPath:path parameters:parameters success:success failure:success];
+    [self putJSONPath:path parameters:parameters success:success failure:failure];
 }
 
 @end
