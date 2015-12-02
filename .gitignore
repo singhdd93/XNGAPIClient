@@ -10,3 +10,7 @@ Pods/
 # Xcode
 xcuserdata/
 *.xccheckout
+*.gcda
+*.gcno
+*.xcworkspace/xcshareddata/*.xccheckout
+*.xcworkspace/xcshareddata/*.xcscmblueprint
