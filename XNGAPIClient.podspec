@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "XNGAPIClient"
-  s.version = "2.0.0"
+  s.version = "2.1.0"
   s.license = 'MIT'
   s.ios.deployment_target = '6.0'
   s.summary = 'The official Objective-C client for the XING API'
