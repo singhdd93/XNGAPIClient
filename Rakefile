@@ -62,14 +62,14 @@ task :release do
   sh "rake spec"
  
   puts "* Linting the podspec"
-  sh "pod lib lint"
+  sh "pod lib lint --allow-warnings --use-libraries"
 
   # Then release
   sh "git commit #{podspec_path} -m 'Release #{spec_version}' --allow-empty"
   sh "git tag -a #{spec_version} -m 'Release #{spec_version}'"
   sh "git push origin master"
   sh "git push origin --tags"
-  sh "pod trunk push #{podspec_path}"
+  sh "pod trunk push #{podspec_path} --allow-warnings --use-libraries"
 end
 
 # @return [Pod::Version] The version as reported by the Podspec.
