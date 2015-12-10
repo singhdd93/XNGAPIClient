@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Next Version
+
+* Add GET call for checking the progress of the processing of a profile photo after uploading it successfully [#90](https://github.com/xing/XNGAPIClient/pull/90)
+
 ## 2.1.0 
 
 * Add PUT for setting a company as primary company [#72](https://github.com/xing/XNGAPIClient/pull/72)
