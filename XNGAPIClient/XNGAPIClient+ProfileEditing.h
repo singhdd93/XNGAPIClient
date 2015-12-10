@@ -47,6 +47,13 @@
                                       failure:(void (^)(NSError *error))failure;
 
 /**
+ Get profile picture upload progress
+ https://dev.xing.com/docs/get/users/me/photo/progress
+ */
+- (void)getUsersProfilePictureProgressWithSuccess:(void (^)(id JSON))success
+                                          failure:(void (^)(NSError *error))failure;
+
+/**
  Delete users profile picture
 
  https://dev.xing.com/docs/delete/users/me/photo
@@ -168,7 +175,7 @@ https://dev.xing.com/docs/put/users/me/private_address
  Update a company
 
  https://dev.xing.com/docs/put/users/me/professional_experience/companies/:id
- 
+
  Note: Use a boolean NSNumber on `untilNow` parameter.
 */
 - (void)putUpdateCompanyWithID:(NSString *)id

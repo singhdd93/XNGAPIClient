@@ -131,6 +131,21 @@
     }];
 }
 
+- (void)testGetUsersProfilePictureProgress {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] getUsersProfilePictureProgressWithSuccess:nil failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/photo/progress");
+        expect(request.HTTPMethod).to.equal(@"GET");
+
+        [self.testHelper removeOAuthParametersInQueryDict:query];
+
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
 - (void)testUpdateUsersBusinessAddress {
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] putUpdateUsersBusinessAddressWithCity:@"Hamburg"

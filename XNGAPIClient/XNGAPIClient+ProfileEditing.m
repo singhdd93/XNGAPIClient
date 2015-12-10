@@ -77,6 +77,15 @@
               failure:failure];
 }
 
+- (void)getUsersProfilePictureProgressWithSuccess:(void (^)(id JSON))success
+                                          failure:(void (^)(NSError *error))failure {
+    NSString *path = @"/v1/users/me/photo/progress";
+    [self getJSONPath:path
+           parameters:nil
+              success:success
+              failure:failure];
+}
+
 - (void)deleteUsersProfilePictureWithSuccess:(void (^)(id JSON))success
                                      failure:(void (^)(NSError *error))failure {
     NSString *path = @"v1/users/me/photo";
