@@ -57,15 +57,6 @@
 }
 
 - (void)putUpdateUsersProfilePictureWithImage:(UIImage *)image
-                                      success:(void (^)(id JSON))success
-                                      failure:(void (^)(NSError *error))failure {
-    [self putUpdateUsersProfilePictureWithImage:image
-                                 uploadProgress:nil
-                                        success:success
-                                        failure:failure];
-}
-
-- (void)putUpdateUsersProfilePictureWithImage:(UIImage *)image
                                uploadProgress:(void (^)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))uploadProgress
                                       success:(void (^)(id JSON))success
                                       failure:(void (^)(NSError *error))failure {
