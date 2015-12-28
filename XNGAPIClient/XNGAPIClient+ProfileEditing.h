@@ -46,6 +46,8 @@
                                       success:(void (^)(id JSON))success
                                       failure:(void (^)(NSError *error))failure;
 
+- (void)cancelPutUpdateUsersProfilePicture;
+
 /**
  Get profile picture upload progress
  https://dev.xing.com/docs/get/users/me/photo/progress
