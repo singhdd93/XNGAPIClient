@@ -45,6 +45,10 @@
 - (void)putUpdateUsersProfilePictureWithImage:(UIImage *)image
                                       success:(void (^)(id JSON))success
                                       failure:(void (^)(NSError *error))failure;
+- (void)putUpdateUsersProfilePictureWithImage:(UIImage *)image
+                               uploadProgress:(void (^)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))uploadProgress
+                                      success:(void (^)(id JSON))success
+                                      failure:(void (^)(NSError *error))failure;
 
 /**
  Get profile picture upload progress

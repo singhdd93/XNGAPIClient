@@ -114,13 +114,22 @@ extern NSString * const XNGAPIClientDeprecationWarningNotification;
                success:(void (^)(id JSON))success
                failure:(void (^)(NSError *error))failure;
 
-#pragma mark - block-based PUT with JSON parameters
+#pragma mark - block-based PUT and POST with JSON parameters
 
 /**
  use this method to make a JSON encoded PUT call to the public XING API.
 */
 - (void)putJSONPath:(NSString *)path
      JSONParameters:(NSDictionary *)parameters
+            success:(void (^)(id JSON))success
+            failure:(void (^)(NSError *error))failure;
+
+/**
+ use this method to make a JSON encoded PUT call to the public XING API and track its progress
+ */
+- (void)putJSONPath:(NSString *)path
+     JSONParameters:(NSDictionary *)parameters
+     uploadProgress:(void (^)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))uploadProgress
             success:(void (^)(id JSON))success
             failure:(void (^)(NSError *error))failure;
 

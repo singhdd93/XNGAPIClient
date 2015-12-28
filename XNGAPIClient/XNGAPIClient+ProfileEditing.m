@@ -59,20 +59,31 @@
 - (void)putUpdateUsersProfilePictureWithImage:(UIImage *)image
                                       success:(void (^)(id JSON))success
                                       failure:(void (^)(NSError *error))failure {
+    [self putUpdateUsersProfilePictureWithImage:image
+                                 uploadProgress:nil
+                                        success:success
+                                        failure:failure];
+}
+
+- (void)putUpdateUsersProfilePictureWithImage:(UIImage *)image
+                               uploadProgress:(void (^)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))uploadProgress
+                                      success:(void (^)(id JSON))success
+                                      failure:(void (^)(NSError *error))failure {
     if (!image) {
         return;
     }
 
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     parameters[@"photo"] = @{
-            @"file_name": [image xng_uuidImageName],
-            @"mime_type": @"image/jpeg",
-            @"content": [image xng_base64]
-    };
+                             @"file_name": [image xng_uuidImageName],
+                             @"mime_type": @"image/jpeg",
+                             @"content": [image xng_base64]
+                             };
 
     NSString *path = @"/v1/users/me/photo";
     [self putJSONPath:path
        JSONParameters:parameters
+       uploadProgress:uploadProgress
               success:success
               failure:failure];
 }
