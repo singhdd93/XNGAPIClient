@@ -76,6 +76,18 @@
     }];
 }
 
+- (void)testCancelUserProfilePictureUpload {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] cancelPutUpdateUsersProfilePicture];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/photo");
+        expect(request.HTTPMethod).to.equal(@"PUT");
+        expect([query allKeys]).to.haveCountOf(0);
+        expect(body).toNot.beNil();
+    }];
+}
+
 - (void)testDeleteUsersProfilePicture {
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] deleteUsersProfilePictureWithSuccess:nil

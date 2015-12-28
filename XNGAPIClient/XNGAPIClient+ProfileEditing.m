@@ -70,11 +70,19 @@
             @"content": [image xng_base64]
     };
 
-    NSString *path = @"/v1/users/me/photo";
-    [self putJSONPath:path
+    [self putJSONPath:[self pathForProfilePictureUpload]
        JSONParameters:parameters
               success:success
               failure:failure];
+}
+
+- (void)cancelPutUpdateUsersProfilePicture {
+    [self cancelAllHTTPOperationsWithMethod:@"PUT"
+                                       path:[self pathForProfilePictureUpload]];
+}
+
+- (NSString *)pathForProfilePictureUpload {
+    return @"/v1/users/me/photo";
 }
 
 - (void)getUsersProfilePictureProgressWithSuccess:(void (^)(id JSON))success
