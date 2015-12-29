@@ -21,16 +21,22 @@
 
 #import "NSDictionary+Typecheck.h"
 
-
 @implementation NSDictionary (Typecheck)
 
+static NSString *stringFromValue(id value) {
+    if ([value isKindOfClass:[NSString class]]) {
+        return value;
+    } else {
+        return nil;
+    }
+}
 
 - (NSString *)xng_stringForKey:(id)key {
-    id value = self[key];
-    if ([value isKindOfClass:[NSString class]])
-        return value;
-    else
-        return nil;
+    return stringFromValue([self objectForKey:key]);
+}
+
+- (NSString *)xng_stringForKeyPath:(NSString *)keyPath {
+    return stringFromValue([self valueForKeyPath:keyPath]);
 }
 
 static NSArray *arrayFromValue(id value) {
@@ -51,46 +57,39 @@ static NSArray *arrayFromValue(id value) {
 
 - (CGFloat)xng_floatForKey:(id)key {
     id value = self[key];
-    if ([value isKindOfClass:[NSString class]])
+    if ([value isKindOfClass:[NSString class]]) {
         return [value floatValue];
-    else if ([value isKindOfClass:[NSNumber class]])
-    {
+    } else if ([value isKindOfClass:[NSNumber class]]) {
         return [value floatValue];
-    }
-    else
+    } else {
         return 0.0;
+    }
 }
 
 - (NSInteger)xng_intForKey:(id)key {
     id value = self[key];
-    if ([value isKindOfClass:[NSString class]])
+    if ([value isKindOfClass:[NSString class]] ||
+        [value isKindOfClass:[NSNumber class]]) {
         return [value intValue];
-    else if ([value isKindOfClass:[NSNumber class]])
-    {
-        return [value intValue];
-    }
-    else
+    } else {
         return 0;
+    }
 }
 
 - (BOOL)xng_BOOLForKey:(id)key {
     id value = self[key];
-    if ([value isKindOfClass:[NSNumber class]])
-    {
+    if ([value isKindOfClass:[NSNumber class]]) {
         return [value boolValue];
-    } else if ([value isKindOfClass:[NSString class]])
-    {
-        if ([value isEqualToString:@"true"]) {
-            return YES;
-        }
+    } else if ([value isKindOfClass:[NSString class]]) {
+        return [value isEqualToString:@"true"];
+    } else {
+        return NO;
     }
-    return NO;
 }
 
 - (NSNumber *)xng_numberForKey:(id)key {
     id value = self[key];
-    if ([value isKindOfClass:[NSNumber class]])
-    {
+    if ([value isKindOfClass:[NSNumber class]]) {
         return value;
     }
     return nil;
@@ -98,13 +97,13 @@ static NSArray *arrayFromValue(id value) {
 
 - (NSMutableArray *)xng_mutableArrayForKey:(id)key {
     id value = self[key];
-    
-    if ([value isKindOfClass:[NSMutableArray class]])
+    if ([value isKindOfClass:[NSMutableArray class]]) {
         return value;
-    else if ([value isKindOfClass:[NSArray class]])
+    } else if ([value isKindOfClass:[NSArray class]]) {
         return [NSMutableArray arrayWithArray:value];
-    else
+    } else {
         return nil;
+    }
 }
 
 static NSDictionary *dictFromValue(id value) {
@@ -122,6 +121,5 @@ static NSDictionary *dictFromValue(id value) {
 - (NSDictionary *)xng_dictForKeyPath:(NSString *)keyPath {
     return dictFromValue([self valueForKeyPath:keyPath]);
 }
-
 
 @end

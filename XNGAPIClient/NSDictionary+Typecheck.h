@@ -23,8 +23,8 @@
 
 @interface NSDictionary (Typecheck)
 
-
 - (NSString *)xng_stringForKey:(id)key;
+- (NSString *)xng_stringForKeyPath:(NSString *)keyPath;
 - (CGFloat)xng_floatForKey:(id)key;
 - (NSInteger)xng_intForKey:(id)key;
 - (BOOL)xng_BOOLForKey:(id)key;
@@ -35,6 +35,5 @@
 - (NSMutableArray *)xng_mutableArrayForKey:(id)key;
 - (NSDictionary *)xng_dictForKey:(id)key;
 - (NSDictionary *)xng_dictForKeyPath:(NSString *)keyPath;
-
 
 @end
