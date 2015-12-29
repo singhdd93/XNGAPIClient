@@ -344,10 +344,18 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
                  failure:failure];
 }
 
-#pragma mark - block-based PUT with JSON parameters
+#pragma mark - block-based PUT and POST with JSON parameters
 
 - (void)putJSONPath:(NSString *)path
      JSONParameters:(NSDictionary *)parameters
+            success:(void (^)(id JSON))success
+            failure:(void (^)(NSError *error))failure {
+    [self putJSONPath:path JSONParameters:parameters uploadProgress:nil success:success failure:failure];
+}
+
+- (void)putJSONPath:(NSString *)path
+     JSONParameters:(NSDictionary *)parameters
+     uploadProgress:(void (^)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))uploadProgress
             success:(void (^)(id JSON))success
             failure:(void (^)(NSError *error))failure {
     self.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -358,6 +366,7 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
     AFHTTPRequestOperation *operation = [self xng_HTTPRequestOperationWithRequest:request
                                                                           success:success
                                                                           failure:failure];
+    [operation setUploadProgressBlock:uploadProgress];
     [self.operationQueue addOperation:operation];
     self.requestSerializer = [AFHTTPRequestSerializer serializer];
 }

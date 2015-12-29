@@ -59,6 +59,7 @@
     __block UIImage *image = [UIImage imageNamed:@"testimage.jpg"];
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] putUpdateUsersProfilePictureWithImage:image
+                                                            uploadProgress:nil
                                                                    success:nil
                                                                    failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {

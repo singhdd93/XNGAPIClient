@@ -43,6 +43,7 @@
  https://dev.xing.com/docs/put/users/me/photo
 */
 - (void)putUpdateUsersProfilePictureWithImage:(UIImage *)image
+                               uploadProgress:(void (^)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))uploadProgress
                                       success:(void (^)(id JSON))success
                                       failure:(void (^)(NSError *error))failure;
 
