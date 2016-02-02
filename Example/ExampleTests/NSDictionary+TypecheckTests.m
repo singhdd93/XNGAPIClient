@@ -19,6 +19,14 @@ static NSString * const XNGTypecheckTestKey = @"key";
     expect([classUnderTest xng_stringForKey:XNGTypecheckTestKey]).to.beFalsy();
 }
 
+- (void)testStringForKeyPath {
+    NSString *testString = @"value";
+    NSDictionary *classUnderTest = @{XNGTypecheckTestKey:@{@"otherKey": testString}};
+    expect([classUnderTest xng_stringForKeyPath:@"key.otherKey"]).to.equal(testString);
+    classUnderTest = @{XNGTypecheckTestKey:@{@"otherKey": @0}};
+    expect([classUnderTest xng_stringForKeyPath:@"key.otherKey"]).to.beFalsy();
+}
+
 - (void)testArrayForKey {
     NSArray *testArray = @[];
     NSDictionary *classUnderTest = @{XNGTypecheckTestKey: testArray};
