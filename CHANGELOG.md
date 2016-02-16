@@ -1,8 +1,9 @@
 # CHANGELOG
 
-## Next Version
+## 2.2.0 
 
 * Add GET call for checking the progress of the processing of a profile photo after uploading it successfully [#90](https://github.com/xing/XNGAPIClient/pull/90)
+* Add method -xng_stringForKeyPath: to NSDictionary [#94](https://github.com/xing/XNGAPIClient/pull/94)
 
 ## 2.1.0 
 
