@@ -20,13 +20,13 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - Expecta (1.0.0)
-  - OCMock (3.1.2)
+  - Expecta (1.0.5)
+  - OCMock (3.2.2)
   - OHHTTPStubs (3.1.0)
   - SSKeychain (1.2.3)
-  - XNGAPIClient (2.1.0):
-    - XNGAPIClient/Core (= 2.1.0)
-  - XNGAPIClient/Core (2.1.0):
+  - XNGAPIClient (2.2.0):
+    - XNGAPIClient/Core (= 2.2.0)
+  - XNGAPIClient/Core (2.2.0):
     - AFNetworking (= 2.5.4)
     - SSKeychain (~> 1.2.0)
     - XNGOAuth1Client (~> 2.0.0)
@@ -45,11 +45,11 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
-  Expecta: 32604574add2c46a36f8d2f716b6c5736eb75024
-  OCMock: a10ea9f0a6e921651f96f78b6faee95ebc813b92
+  Expecta: e1c022fcd33910b6be89c291d2775b3fe27a89fe
+  OCMock: 18c9b7e67d4c2770e95bb77a9cc1ae0c91fe3835
   OHHTTPStubs: b7b9e6a5de5f324b7fafea4a5269ada5e4e156bc
   SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d
-  XNGAPIClient: e2d2cd818eb5a380fa0235ffc576ba4d93311a97
+  XNGAPIClient: 8f6c2d65f16c415a46b232283a37cb3105d9828b
   XNGOAuth1Client: 31e9b13bc313c7045503d06e89901798257a817b
 
 COCOAPODS: 0.38.2

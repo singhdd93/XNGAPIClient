@@ -77,18 +77,24 @@
 
 + (NSDictionary *)xng_URLDecodedDictionaryFromString:(NSString *)string {
     NSArray *components = [string componentsSeparatedByString:@"&"];
-	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-	for(NSString *comp in components) {
-		NSArray *parts = [comp componentsSeparatedByString:@"="];
-		if( [parts count] != 2) {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    for (NSString *comp in components) {
+        NSArray *parts = [comp componentsSeparatedByString:@"="];
+        if ( [parts count] != 2) {
             continue;
         }
         NSString *key = parts[0];
+        if (key.length) {
+            key = [key xng_URLDecodedString];
+        }
         NSString *value = parts[1];
+        if (value.length) {
+            value = [value xng_URLDecodedString];
+        }
         [dict setValue:value
                 forKey:key];
-	}
-	return [NSDictionary dictionaryWithDictionary:dict];
+    }
+    return [NSDictionary dictionaryWithDictionary:dict];
 }
 
 @end
