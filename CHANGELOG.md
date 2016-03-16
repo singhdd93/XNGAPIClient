@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Next Version
+
+* Add PUT call to update the users legal information [#98](https://github.com/xing/XNGAPIClient/pull/98)
+
 ## 2.2.0 
 
 * Add GET call for checking the progress of the processing of a profile photo after uploading it successfully [#90](https://github.com/xing/XNGAPIClient/pull/90)
