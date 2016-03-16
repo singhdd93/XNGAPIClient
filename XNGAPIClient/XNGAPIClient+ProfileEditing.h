@@ -275,4 +275,13 @@ https://dev.xing.com/docs/put/users/me/private_address
                                   success:(void (^)(id JSON))success
                                   failure:(void (^)(NSError *error))failure;
 
+/**
+ Update the users legal information
+ 
+ https://developer.xing.com/docs/put/users/me/legal_information
+ */
+- (void)putUpdateLegalInformation:(NSString *)content
+                          success:(void (^)(id JSON))success
+                          failure:(void (^)(NSError *error))failure;
+
 @end

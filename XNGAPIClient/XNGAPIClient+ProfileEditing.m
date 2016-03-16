@@ -523,4 +523,17 @@
     [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
+- (void)putUpdateLegalInformation:(NSString *)content
+                          success:(void (^)(id JSON))success
+                          failure:(void (^)(NSError *error))failure {
+    
+    if (!content) {
+        return;
+    }
+    
+    NSString *path = @"v1/users/me/legal_information";
+    NSDictionary *parameters = @{@"content": content};
+    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
+}
+
 @end

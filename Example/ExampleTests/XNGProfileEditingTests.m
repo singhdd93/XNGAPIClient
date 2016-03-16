@@ -557,4 +557,17 @@
     }];
 }
 
+- (void)testUpdateLegalInformation {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] putUpdateLegalInformation:@"Awesome legal information" success:nil failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/legal_information");
+        expect(request.HTTPMethod).to.equal(@"PUT");
+        
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body valueForKey:@"content"]).to.equal(@"Awesome legal information");
+    }];
+}
+
 @end
