@@ -6,7 +6,7 @@ end
 
 desc "Runs the specs [EMPTY]"
 task :spec do
-  sh 'set -o pipefail && xcodebuild -workspace XNGAPIClient.xcworkspace -scheme \'Example\' -destination platform=\'iOS Simulator\',OS=$OS,name=\'iPhone 5s\' test -sdk iphonesimulator | xcpretty -tc'
+  sh 'set -o pipefail && xcodebuild -workspace XNGAPIClient.xcworkspace -scheme \'Example\' -destination platform=\'iOS Simulator\',OS=$OS,name=\'iPhone 5s\' test -sdk iphonesimulator -derivedDataPath \'./build\' | xcpretty -tc'
 end
 
 task :version do
