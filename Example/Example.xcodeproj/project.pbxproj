@@ -24,7 +24,7 @@
 		1643AD3122657957775278AB /* XNGUserProfilesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643A1BE0D90AA10F861D306 /* XNGUserProfilesTests.m */; };
 		1643ADB48536FC743DAE256D /* XNGNetworkFeedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643A084DAC3C8283DACA333 /* XNGNetworkFeedTests.m */; };
 		1643AECE2FE6634A0735484B /* NSString+URLEncodingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643A25171307614EC2D7CB1 /* NSString+URLEncodingTests.m */; };
-		315972831BCE3097005BCDEA /* XNGEventsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 315972821BCE3097005BCDEA /* XNGEventsTests.m */; settings = {ASSET_TAGS = (); }; };
+		315972831BCE3097005BCDEA /* XNGEventsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 315972821BCE3097005BCDEA /* XNGEventsTests.m */; };
 		5128AA8B014F48469A16EF85 /* libPods-ExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C98DCF1A56C42639595EAC3 /* libPods-ExampleTests.a */; };
 		6A1023521A27707000EE8E95 /* NSDictionary+TypecheckTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A1023511A27707000EE8E95 /* NSDictionary+TypecheckTests.m */; };
 		7ABF25CA1B0F3207000267FD /* XNGGroupsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABF25C91B0F3207000267FD /* XNGGroupsTests.m */; };
@@ -257,6 +257,7 @@
 				F057E0A119191BD400C0E1E6 /* Frameworks */,
 				F057E0A219191BD400C0E1E6 /* Resources */,
 				31AE21BCCDFD4520954BB5D6 /* Copy Pods Resources */,
+				9CF76479FF5B95F0CB822C99 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -276,6 +277,7 @@
 				F057E0BC19191BD400C0E1E6 /* Frameworks */,
 				F057E0BD19191BD400C0E1E6 /* Resources */,
 				916BCF4A322745C0A5CBB034 /* Copy Pods Resources */,
+				423044725204C2603ABF4582 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -372,6 +374,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Example/Pods-Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		423044725204C2603ABF4582 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ExampleTests/Pods-ExampleTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		916BCF4A322745C0A5CBB034 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -385,6 +402,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ExampleTests/Pods-ExampleTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9CF76479FF5B95F0CB822C99 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Example/Pods-Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E22E71C9B16F43EE946E7046 /* Check Pods Manifest.lock */ = {
@@ -554,10 +586,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Example/Example-Prefix.pch";
 				INFOPLIST_FILE = "Example/Example-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -569,10 +603,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Example/Example-Prefix.pch";
 				INFOPLIST_FILE = "Example/Example-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -583,11 +619,14 @@
 			baseConfigurationReference = 55AB9B73B0DAE5C94E8F123E /* Pods-ExampleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Example.app/Example";
+				CLANG_ENABLE_CODE_COVERAGE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
+				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Example/Example-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -595,6 +634,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "ExampleTests/ExampleTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -606,14 +646,18 @@
 			baseConfigurationReference = 076EF159C3685AB2BA9219E6 /* Pods-ExampleTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Example.app/Example";
+				CLANG_ENABLE_CODE_COVERAGE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
+				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Example/Example-Prefix.pch";
 				INFOPLIST_FILE = "ExampleTests/ExampleTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
