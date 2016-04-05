@@ -84,7 +84,13 @@
             continue;
         }
         NSString *key = parts[0];
+        if (key.length) {
+            key = [key xng_URLDecodedString];
+        }
         NSString *value = parts[1];
+        if (value.length) {
+            value = [value xng_URLDecodedString];
+        }
         [dict setValue:value
                 forKey:key];
 	}
