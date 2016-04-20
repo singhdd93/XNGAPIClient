@@ -24,7 +24,7 @@
 		1643AD3122657957775278AB /* XNGUserProfilesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643A1BE0D90AA10F861D306 /* XNGUserProfilesTests.m */; };
 		1643ADB48536FC743DAE256D /* XNGNetworkFeedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643A084DAC3C8283DACA333 /* XNGNetworkFeedTests.m */; };
 		1643AECE2FE6634A0735484B /* NSString+URLEncodingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1643A25171307614EC2D7CB1 /* NSString+URLEncodingTests.m */; };
-		315972831BCE3097005BCDEA /* XNGEventsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 315972821BCE3097005BCDEA /* XNGEventsTests.m */; settings = {ASSET_TAGS = (); }; };
+		315972831BCE3097005BCDEA /* XNGEventsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 315972821BCE3097005BCDEA /* XNGEventsTests.m */; };
 		5128AA8B014F48469A16EF85 /* libPods-ExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C98DCF1A56C42639595EAC3 /* libPods-ExampleTests.a */; };
 		6A1023521A27707000EE8E95 /* NSDictionary+TypecheckTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A1023511A27707000EE8E95 /* NSDictionary+TypecheckTests.m */; };
 		7ABF25CA1B0F3207000267FD /* XNGGroupsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABF25C91B0F3207000267FD /* XNGGroupsTests.m */; };
@@ -257,6 +257,7 @@
 				F057E0A119191BD400C0E1E6 /* Frameworks */,
 				F057E0A219191BD400C0E1E6 /* Resources */,
 				31AE21BCCDFD4520954BB5D6 /* Copy Pods Resources */,
+				308B963ED173DCDF28ED94A7 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -276,6 +277,7 @@
 				F057E0BC19191BD400C0E1E6 /* Frameworks */,
 				F057E0BD19191BD400C0E1E6 /* Resources */,
 				916BCF4A322745C0A5CBB034 /* Copy Pods Resources */,
+				0E77D77D2A0AD7E309774A65 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -342,6 +344,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0E77D77D2A0AD7E309774A65 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ExampleTests/Pods-ExampleTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		0F57D780DFB449618FF0213E /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -355,6 +372,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		308B963ED173DCDF28ED94A7 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Example/Pods-Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		31AE21BCCDFD4520954BB5D6 /* Copy Pods Resources */ = {
