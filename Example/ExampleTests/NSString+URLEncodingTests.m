@@ -28,7 +28,7 @@
 
 - (void)testURLDecodedDictionaryFromString {
     NSDictionary *dictUnderTest = [NSString xng_URLDecodedDictionaryFromString:@"message=Hallo%20wie%20gehts%3F&unread=1"];
-    expect(dictUnderTest).to.equal(@{@"message": @"Hallo%20wie%20gehts%3F", @"unread": @"1"});
+    expect(dictUnderTest).to.equal(@{@"message": @"Hallo wie gehts?", @"unread": @"1"});
 }
 
 @end
