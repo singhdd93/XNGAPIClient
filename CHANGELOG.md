@@ -2,7 +2,7 @@
 
 ## Next Version
 
-* Add PUT call to update the users legal information [#98](https://github.com/xing/XNGAPIClient/pull/98)
+* Added top_haves parameter to update user data call [#101](https://github.com/xing/XNGAPIClient/pull/101)
 
 ## 2.2.0 
 
