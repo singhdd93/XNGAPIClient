@@ -85,4 +85,13 @@ typedef enum XNGConctactsOrderOptions {
                          success:(void (^)(id JSON))success
                          failure:(void (^)(NSError *error))failure;
 
+/**
+ Retrieve a the list of up to 100 contacts ordered by birth date.
+ This list only includes contacts that allowed you to see their
+ birthday in their privacy settings.
+ */
+- (void)getUpcomingBirthdaysWithUserFields:(NSString *)userFields
+                                   success:(void (^)(id JSON))success
+                                   failure:(void (^)(NSError *error))failure;
+
 @end

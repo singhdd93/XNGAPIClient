@@ -216,4 +216,28 @@
      }];
 }
 
+- (void)testGetUpcomingBirthdays {
+    [self.testHelper executeCall:
+     ^{
+         [[XNGAPIClient sharedClient] getUpcomingBirthdaysWithUserFields:@"display_name"
+                                                                 success:nil
+                                                                 failure:nil];
+     }
+                withExpectations:
+     ^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+         expect(request.URL.host).to.equal(@"api.xing.com");
+         expect(request.URL.path).to.equal(@"/v1/users/me/contacts/upcoming_birthdays");
+         expect(request.HTTPMethod).to.equal(@"GET");
+
+         [self.testHelper removeOAuthParametersInQueryDict:query];
+
+         expect([query valueForKey:@"user_fields"]).to.equal(@"display_name");
+         [query removeObjectForKey:@"user_fields"];
+
+         expect([query allKeys]).to.haveCountOf(0);
+
+         expect([body allKeys]).to.haveCountOf(0);
+     }];
+}
+
 @end

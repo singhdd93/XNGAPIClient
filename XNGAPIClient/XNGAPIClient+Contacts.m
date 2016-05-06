@@ -141,6 +141,21 @@
               failure:failure];
 }
 
+- (void)getUpcomingBirthdaysWithUserFields:(NSString *)userFields
+                                   success:(void (^)(id JSON))success
+                                   failure:(void (^)(NSError *error))failure {
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+
+    if ([userFields length]) {
+        parameters[@"user_fields"] = userFields;
+    }
+
+    [self getJSONPath:[self pathForGetUpcomingBirthdays]
+           parameters:parameters
+              success:success
+              failure:failure];
+}
+
 #pragma mark - private methods
 
 - (NSString*)pathForGetContactsWithUserID:(NSString*)userID {
@@ -150,4 +165,9 @@
 - (NSString*)pathForGetSharedContactsWithUserID:(NSString*)userID {
     return [NSString stringWithFormat:@"v1/users/%@/contacts/shared", userID];
 }
+
+- (NSString*)pathForGetUpcomingBirthdays {
+    return @"v1/users/me/contacts/upcoming_birthdays";
+}
+
 @end
