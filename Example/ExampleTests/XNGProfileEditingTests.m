@@ -28,6 +28,7 @@
         [[XNGAPIClient sharedClient] putUpdateUsersGeneralInformationWithAcademicTitle:@"Dr."
                                                                       employmentStatus:@"ENTREPRENEUR"
                                                                                  haves:@"more kittens,tests"
+                                                                              topHaves:@"kittens galore,stuff"
                                                                              interests:@"unit testing"
                                                                          organisations:@"greenpeace,GEMA"
                                                                                  wants:@"100% test coverage, world peace" success:nil failure:nil];
@@ -44,6 +45,9 @@
         [body removeObjectForKey:@"employment_status"];
         expect([body valueForKey:@"haves"]).to.equal(@"more kittens,tests");
         [body removeObjectForKey:@"haves"];
+        expect([body valueForKey:@"top_haves"]).to.equal(@"kittens galore,stuff");
+        [body removeObjectForKey:@"top_haves"];
+
         expect([body valueForKey:@"interests"]).to.equal(@"unit testing");
         [body removeObjectForKey:@"interests"];
         expect([body valueForKey:@"organisation_member"]).to.equal(@"greenpeace,GEMA");

@@ -31,6 +31,7 @@
 - (void)putUpdateUsersGeneralInformationWithAcademicTitle:(NSString *)academicTitle
                                          employmentStatus:(NSString *)employmentStatus
                                                     haves:(NSString *)haves
+                                                 topHaves:(NSString *)topHaves
                                                 interests:(NSString *)interests
                                             organisations:(NSString *)organisations
                                                     wants:(NSString *)wants
