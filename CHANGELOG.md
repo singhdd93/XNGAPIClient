@@ -3,6 +3,7 @@
 ## Next Version
 
 * Add PUT call to update the users legal information [#98](https://github.com/xing/XNGAPIClient/pull/98)
+* Add GET call for upcoming birthdays [#102](https://github.com/xing/XNGAPIClient/pull/102)
 
 ## 2.2.0 
 
