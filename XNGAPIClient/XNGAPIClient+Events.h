@@ -27,10 +27,10 @@
  Get the details for a given event
 
  https://dev.xing.com/docs/get/events/:id
-*/
+ */
 - (void)getEventForID:(NSString *)eventID
            userFields:(NSString *)userFields
-         withContacts:(NSInteger)numberOfAttendingContacts
+    participantsLimit:(NSInteger)participantsLimit
               success:(void (^)(id JSON))success
               failure:(void (^)(NSError *))failure;
 
@@ -38,7 +38,7 @@
  Get the participants for a given event
 
  https://dev.xing.com/docs/get/events/:id/guests
-*/
+ */
 - (void)getEventParticipantsForID:(NSString *)eventID
                             limit:(NSInteger)limit
                            offset:(NSInteger)offset
@@ -51,13 +51,13 @@
  Get a list of events for a given search term
 
  https://dev.xing.com/docs/get/events/find
-*/
+ */
 - (void)getEventSearchResultsForString:(NSString *)searchString
                                  limit:(NSInteger)limit
                               location:(NSString *)location
                                 offset:(NSInteger)offset
                             userFields:(NSString *)userFields
-                          withContacts:(NSInteger)numberOfAttendingContacts
+                     participantsLimit:(NSInteger)participantsLimit
                                success:(void (^)(id JSON))success
                                failure:(void (^)(NSError *))failure;
 
@@ -65,13 +65,13 @@
  Get a list of events the user is/was attending and/or organizing
 
  https://dev.xing.com/docs/get/users/me/events
-*/
+ */
 - (void)getEventsWithLimit:(NSInteger)limit
                     offset:(NSInteger)offset
              participation:(NSString *)participation
                 timePeriod:(NSString *)timePeriod
                 userFields:(NSString *)userFields
-              withContacts:(NSInteger)numberOfAttendingContacts
+         participantsLimit:(NSInteger)participantsLimit
                    success:(void (^)(id JSON))success
                    failure:(void (^)(NSError *))failure;
 
@@ -79,11 +79,11 @@
  Get a list of recommended events
 
  https://dev.xing.com/docs/get/events/recommendations
-*/
+ */
 - (void)getEventRecommendationsWithLimit:(NSInteger)limit
                                   offset:(NSInteger)offset
                               userFields:(NSString *)userFields
-                            withContacts:(NSInteger)numberOfAttendingContacts
+                       participantsLimit:(NSInteger)participantsLimit
                                  success:(void (^)(id JSON))success
                                  failure:(void (^)(NSError *))failure;
 
@@ -91,11 +91,11 @@
  Get a list of events that your contacts will be attending
 
  https://dev.xing.com/docs/get/events/contacts
-*/
+ */
 - (void)getEventsOfContactsWithLimit:(NSInteger)limit
                               offset:(NSInteger)offset
                           userFields:(NSString *)userFields
-                        withContacts:(NSInteger)numberOfAttendingContacts
+                   participantsLimit:(NSInteger)participantsLimit
                              success:(void (^)(id JSON))success
                              failure:(void (^)(NSError *))failure;
 
@@ -103,7 +103,7 @@
  Set the participation for a given event
 
  https://dev.xing.com/docs/put/events/:id/rsvp
-*/
+ */
 - (void)putEventParticipationForID:(NSString *)eventID
                      participation:(NSString *)participation
                            success:(void (^)(id JSON))success

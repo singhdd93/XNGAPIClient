@@ -4,7 +4,7 @@
 
 - (void)getEventForID:(NSString *)eventID
            userFields:(NSString *)userFields
-         withContacts:(NSInteger)numberOfAttendingContacts
+    participantsLimit:(NSInteger)participantsLimit
               success:(void (^)(id))success
               failure:(void (^)(NSError *))failure {
     if (!eventID) {
@@ -15,8 +15,8 @@
     if (userFields) {
         parameters[@"user_fields"] = userFields;
     }
-    if (numberOfAttendingContacts) {
-        parameters[@"with_contacts"] = @(numberOfAttendingContacts);
+    if (participantsLimit) {
+        parameters[@"with_participants"] = @(participantsLimit);
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/events/%@", eventID];
@@ -57,7 +57,7 @@
                               location:(NSString *)location
                                 offset:(NSInteger)offset
                             userFields:(NSString *)userFields
-                          withContacts:(NSInteger)numberOfAttendingContacts
+                     participantsLimit:(NSInteger)participantsLimit
                                success:(void (^)(id))success
                                failure:(void (^)(NSError *))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
@@ -76,8 +76,8 @@
     if (userFields) {
         parameters[@"user_fields"] = userFields;
     }
-    if (numberOfAttendingContacts) {
-        parameters[@"with_contacts"] = @(numberOfAttendingContacts);
+    if (participantsLimit) {
+        parameters[@"with_participants"] = @(participantsLimit);
     }
 
     NSString *path = @"v1/events/find";
@@ -89,7 +89,7 @@
              participation:(NSString *)participation
                 timePeriod:(NSString *)timePeriod
                 userFields:(NSString *)userFields
-              withContacts:(NSInteger)numberOfAttendingContacts
+         participantsLimit:(NSInteger)participantsLimit
                    success:(void (^)(id))success
                    failure:(void (^)(NSError *))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
@@ -108,8 +108,8 @@
     if (userFields) {
         parameters[@"user_fields"] = userFields;
     }
-    if (numberOfAttendingContacts) {
-        parameters[@"with_contacts"] = @(numberOfAttendingContacts);
+    if (participantsLimit) {
+        parameters[@"with_participants"] = @(participantsLimit);
     }
 
     NSString *path = @"v1/users/me/events";
@@ -119,7 +119,7 @@
 - (void)getEventRecommendationsWithLimit:(NSInteger)limit
                                   offset:(NSInteger)offset
                               userFields:(NSString *)userFields
-                            withContacts:(NSInteger)numberOfAttendingContacts
+                       participantsLimit:(NSInteger)participantsLimit
                                  success:(void (^)(id))success
                                  failure:(void (^)(NSError *))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
@@ -132,8 +132,8 @@
     if (userFields) {
         parameters[@"user_fields"] = userFields;
     }
-    if (numberOfAttendingContacts) {
-        parameters[@"with_contacts"] = @(numberOfAttendingContacts);
+    if (participantsLimit) {
+        parameters[@"with_participants"] = @(participantsLimit);
     }
 
     NSString *path = @"v1/events/recommendations";
@@ -143,7 +143,7 @@
 - (void)getEventsOfContactsWithLimit:(NSInteger)limit
                               offset:(NSInteger)offset
                           userFields:(NSString *)userFields
-                        withContacts:(NSInteger)numberOfAttendingContacts
+                   participantsLimit:(NSInteger)participantsLimit
                              success:(void (^)(id))success
                              failure:(void (^)(NSError *))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
@@ -156,8 +156,8 @@
     if (userFields) {
         parameters[@"user_fields"] = userFields;
     }
-    if (numberOfAttendingContacts) {
-        parameters[@"with_contacts"] = @(numberOfAttendingContacts);
+    if (participantsLimit) {
+        parameters[@"with_participants"] = @(participantsLimit);
     }
 
     NSString *path = @"v1/events/contacts";
