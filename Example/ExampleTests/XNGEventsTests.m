@@ -25,7 +25,7 @@
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] getEventForID:@"42_abcd"
                                         userFields:@"id,page_name"
-                                      withContacts:10
+                                 participantsLimit:10
                                            success:nil
                                            failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -35,8 +35,8 @@
 
         expect([query valueForKey:@"user_fields"]).to.equal(@"id%2Cpage_name");
         [query removeObjectForKey:@"user_fields"];
-        expect([query valueForKey:@"with_contacts"]).to.equal(@"10");
-        [query removeObjectForKey:@"with_contacts"];
+        expect([query valueForKey:@"with_participants"]).to.equal(@"10");
+        [query removeObjectForKey:@"with_participants"];
 
         expect([query allKeys]).to.haveCountOf(0);
         expect([body allKeys]).to.haveCountOf(0);
@@ -78,7 +78,7 @@
                                                            location:@"51.1084,13.6737,100"
                                                              offset:20
                                                          userFields:@"id,page_name"
-                                                       withContacts:10
+                                                  participantsLimit:10
                                                             success:nil
                                                             failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -96,8 +96,8 @@
         [query removeObjectForKey:@"offset"];
         expect([query valueForKey:@"user_fields"]).to.equal(@"id%2Cpage_name");
         [query removeObjectForKey:@"user_fields"];
-        expect([query valueForKey:@"with_contacts"]).to.equal(@"10");
-        [query removeObjectForKey:@"with_contacts"];
+        expect([query valueForKey:@"with_participants"]).to.equal(@"10");
+        [query removeObjectForKey:@"with_participants"];
 
         expect([query allKeys]).to.haveCountOf(0);
         expect([body allKeys]).to.haveCountOf(0);
@@ -111,7 +111,7 @@
                                           participation:@"maybe"
                                              timePeriod:@"past"
                                              userFields:@"id,page_name"
-                                           withContacts:10
+                                      participantsLimit:10
                                                 success:nil
                                                 failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -129,8 +129,8 @@
         [query removeObjectForKey:@"time_period"];
         expect([query valueForKey:@"user_fields"]).to.equal(@"id%2Cpage_name");
         [query removeObjectForKey:@"user_fields"];
-        expect([query valueForKey:@"with_contacts"]).to.equal(@"10");
-        [query removeObjectForKey:@"with_contacts"];
+        expect([query valueForKey:@"with_participants"]).to.equal(@"10");
+        [query removeObjectForKey:@"with_participants"];
 
         expect([query allKeys]).to.haveCountOf(0);
         expect([body allKeys]).to.haveCountOf(0);
@@ -142,7 +142,7 @@
         [[XNGAPIClient sharedClient] getEventRecommendationsWithLimit:10
                                                                offset:20
                                                            userFields:@"id,page_name"
-                                                         withContacts:10
+                                                    participantsLimit:10
                                                               success:nil
                                                               failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -156,8 +156,8 @@
         [query removeObjectForKey:@"offset"];
         expect([query valueForKey:@"user_fields"]).to.equal(@"id%2Cpage_name");
         [query removeObjectForKey:@"user_fields"];
-        expect([query valueForKey:@"with_contacts"]).to.equal(@"10");
-        [query removeObjectForKey:@"with_contacts"];
+        expect([query valueForKey:@"with_participants"]).to.equal(@"10");
+        [query removeObjectForKey:@"with_participants"];
 
         expect([query allKeys]).to.haveCountOf(0);
         expect([body allKeys]).to.haveCountOf(0);
@@ -169,7 +169,7 @@
         [[XNGAPIClient sharedClient] getEventsOfContactsWithLimit:10
                                                            offset:20
                                                        userFields:@"id,page_name"
-                                                     withContacts:10
+                                                participantsLimit:10
                                                           success:nil
                                                           failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -183,8 +183,8 @@
         [query removeObjectForKey:@"offset"];
         expect([query valueForKey:@"user_fields"]).to.equal(@"id%2Cpage_name");
         [query removeObjectForKey:@"user_fields"];
-        expect([query valueForKey:@"with_contacts"]).to.equal(@"10");
-        [query removeObjectForKey:@"with_contacts"];
+        expect([query valueForKey:@"with_participants"]).to.equal(@"10");
+        [query removeObjectForKey:@"with_participants"];
 
         expect([query allKeys]).to.haveCountOf(0);
         expect([body allKeys]).to.haveCountOf(0);
