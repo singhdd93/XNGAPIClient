@@ -437,6 +437,12 @@
     [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
+- (void)putUpdateAwards:(NSArray<XNGAPIObjectAward*> *)awards
+                success:(void (^)(id JSON))success
+                failure:(void (^)(NSError *error))failure {
+    
+}
+
 - (void)putUpdateLanguageWithIdentifier:(NSString *)language
                                   skill:(NSString *)skill
                                 success:(void (^)(id JSON))success
