@@ -2,6 +2,7 @@
 #import "XNGTestHelper.h"
 #import <XNGAPIClient/UIImage+Base64Encoding.h>
 #import <XNGAPIClient/XNGAPI.h>
+#import <XNGAPIClient/XNGAPIClient+Misc.h>
 
 @interface XNGProfileEditingTests : XCTestCase
 
@@ -571,6 +572,26 @@
         
         expect([query allKeys]).to.haveCountOf(0);
         expect([body valueForKey:@"content"]).to.equal(@"Awesome legal information");
+    }];
+}
+
+- (void)testIndustryList {
+    [self.testHelper executeCall: ^{
+        [[XNGAPIClient sharedClient] getIndustriesForLanguage:@"en"
+                                                      success:nil
+                                                      failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/misc/industries");
+        expect(request.HTTPMethod).to.equal(@"GET");
+        
+        [self.testHelper removeOAuthParametersInQueryDict:query];
+        
+        expect([query valueForKey:@"languages"]).to.equal(@"en");
+        [query removeObjectForKey:@"languages"];
+        
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
     }];
 }
 

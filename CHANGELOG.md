@@ -2,6 +2,7 @@
 
 ## Next Version
 
+* Add GET call for list of industries []()
 * Added top_haves parameter to update user data call [#101](https://github.com/xing/XNGAPIClient/pull/101)
 * Changes `with_contacts`/`withContacts:` in events calls with `with_participants`/`participantsLimit:` [#103](https://github.com/xing/XNGAPIClient/pull/103)
 
