@@ -440,7 +440,16 @@
 - (void)putUpdateAwards:(NSArray<XNGAPIObjectAward*> *)awards
                 success:(void (^)(id JSON))success
                 failure:(void (^)(NSError *error))failure {
+    if(!awards || awards.count == 0) {
+        return;
+    }
     
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableArray *awardList = [NSMutableArray array];
+    parameters[@"awards"] = awardList;
+    
+    NSString *path = @"/v1/users/me/professional_experience/awards";
+    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
 - (void)putUpdateLanguageWithIdentifier:(NSString *)language
