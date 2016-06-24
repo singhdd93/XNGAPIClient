@@ -12,4 +12,9 @@
     return self;
 }
 
+-(NSDictionary*)awardAsDictionary {
+    NSInteger year = [[NSCalendar currentCalendar] component:NSCalendarUnitYear fromDate:self.date];
+    return @{@"name": self.name, @"date_awarded": @(year), @"url": self.url.absoluteString};
+}
+
 @end

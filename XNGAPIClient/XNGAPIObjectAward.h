@@ -6,4 +6,5 @@
 @property(nonatomic) NSURL *url;
 
 -(instancetype)initWithName:(NSString*)awardName dateAwarded:(NSDate*)awardDate url:(NSURL*)awardURL;
+-(NSDictionary*)awardAsDictionary;
 @end

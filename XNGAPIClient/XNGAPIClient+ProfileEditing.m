@@ -448,6 +448,10 @@
     NSMutableArray *awardList = [NSMutableArray array];
     parameters[@"awards"] = awardList;
     
+    for (XNGAPIObjectAward *award in awardList) {
+        [awardList addObject:[award awardAsDictionary]];
+    }
+    
     NSString *path = @"/v1/users/me/professional_experience/awards";
     [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
