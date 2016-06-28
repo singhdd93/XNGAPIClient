@@ -448,7 +448,7 @@
     NSMutableArray *awardList = [NSMutableArray array];
     parameters[@"awards"] = awardList;
     
-    for (XNGAPIObjectAward *award in awardList) {
+    for (XNGAPIObjectAward *award in awards) {
         [awardList addObject:[award awardAsDictionary]];
     }
     

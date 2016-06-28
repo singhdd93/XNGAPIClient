@@ -2,19 +2,18 @@
 
 @implementation XNGAPIObjectAward
 
--(instancetype)initWithName:(NSString*)awardName dateAwarded:(NSDate*)awardDate url:(NSURL*)awardURL {
+-(instancetype)initWithName:(NSString*)awardName dateAwarded:(NSString*)awardYear url:(NSString*)awardURL {
     self = [super init];
     if (self) {
         self.name = awardName;
-        self.date = awardDate;
+        self.year = awardYear;
         self.url = awardURL;
     }
     return self;
 }
 
 -(NSDictionary*)awardAsDictionary {
-    NSInteger year = [[NSCalendar currentCalendar] component:NSCalendarUnitYear fromDate:self.date];
-    return @{@"name": self.name, @"date_awarded": @(year), @"url": self.url.absoluteString};
+    return @{@"name": self.name, @"date_awarded": self.year, @"url": self.url};
 }
 
 @end

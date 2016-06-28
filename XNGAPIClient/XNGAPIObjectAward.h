@@ -2,9 +2,9 @@
 
 @interface XNGAPIObjectAward : NSObject
 @property(nonatomic) NSString *name;
-@property(nonatomic) NSDate *date;
-@property(nonatomic) NSURL *url;
+@property(nonatomic) NSString *year;
+@property(nonatomic) NSString *url;
 
--(instancetype)initWithName:(NSString*)awardName dateAwarded:(NSDate*)awardDate url:(NSURL*)awardURL;
+-(instancetype)initWithName:(NSString*)awardName dateAwarded:(NSString*)awardYear url:(NSString*)awardURL;
 -(NSDictionary*)awardAsDictionary;
 @end
