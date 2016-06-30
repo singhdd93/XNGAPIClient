@@ -3,6 +3,7 @@
 #import <XNGAPIClient/UIImage+Base64Encoding.h>
 #import <XNGAPIClient/XNGAPI.h>
 #import <XNGAPIClient/XNGAPIClient+Misc.h>
+#import <XNGAPIClient/XNGAPIClient+ProfileEditing.h>
 
 @interface XNGProfileEditingTests : XCTestCase
 
@@ -22,6 +23,34 @@
 - (void)tearDown {
     [super tearDown];
     [self.testHelper tearDown];
+}
+
+-(void)testUpdateAwards {
+    
+    NSArray *awards = @[[[XNGAPIObjectAward alloc] initWithName:@"Award" dateAwarded:@"2016" url:@"www.award.de"],
+                        [[XNGAPIObjectAward alloc] initWithName:@"Bward" dateAwarded:@"2015" url:@"www.bward.de"]];
+    
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] putUpdateAwards:awards success:nil failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/professional_experience/awards");
+        expect(request.HTTPMethod).to.equal(@"PUT");
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body valueForKey:@"awards"]).to.haveCountOf(2);
+        
+        NSArray<NSDictionary*>* awards = [body valueForKey:@"awards"];
+        NSDictionary *award = awards[0];
+        NSDictionary *bward = awards[1];
+        
+        expect([award valueForKey:@"name"]).to.equal(@"Award");
+        expect([award valueForKey:@"date_awarded"]).to.equal(@"2016");
+        expect([award valueForKey:@"url"]).to.equal(@"www.award.de");
+        
+        expect([bward valueForKey:@"name"]).to.equal(@"Bward");
+        expect([bward valueForKey:@"date_awarded"]).to.equal(@"2015");
+        expect([bward valueForKey:@"url"]).to.equal(@"www.bward.de");
+    }];
 }
 
 - (void)testUpdateWantsHavesInterests {
