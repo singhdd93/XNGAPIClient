@@ -437,10 +437,10 @@
     [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
-- (void)putUpdateAwards:(NSArray<XNGAPIObjectAward*> *)awards
+- (void)putUpdateAwards:(NSArray<XNGAPIAward *> *)awards
                 success:(void (^)(id JSON))success
                 failure:(void (^)(NSError *error))failure {
-    if(!awards || awards.count == 0) {
+    if(awards.count == 0) {
         return;
     }
     
@@ -448,7 +448,7 @@
     NSMutableArray *awardList = [NSMutableArray array];
     parameters[@"awards"] = awardList;
     
-    for (XNGAPIObjectAward *award in awards) {
+    for (XNGAPIAward *award in awards) {
         [awardList addObject:[award awardAsDictionary]];
     }
     

@@ -20,7 +20,7 @@
 // THE SOFTWARE.
 
 #import "XNGAPIClient.h"
-#import "XNGAPIObjectAward.h"
+#import "XNGAPIAward.h"
 
 @interface XNGAPIClient (ProfileEditing)
 
@@ -222,7 +222,7 @@ https://dev.xing.com/docs/put/users/me/private_address
  
  https://dev.xing.com/docs/put/users/me/professional_experience/awards
  */
-- (void)putUpdateAwards:(NSArray<XNGAPIObjectAward*> *)awards
+- (void)putUpdateAwards:(NSArray<XNGAPIAward *> *)awards
                 success:(void (^)(id JSON))success
                 failure:(void (^)(NSError *error))failure;
 

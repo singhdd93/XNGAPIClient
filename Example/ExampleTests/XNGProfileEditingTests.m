@@ -27,8 +27,8 @@
 
 -(void)testUpdateAwards {
     
-    NSArray *awards = @[[[XNGAPIObjectAward alloc] initWithName:@"Award" dateAwarded:@"2016" url:@"www.award.de"],
-                        [[XNGAPIObjectAward alloc] initWithName:@"Bward" dateAwarded:@"2015" url:@"www.bward.de"]];
+    NSArray *awards = @[[[XNGAPIAward alloc] initWithName:@"Award" dateAwarded:@"2016" url:[NSURL URLWithString:@"www.award.de"]],
+                        [[XNGAPIAward alloc] initWithName:@"Bward" dateAwarded:@"2015" url:[NSURL URLWithString:@"www.bward.de"]]];
     
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] putUpdateAwards:awards success:nil failure:nil];
