@@ -2,8 +2,6 @@
 #import "XNGTestHelper.h"
 #import <XNGAPIClient/UIImage+Base64Encoding.h>
 #import <XNGAPIClient/XNGAPI.h>
-#import <XNGAPIClient/XNGAPIClient+Misc.h>
-#import <XNGAPIClient/XNGAPIClient+ProfileEditing.h>
 
 @interface XNGProfileEditingTests : XCTestCase
 
@@ -27,8 +25,10 @@
 
 -(void)testUpdateAwards {
     
-    NSArray *awards = @[[[XNGAPIAward alloc] initWithName:@"Award" dateAwarded:@"2016" url:[NSURL URLWithString:@"www.award.de"]],
-                        [[XNGAPIAward alloc] initWithName:@"Bward" dateAwarded:@"2015" url:[NSURL URLWithString:@"www.bward.de"]]];
+    NSArray *awards = @[
+        [[XNGAPIAward alloc] initWithName:@"Award" dateAwarded:@"2016" url:[NSURL URLWithString:@"www.award.de"]],
+        [[XNGAPIAward alloc] initWithName:@"Bward" dateAwarded:@"2015" url:[NSURL URLWithString:@"www.bward.de"]]
+    ];
     
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] putUpdateAwards:awards success:nil failure:nil];
@@ -39,7 +39,7 @@
         expect([query allKeys]).to.haveCountOf(0);
         expect([body valueForKey:@"awards"]).to.haveCountOf(2);
         
-        NSArray<NSDictionary*>* awards = [body valueForKey:@"awards"];
+        NSArray<NSDictionary *> *awards = [body valueForKey:@"awards"];
         NSDictionary *award = awards[0];
         NSDictionary *bward = awards[1];
         

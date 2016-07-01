@@ -440,7 +440,7 @@
 - (void)putUpdateAwards:(NSArray<XNGAPIAward *> *)awards
                 success:(void (^)(id JSON))success
                 failure:(void (^)(NSError *error))failure {
-    if(awards.count == 0) {
+    if (awards.count == 0) {
         return;
     }
     
