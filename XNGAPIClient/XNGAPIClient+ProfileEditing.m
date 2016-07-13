@@ -550,14 +550,14 @@
     }
     
     NSString *path = [NSString stringWithFormat:@"v1/users/me/instant_messaging_accounts/%@", account];
-    NSDictionary *parameters = @{@"name" : name};
+    NSDictionary *parameters = @{@"name": name};
     [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
 - (void)deleteInstantMessengerAccount:(NSString *)account
                               success:(void (^)(id JSON))success
                               failure:(void (^)(NSError *error))failure {
-    if (account.length == 0) {
+    if (!account) {
         return;
     }
 
