@@ -20,6 +20,7 @@
 // THE SOFTWARE.
 
 #import "XNGAPIClient.h"
+#import "XNGAPIAward.h"
 
 @interface XNGAPIClient (ProfileEditing)
 
@@ -215,6 +216,15 @@ https://dev.xing.com/docs/put/users/me/private_address
 - (void)putUpdatePrimaryCompanyWithID:(NSString *)companyID
                               success:(void (^)(id JSON))success
                               failure:(void (^)(NSError *error))failure;
+
+/**
+ Update the users award list
+ 
+ https://dev.xing.com/docs/put/users/me/professional_experience/awards
+ */
+- (void)putUpdateAwards:(NSArray<XNGAPIAward *> *)awards
+                success:(void (^)(id JSON))success
+                failure:(void (^)(NSError *error))failure;
 
 /**
  Updates the given language skill from the profile
