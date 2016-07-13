@@ -540,4 +540,18 @@
     [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
+- (void)putUpdateInstantMessengerAccountWithAccount:(NSString *)account
+                                               name:(NSString *)name
+                                            success:(void (^)(id JSON))success
+                                            failure:(void (^)(NSError *error))failure {
+  
+    if (!account || !name) {
+        return;
+    }
+    
+    NSString *path = [NSString stringWithFormat:@"v1/users/me/instant_messaging_accounts/%@", account];
+    NSDictionary *parameters = @{@"name" : name};
+    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
+}
+
 @end

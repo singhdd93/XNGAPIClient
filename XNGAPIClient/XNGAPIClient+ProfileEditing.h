@@ -285,4 +285,14 @@ https://dev.xing.com/docs/put/users/me/private_address
                           success:(void (^)(id JSON))success
                           failure:(void (^)(NSError *error))failure;
 
+/**
+ Update the users instant messenger account
+ 
+ https://dev.xing.com/docs/put/users/me/instant_messaging_accounts/:account
+ */
+- (void)putUpdateInstantMessengerAccountWithAccount:(NSString *)account
+                                               name:(NSString *)name
+                                            success:(void (^)(id JSON))success
+                                            failure:(void (^)(NSError *error))failure;
+
 @end
