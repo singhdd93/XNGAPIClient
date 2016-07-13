@@ -2,6 +2,7 @@
 
 ## Next Version
 
+* Added call to update and delete an instant messenger account on your profile. [#106](https://github.com/xing/XNGAPIClient/pull/106)
 * Added top_haves parameter to update user data call [#101](https://github.com/xing/XNGAPIClient/pull/101)
 * Changes `with_contacts`/`withContacts:` in events calls with `with_participants`/`participantsLimit:` [#103](https://github.com/xing/XNGAPIClient/pull/103)
 
