@@ -295,4 +295,13 @@ https://dev.xing.com/docs/put/users/me/private_address
                                             success:(void (^)(id JSON))success
                                             failure:(void (^)(NSError *error))failure;
 
+/**
+ Delete the users instant messenger account
+ 
+ https://dev.xing.com/docs/delete/users/me/instant_messaging_accounts/:account
+ */
+- (void)deleteInstantMessengerAccount:(NSString *)account
+                              success:(void (^)(id JSON))success
+                              failure:(void (^)(NSError *error))failure;
+
 @end

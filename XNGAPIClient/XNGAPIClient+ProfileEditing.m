@@ -554,4 +554,15 @@
     [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
 }
 
+- (void)deleteInstantMessengerAccount:(NSString *)account
+                              success:(void (^)(id JSON))success
+                              failure:(void (^)(NSError *error))failure {
+    if (account.length == 0) {
+        return;
+    }
+
+    NSString *path = [NSString stringWithFormat:@"v1/users/me/instant_messaging_accounts/%@", account];
+    [self deleteJSONPath:path parameters:nil success:success failure:failure];
+}
+
 @end
