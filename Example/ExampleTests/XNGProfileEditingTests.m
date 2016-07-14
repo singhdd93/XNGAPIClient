@@ -604,6 +604,39 @@
     }];
 }
 
+- (void)testUpdateInstantMessengerAccount {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] putUpdateInstantMessengerAccountWithAccount:@"skype"
+                                                                            name:@"1122334455"
+                                                                         success:nil
+                                                                         failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/instant_messaging_accounts/skype");
+        expect(request.HTTPMethod).to.equal(@"PUT");
+        
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body valueForKey:@"name"]).to.equal(@"1122334455");
+        [body removeObjectForKey:@"name"];
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
+- (void)testDeleteInstantMessengerAccount {
+    [self.testHelper executeCall:^{
+        [[XNGAPIClient sharedClient] deleteInstantMessengerAccount:@"skype"
+                                                           success:nil
+                                                           failure:nil];
+    } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
+        expect(request.URL.host).to.equal(@"api.xing.com");
+        expect(request.URL.path).to.equal(@"/v1/users/me/instant_messaging_accounts/skype");
+        expect(request.HTTPMethod).to.equal(@"DELETE");
+       
+        expect([query allKeys]).to.haveCountOf(0);
+        expect([body allKeys]).to.haveCountOf(0);
+    }];
+}
+
 - (void)testIndustryList {
     [self.testHelper executeCall: ^{
         [[XNGAPIClient sharedClient] getIndustriesForLanguage:@"en"
@@ -618,7 +651,7 @@
         
         expect([query valueForKey:@"languages"]).to.equal(@"en");
         [query removeObjectForKey:@"languages"];
-        
+
         expect([query allKeys]).to.haveCountOf(0);
         expect([body allKeys]).to.haveCountOf(0);
     }];
