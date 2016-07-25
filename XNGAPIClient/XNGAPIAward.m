@@ -13,7 +13,21 @@
 }
 
 -(NSDictionary *)awardAsDictionary {
-    return @{@"name": self.name, @"date_awarded": self.year, @"url": self.url.absoluteString};
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    if(self.name) {
+        dict[@"name"] = self.name;
+    }
+
+    if(self.year) {
+        dict[@"date_awarded"] = self.year;
+    }
+
+    if(self.url.absoluteString) {
+        dict[@"url"] = self.url.absoluteString;
+    }
+    
+    return [dict copy];
 }
 
 @end
