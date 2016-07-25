@@ -15,15 +15,15 @@
 -(NSDictionary *)awardAsDictionary {
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    if(self.name) {
+    if (self.name) {
         dict[@"name"] = self.name;
     }
 
-    if(self.year) {
+    if (self.year) {
         dict[@"date_awarded"] = self.year;
     }
 
-    if(self.url.absoluteString) {
+    if (self.url.absoluteString) {
         dict[@"url"] = self.url.absoluteString;
     }
     
