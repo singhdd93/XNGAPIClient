@@ -439,11 +439,7 @@
 
 - (void)putUpdateAwards:(NSArray<XNGAPIAward *> *)awards
                 success:(void (^)(id JSON))success
-                failure:(void (^)(NSError *error))failure {
-    if (awards.count == 0) {
-        return;
-    }
-    
+                failure:(void (^)(NSError *error))failure {    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     NSMutableArray *awardList = [NSMutableArray array];
     parameters[@"awards"] = awardList;
