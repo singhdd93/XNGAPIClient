@@ -23,12 +23,12 @@ PODS:
   - Expecta (1.0.0)
   - OCMock (3.1.2)
   - OHHTTPStubs (3.1.0)
-  - SSKeychain (1.2.3)
+  - SAMKeychain (1.5.0)
   - XNGAPIClient (2.2.0):
     - XNGAPIClient/Core (= 2.2.0)
   - XNGAPIClient/Core (2.2.0):
     - AFNetworking (= 2.5.4)
-    - SSKeychain (~> 1.2.0)
+    - SAMKeychain (~> 1.5.0)
     - XNGOAuth1Client (~> 2.0.0)
   - XNGOAuth1Client (2.0.1):
     - AFNetworking (~> 2.0)
@@ -48,8 +48,8 @@ SPEC CHECKSUMS:
   Expecta: 32604574add2c46a36f8d2f716b6c5736eb75024
   OCMock: a10ea9f0a6e921651f96f78b6faee95ebc813b92
   OHHTTPStubs: b7b9e6a5de5f324b7fafea4a5269ada5e4e156bc
-  SSKeychain: 3f42991739c6c60a9cf1bbd4dff6c0d3694bcf3d
-  XNGAPIClient: 8f6c2d65f16c415a46b232283a37cb3105d9828b
+  SAMKeychain: 1fc9ae02f576365395758b12888c84704eebc423
+  XNGAPIClient: 1739cb8f500c3212012333ec76b697c7cc8b0cce
   XNGOAuth1Client: 31e9b13bc313c7045503d06e89901798257a817b
 
 PODFILE CHECKSUM: f77120d199347c44ce61ecee7378972952d0a163

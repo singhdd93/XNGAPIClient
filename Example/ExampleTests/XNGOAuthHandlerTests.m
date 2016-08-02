@@ -1,6 +1,6 @@
 #import <XCTest/XCTest.h>
 #import <XNGAPIClient/XNGOAuthHandler.h>
-#import <SSKeychain/SSKeychain.h>
+#import <SAMKeychain/SAMKeychain.h>
 
 #define EXP_SHORTHAND
 #import <Expecta/Expecta.h>
@@ -12,42 +12,42 @@
 @implementation XNGOAuthHandlerTests
 
 - (void)testUserIDGettingWhenNotInKeychain {
-    [SSKeychain deletePasswordForService:@"com.xing.iphone-app-2010" account:@"UserID"];
+    [SAMKeychain deletePasswordForService:@"com.xing.iphone-app-2010" account:@"UserID"];
 
     XNGOAuthHandler *classUnderTest = [[XNGOAuthHandler alloc] init];
     expect(classUnderTest.userID).to.beNil;
 }
 
 - (void)testUserIDGettingWhenInKeychain {
-    [SSKeychain setPassword:@"3" forService:@"com.xing.iphone-app-2010" account:@"UserID"];
+    [SAMKeychain setPassword:@"3" forService:@"com.xing.iphone-app-2010" account:@"UserID"];
 
     XNGOAuthHandler *classUnderTest = [[XNGOAuthHandler alloc] init];
     expect(classUnderTest.userID).to.equal(@"3");
 }
 
 - (void)testAccessTokenGettingWhenNotInKeychain {
-    [SSKeychain deletePasswordForService:@"com.xing.iphone-app-2010" account:@"AccessToken"];
+    [SAMKeychain deletePasswordForService:@"com.xing.iphone-app-2010" account:@"AccessToken"];
 
     XNGOAuthHandler *classUnderTest = [[XNGOAuthHandler alloc] init];
     expect(classUnderTest.accessToken).to.beNil;
 }
 
 - (void)testAccessTokenGettingWhenInKeychain {
-    [SSKeychain setPassword:@"12345" forService:@"com.xing.iphone-app-2010" account:@"AccessToken"];
+    [SAMKeychain setPassword:@"12345" forService:@"com.xing.iphone-app-2010" account:@"AccessToken"];
 
     XNGOAuthHandler *classUnderTest = [[XNGOAuthHandler alloc] init];
     expect(classUnderTest.accessToken).to.equal(@"12345");
 }
 
 - (void)testTokenSecretGettingWhenNotInKeychain {
-    [SSKeychain deletePasswordForService:@"com.xing.iphone-app-2010" account:@"TokenSecret"];
+    [SAMKeychain deletePasswordForService:@"com.xing.iphone-app-2010" account:@"TokenSecret"];
 
     XNGOAuthHandler *classUnderTest = [[XNGOAuthHandler alloc] init];
     expect(classUnderTest.tokenSecret).to.beNil;
 }
 
 - (void)testTokenSecretGettingWhenInKeychain {
-    [SSKeychain setPassword:@"65785" forService:@"com.xing.iphone-app-2010" account:@"TokenSecret"];
+    [SAMKeychain setPassword:@"65785" forService:@"com.xing.iphone-app-2010" account:@"TokenSecret"];
 
     XNGOAuthHandler *classUnderTest = [[XNGOAuthHandler alloc] init];
     expect(classUnderTest.tokenSecret).to.equal(@"65785");
@@ -59,13 +59,13 @@
     XNGOAuthHandler *classUnderTest = [[XNGOAuthHandler alloc] init];
     [classUnderTest saveXAuthResponseParametersToKeychain:responseParameters success:nil failure:nil];
 
-    NSString *userID = [SSKeychain passwordForService:@"com.xing.iphone-app-2010" account:@"UserID"];
+    NSString *userID = [SAMKeychain passwordForService:@"com.xing.iphone-app-2010" account:@"UserID"];
     expect(userID).to.equal(@"123");
 
-    NSString *accessToken = [SSKeychain passwordForService:@"com.xing.iphone-app-2010" account:@"AccessToken"];
+    NSString *accessToken = [SAMKeychain passwordForService:@"com.xing.iphone-app-2010" account:@"AccessToken"];
     expect(accessToken).to.equal(@"45678");
 
-    NSString *tokenSecret = [SSKeychain passwordForService:@"com.xing.iphone-app-2010" account:@"TokenSecret"];
+    NSString *tokenSecret = [SAMKeychain passwordForService:@"com.xing.iphone-app-2010" account:@"TokenSecret"];
     expect(tokenSecret).to.equal(@"54321");
 }
 
@@ -74,13 +74,13 @@
     XNGOAuthHandler *classUnderTest = [[XNGOAuthHandler alloc] init];
     [classUnderTest saveUserID:@"3" accessToken:@"1234567" secret:@"890" success:nil failure:nil];
 
-    NSString *userID = [SSKeychain passwordForService:@"com.xing.iphone-app-2010" account:@"UserID"];
+    NSString *userID = [SAMKeychain passwordForService:@"com.xing.iphone-app-2010" account:@"UserID"];
     expect(userID).to.equal(@"3");
 
-    NSString *accessToken = [SSKeychain passwordForService:@"com.xing.iphone-app-2010" account:@"AccessToken"];
+    NSString *accessToken = [SAMKeychain passwordForService:@"com.xing.iphone-app-2010" account:@"AccessToken"];
     expect(accessToken).to.equal(@"1234567");
 
-    NSString *tokenSecret = [SSKeychain passwordForService:@"com.xing.iphone-app-2010" account:@"TokenSecret"];
+    NSString *tokenSecret = [SAMKeychain passwordForService:@"com.xing.iphone-app-2010" account:@"TokenSecret"];
     expect(tokenSecret).to.equal(@"890");
 }
 
@@ -88,13 +88,13 @@
     XNGOAuthHandler *classUnderTest = [[XNGOAuthHandler alloc] init];
     [classUnderTest deleteKeychainEntries];
 
-    NSString *userID = [SSKeychain passwordForService:@"com.xing.iphone-app-2010" account:@"UserID"];
+    NSString *userID = [SAMKeychain passwordForService:@"com.xing.iphone-app-2010" account:@"UserID"];
     expect(userID).to.beNil;
 
-    NSString *accessToken = [SSKeychain passwordForService:@"com.xing.iphone-app-2010" account:@"AccessToken"];
+    NSString *accessToken = [SAMKeychain passwordForService:@"com.xing.iphone-app-2010" account:@"AccessToken"];
     expect(accessToken).to.beNil;
 
-    NSString *tokenSecret = [SSKeychain passwordForService:@"com.xing.iphone-app-2010" account:@"TokenSecret"];
+    NSString *tokenSecret = [SAMKeychain passwordForService:@"com.xing.iphone-app-2010" account:@"TokenSecret"];
     expect(tokenSecret).to.beNil;
 }
 

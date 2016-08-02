@@ -23,7 +23,7 @@
 #import "XNGAPIClient.h"
 #import "NSString+URLEncoding.h"
 #import "NSError+XWS.h"
-#import <SSKeychain/SSKeychain.h>
+#import <SAMKeychain/SAMKeychain.h>
 
 static NSString *kIdentifier = @"com.xing.iphone-app-2010";
 static NSString *kTokenSecretName = @"TokenSecret";//Keychain username
@@ -42,7 +42,7 @@ static NSString *kAccessTokenName = @"AccessToken";//Keychain username
     self = [super init];
 
     if (self) {
-        [SSKeychain setAccessibilityType:kSecAttrAccessibleAfterFirstUnlock];
+        [SAMKeychain setAccessibilityType:kSecAttrAccessibleAfterFirstUnlock];
     }
 
     return self;
@@ -53,7 +53,7 @@ static NSString *kAccessTokenName = @"AccessToken";//Keychain username
 - (NSString *)userID {
 	if (_userID == nil) {
 		NSError *error;
-        _userID = [SSKeychain passwordForService:kIdentifier
+        _userID = [SAMKeychain passwordForService:kIdentifier
                                          account:kUserIDName
                                            error:&error];
 		NSAssert( !error || [error code] == errSecItemNotFound, @"KeychainUserIDReadError: %@",error);
@@ -76,7 +76,7 @@ static NSString *kAccessTokenName = @"AccessToken";//Keychain username
 - (NSString *)accessToken {
 	if (_accessToken == nil) {
 		NSError *error;
-        _accessToken = [SSKeychain passwordForService:kIdentifier
+        _accessToken = [SAMKeychain passwordForService:kIdentifier
                                          account:kAccessTokenName
                                            error:&error];
 		NSAssert( !error || [error code] == errSecItemNotFound, @"KeychainUserAccesstokenError: %@",error);
@@ -87,7 +87,7 @@ static NSString *kAccessTokenName = @"AccessToken";//Keychain username
 - (NSString *)tokenSecret {
 	if (_tokenSecret  == nil) {
 		NSError *error;
-        _tokenSecret = [SSKeychain passwordForService:kIdentifier
+        _tokenSecret = [SAMKeychain passwordForService:kIdentifier
                                               account:kTokenSecretName
                                                 error:&error];
 		NSAssert( !error || [error code] == errSecItemNotFound, @"KeychainTokenSecretReadError: %@",error);
@@ -128,14 +128,14 @@ static NSString *kAccessTokenName = @"AccessToken";//Keychain username
 
     NSError *error = nil;
 
-    [SSKeychain setPassword:userID
+    [SAMKeychain setPassword:userID
                  forService:kIdentifier
                     account:kUserIDName
                       error:&error];
 
     NSAssert( !error, @"KeychainUserIDWriteError: %@",error);
 
-    [SSKeychain setPassword:accessToken
+    [SAMKeychain setPassword:accessToken
                  forService:kIdentifier
                     account:kAccessTokenName
                       error:&error];
@@ -143,7 +143,7 @@ static NSString *kAccessTokenName = @"AccessToken";//Keychain username
     NSAssert( !error, @"KeychainAccessToksaenWriteError: %@",error);
     _accessToken = accessToken;
 
-    [SSKeychain setPassword:accessTokenSecret
+    [SAMKeychain setPassword:accessTokenSecret
                  forService:kIdentifier
                     account:kTokenSecretName
                       error:&error];
@@ -170,15 +170,15 @@ static NSString *kAccessTokenName = @"AccessToken";//Keychain username
 
 	NSError *error = nil;
 	_userID = nil;
-    [SSKeychain deletePasswordForService:kIdentifier account:kUserIDName error:&error];
+    [SAMKeychain deletePasswordForService:kIdentifier account:kUserIDName error:&error];
 	NSAssert( !error || [error code] == errSecItemNotFound, @"KeychainUserIDDeleteError: %@",error);
 
 	_accessToken = nil;
-    [SSKeychain deletePasswordForService:kIdentifier account:kAccessTokenName error:&error];
+    [SAMKeychain deletePasswordForService:kIdentifier account:kAccessTokenName error:&error];
 	NSAssert( !error || [error code] == errSecItemNotFound, @"KeychainAccessTokenDeleteError: %@",error);
 
 	_tokenSecret = nil;
-    [SSKeychain deletePasswordForService:kIdentifier account:kTokenSecretName error:&error];
+    [SAMKeychain deletePasswordForService:kIdentifier account:kTokenSecretName error:&error];
 	NSAssert( !error || [error code] == errSecItemNotFound, @"KeychainTokenSecretDeleteError: %@",error);
 }
 
