@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'Core' do |sp|
     sp.source_files = 'XNGAPIClient/*.{h,m}'
-    sp.dependency 'SSKeychain', '~> 1.2.0'
+    sp.dependency 'SAMKeychain', '~> 1.5.0'
     sp.dependency 'XNGOAuth1Client', '~> 2.0.0'
     sp.dependency 'AFNetworking', '= 2.5.4'
     sp.frameworks = 'Security','SystemConfiguration', 'UIKit'
