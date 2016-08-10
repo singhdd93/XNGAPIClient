@@ -30,6 +30,12 @@ static NSString *kTokenSecretName = @"TokenSecret";//Keychain username
 static NSString *kUserIDName = @"UserID";//Keychain username
 static NSString *kAccessTokenName = @"AccessToken";//Keychain username
 
+// OAuth 2 constants
+static NSString *kOAuth2Identifier = @"com.xing.XING.OAuth2";
+static NSString *kOAuth2RefreshTokenName = @"RefreshToken";
+static NSString *kOAuth2UserIDName = @"UserID";
+static NSString *kOAuth2AccessTokenName = @"AccessToken";
+
 @interface XNGOAuthHandler ()
 @property (nonatomic, strong, readwrite) NSString *accessToken;
 @property (nonatomic, strong, readwrite) NSString *tokenSecret;
