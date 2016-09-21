@@ -106,6 +106,7 @@
 		F057E0DD1919250300C0E1E6 /* XNGTestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XNGTestHelper.h; sourceTree = "<group>"; };
 		F057E0DE1919250300C0E1E6 /* XNGTestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XNGTestHelper.m; sourceTree = "<group>"; };
 		F0D68D661B0CA01100399E0F /* XNGBookmarkTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XNGBookmarkTests.m; sourceTree = "<group>"; };
+		FD01017F1D91840300089731 /* Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Example.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +182,7 @@
 		F057E0AD19191BD400C0E1E6 /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				FD01017F1D91840300089731 /* Example.entitlements */,
 				F057E0B619191BD400C0E1E6 /* XNGAppDelegate.h */,
 				F057E0B719191BD400C0E1E6 /* XNGAppDelegate.m */,
 				F057E0D6191924BC00C0E1E6 /* XNGExampleViewController.h */,
@@ -299,6 +301,13 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "XING AG";
 				TargetAttributes = {
+					F057E0A319191BD400C0E1E6 = {
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
+					};
 					F057E0BE19191BD400C0E1E6 = {
 						TestTargetID = F057E0A319191BD400C0E1E6;
 					};
@@ -586,6 +595,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Example/Example.entitlements;
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -603,6 +613,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = Example/Example.entitlements;
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

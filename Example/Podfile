@@ -6,6 +6,7 @@ plugin 'slather'
 
 target "Example" do
   pod 'XNGAPIClient', :path => '../XNGAPIClient.podspec'
+  pod 'SAMKeychain', '~> 1.5.0'
 end
 
 target "ExampleTests" do
