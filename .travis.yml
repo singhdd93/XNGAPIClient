@@ -3,7 +3,7 @@ language: objective-c
 cache: cocoapods
 before_install:
     - bundle install
-    - bundle exec pod install --project-directory=Example
+    - bundle exec pod install --project-directory=Example --repo-update
 script:
     - bundle exec rake spec
 after_success:
