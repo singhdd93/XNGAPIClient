@@ -53,6 +53,14 @@ static BOOL RunningTests = NO;
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
+    return [self handleURL:url];
+}
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    return [self handleURL:url];
+}
+
+- (BOOL)handleURL:(NSURL *)url {
     if ([[XNGAPIClient sharedClient] handleOpenURL:url]) {
         return YES;
     } else {
