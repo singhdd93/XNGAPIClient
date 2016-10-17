@@ -344,6 +344,34 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
                  failure:failure];
 }
 
+#pragma mark - block-based GET / DELETE with additional headers
+
+- (void)getJSONPath:(NSString *)path
+         parameters:(NSDictionary *)parameters
+  additionalHeaders:(NSDictionary *)headers
+            success:(void (^)(id JSON))success
+            failure:(void (^)(NSError *error))failure {
+    [self getJSONPath:path
+           parameters:parameters
+         acceptHeader:nil
+    additionalHeaders:headers
+              success:success
+              failure:failure];
+}
+
+- (void)deleteJSONPath:(NSString *)path
+            parameters:(NSDictionary *)parameters
+  additionalHeaders:(NSDictionary *)headers
+               success:(void (^)(id JSON))success
+               failure:(void (^)(NSError *error))failure {
+    [self deleteJSONPath:path
+              parameters:parameters
+            acceptHeader:nil
+       additionalHeaders:headers
+                 success:success
+                 failure:failure];
+}
+
 #pragma mark - block-based PUT and POST with JSON parameters
 
 - (void)putJSONPath:(NSString *)path
@@ -379,6 +407,58 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
     NSMutableURLRequest *request = [self requestWithMethod:@"POST"
                                                       path:path
                                                 parameters:parameters];
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
+    AFHTTPRequestOperation *operation = [self xng_HTTPRequestOperationWithRequest:request
+                                                                          success:success
+                                                                          failure:failure];
+    [self.operationQueue addOperation:operation];
+    self.requestSerializer = [AFHTTPRequestSerializer serializer];
+}
+
+#pragma mark - block-based PUT and POST with JSON parameters and additional headers
+
+- (void)putJSONPath:(NSString *)path
+     JSONParameters:(NSDictionary *)parameters
+  additionalHeaders:(NSDictionary *)headers
+            success:(void (^)(id JSON))success
+            failure:(void (^)(NSError *error))failure {
+    [self putJSONPath:path JSONParameters:parameters additionalHeaders:headers uploadProgress:nil success:success failure:failure];
+}
+
+- (void)putJSONPath:(NSString *)path
+     JSONParameters:(NSDictionary *)parameters
+  additionalHeaders:(NSDictionary *)headers
+     uploadProgress:(void (^)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))uploadProgress
+            success:(void (^)(id JSON))success
+            failure:(void (^)(NSError *error))failure {
+    self.requestSerializer = [AFJSONRequestSerializer serializer];
+    NSMutableURLRequest *request = [self requestWithMethod:@"PUT"
+                                                      path:path
+                                                parameters:parameters];
+    for (NSString *key in [headers allKeys]) {
+        [request setValue:[headers xng_stringForKey:key] forHTTPHeaderField:key];
+    }
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
+    AFHTTPRequestOperation *operation = [self xng_HTTPRequestOperationWithRequest:request
+                                                                          success:success
+                                                                          failure:failure];
+    [operation setUploadProgressBlock:uploadProgress];
+    [self.operationQueue addOperation:operation];
+    self.requestSerializer = [AFHTTPRequestSerializer serializer];
+}
+
+- (void)postJSONPath:(NSString *)path
+      JSONParameters:(NSDictionary *)parameters
+   additionalHeaders:(NSDictionary *)headers
+             success:(void (^)(id JSON))success
+             failure:(void (^)(NSError *error))failure {
+    self.requestSerializer = [AFJSONRequestSerializer serializer];
+    NSMutableURLRequest *request = [self requestWithMethod:@"POST"
+                                                      path:path
+                                                parameters:parameters];
+    for (NSString *key in [headers allKeys]) {
+        [request setValue:[headers xng_stringForKey:key] forHTTPHeaderField:key];
+    }
     self.responseSerializer = [AFJSONResponseSerializer serializer];
     AFHTTPRequestOperation *operation = [self xng_HTTPRequestOperationWithRequest:request
                                                                           success:success
@@ -444,6 +524,46 @@ static NSString * const XNGAPIClientOAuthAccessTokenPath = @"v1/access_token";
     if (acceptHeader) {
         [self addAcceptableContentTypes:[NSSet setWithObject:acceptHeader]];
         [request setValue:acceptHeader forHTTPHeaderField:@"Accept"];
+    }
+    NSOperation *operation = [self xng_HTTPRequestOperationWithRequest:request success:success failure:failure];
+    [self.operationQueue addOperation:operation];
+}
+
+#pragma mark - block-based GET / PUT / POST / DELETE with optional accept headers and additional headers
+
+- (void)getJSONPath:(NSString *)path
+         parameters:(NSDictionary *)parameters
+       acceptHeader:(NSString *)acceptHeader
+  additionalHeaders:(NSDictionary *)headers
+            success:(void (^)(id))success
+            failure:(void (^)(NSError *))failure {
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
+    NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:parameters];
+    if (acceptHeader) {
+        [self addAcceptableContentTypes:[NSSet setWithObject:acceptHeader]];
+        [request setValue:acceptHeader forHTTPHeaderField:@"Accept"];
+    }
+    for (NSString *key in [headers allKeys]) {
+        [request setValue:[headers xng_stringForKey:key] forHTTPHeaderField:key];
+    }
+    NSOperation *operation = [self xng_HTTPRequestOperationWithRequest:request success:success failure:failure];
+    [self.operationQueue addOperation:operation];
+}
+
+- (void)deleteJSONPath:(NSString *)path
+            parameters:(NSDictionary *)parameters
+          acceptHeader:(NSString *)acceptHeader
+     additionalHeaders:(NSDictionary *)headers
+               success:(void (^)(id))success
+               failure:(void (^)(NSError *))failure {
+    self.responseSerializer = [AFJSONResponseSerializer serializer];
+    NSMutableURLRequest *request = [self requestWithMethod:@"DELETE" path:path parameters:parameters];
+    if (acceptHeader) {
+        [self addAcceptableContentTypes:[NSSet setWithObject:acceptHeader]];
+        [request setValue:acceptHeader forHTTPHeaderField:@"Accept"];
+    }
+    for (NSString *key in [headers allKeys]) {
+        [request setValue:[headers xng_stringForKey:key] forHTTPHeaderField:key];
     }
     NSOperation *operation = [self xng_HTTPRequestOperationWithRequest:request success:success failure:failure];
     [self.operationQueue addOperation:operation];

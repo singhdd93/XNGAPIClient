@@ -31,7 +31,7 @@
     ];
     
     [self.testHelper executeCall:^{
-        [[XNGAPIClient sharedClient] putUpdateAwards:awards success:nil failure:nil];
+        [[XNGAPIClient sharedClient] putUpdateAwards:awards additionalHeaders:nil success:nil failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
         expect(request.URL.host).to.equal(@"api.xing.com");
         expect(request.URL.path).to.equal(@"/v1/users/me/professional_experience/awards");
@@ -61,7 +61,10 @@
                                                                               topHaves:@"kittens galore,stuff"
                                                                              interests:@"unit testing"
                                                                          organisations:@"greenpeace,GEMA"
-                                                                                 wants:@"100% test coverage, world peace" success:nil failure:nil];
+                                                                                 wants:@"100% test coverage, world peace"
+                                                                     additionalHeaders:nil
+                                                                               success:nil
+                                                                               failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
         expect(request.URL.host).to.equal(@"api.xing.com");
         expect(request.URL.path).to.equal(@"/v1/users/me");
@@ -94,6 +97,7 @@
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] putUpdateUsersProfilePictureWithImage:image
                                                             uploadProgress:nil
+                                                         additionalHeaders:nil
                                                                    success:nil
                                                                    failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -125,8 +129,7 @@
 
 - (void)testDeleteUsersProfilePicture {
     [self.testHelper executeCall:^{
-        [[XNGAPIClient sharedClient] deleteUsersProfilePictureWithSuccess:nil
-                                                                  failure:nil];
+        [[XNGAPIClient sharedClient] deleteUsersProfilePictureWithAdditionalHeaders:nil success:nil failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
         expect(request.URL.host).to.equal(@"api.xing.com");
         expect(request.URL.path).to.equal(@"/v1/users/me/photo");
@@ -148,6 +151,7 @@
                                                                  province:@"Hamburg"
                                                                    street:@"Dammtorstr. 30"
                                                                   zipCode:@"20354"
+                                                        additionalHeaders:nil
                                                                   success:nil
                                                                   failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -180,7 +184,7 @@
 
 - (void)testGetUsersProfilePictureProgress {
     [self.testHelper executeCall:^{
-        [[XNGAPIClient sharedClient] getUsersProfilePictureProgressWithSuccess:nil failure:nil];
+        [[XNGAPIClient sharedClient] getUsersProfilePictureProgressWithAdditionalHeaders:nil success:nil failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
         expect(request.URL.host).to.equal(@"api.xing.com");
         expect(request.URL.path).to.equal(@"/v1/users/me/photo/progress");
@@ -204,6 +208,7 @@
                                                                   province:@"Hamburg"
                                                                     street:@"Dammtorstr. 30"
                                                                    zipCode:@"20354"
+                                                         additionalHeaders:nil
                                                                    success:nil
                                                                    failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -242,6 +247,7 @@
                                                       endDate:@"1998"
                                                         notes:@"#1 hero"
                                                       subject:@"Dark Arts"
+                                            additionalHeaders:nil
                                                       success:nil
                                                       failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -275,6 +281,7 @@
                                                    endDate:@"1998"
                                                      notes:@"#1 hero"
                                                    subject:@"Dark Arts"
+                                         additionalHeaders:nil
                                                    success:nil
                                                    failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -302,6 +309,7 @@
 - (void)testDeleteSchool {
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] deleteSchoolWithID:@"789"
+                                      additionalHeaders:nil
                                                 success:nil
                                                 failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -317,6 +325,7 @@
 - (void)testUpdatePrimarySchool {
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] putUpdatePrimarySchoolWithID:@"123"
+                                                additionalHeaders:nil
                                                           success:nil
                                                           failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -334,6 +343,7 @@
 - (void)testAddQualification {
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] postAddQualificationWithDescription:@"Magician"
+                                                       additionalHeaders:nil
                                                                  success:nil
                                                                  failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -362,6 +372,7 @@
                                                     endDate:nil
                                                    untilNow:@(YES)
                                                         url:@"https://xing.com"
+                                          additionalHeaders:nil
                                                     success:nil
                                                     failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -413,6 +424,7 @@
                                                     endDate:nil
                                                    untilNow:@(YES)
                                                         url:@"https://xing.com"
+                                          additionalHeaders:nil
                                                     success:nil
                                                     failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -452,6 +464,7 @@
 - (void)testDeleteCompany {
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] deleteCompanyWithID:@"567"
+                                       additionalHeaders:nil
                                                  success:nil
                                                  failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -467,6 +480,7 @@
 - (void)testUpdatePrimaryCompany {
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] putUpdatePrimaryCompanyWithID:@"123"
+                                                 additionalHeaders:nil
                                                            success:nil
                                                            failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -485,6 +499,7 @@
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] putUpdateLanguageWithIdentifier:@"de"
                                                                skill:@"NATIVE"
+                                                   additionalHeaders:nil
                                                              success:nil
                                                              failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -502,6 +517,7 @@
 - (void)testDeleteLanguage {
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] deleteLanguageWithIdentifier:@"de"
+                                                additionalHeaders:nil
                                                           success:nil
                                                           failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -519,6 +535,7 @@
         [[XNGAPIClient sharedClient] putUpdateBirthDateWithDay:15
                                                          month:6
                                                           year:1991
+                                             additionalHeaders:nil
                                                        success:nil
                                                        failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -541,6 +558,7 @@
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] putUpdateWebProfileWithIdentifier:@"twitter"
                                                                    url:@"https://twitter.com/xingdevs"
+                                                     additionalHeaders:nil
                                                                success:nil
                                                                failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -558,6 +576,7 @@
 - (void)testDeleteWebProfile {
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] deleteWebProfileWithIdentifier:@"second life"
+                                                  additionalHeaders:nil
                                                             success:nil
                                                             failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -575,6 +594,7 @@
         [[XNGAPIClient sharedClient] putUpdateProfileMessageWithUserID:@"456_789"
                                                                message:@"Everything is awesome"
                                                               isPublic:YES
+                                                     additionalHeaders:nil
                                                                success:nil
                                                                failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -593,7 +613,7 @@
 
 - (void)testUpdateLegalInformation {
     [self.testHelper executeCall:^{
-        [[XNGAPIClient sharedClient] putUpdateLegalInformation:@"Awesome legal information" success:nil failure:nil];
+        [[XNGAPIClient sharedClient] putUpdateLegalInformation:@"Awesome legal information" additionalHeaders:nil success:nil failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
         expect(request.URL.host).to.equal(@"api.xing.com");
         expect(request.URL.path).to.equal(@"/v1/users/me/legal_information");
@@ -608,6 +628,7 @@
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] putUpdateInstantMessengerAccountWithAccount:@"skype"
                                                                             name:@"1122334455"
+                                                               additionalHeaders:nil
                                                                          success:nil
                                                                          failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
@@ -625,6 +646,7 @@
 - (void)testDeleteInstantMessengerAccount {
     [self.testHelper executeCall:^{
         [[XNGAPIClient sharedClient] deleteInstantMessengerAccount:@"skype"
+                                                 additionalHeaders:nil
                                                            success:nil
                                                            failure:nil];
     } withExpectations:^(NSURLRequest *request, NSMutableDictionary *query, NSMutableDictionary *body) {
