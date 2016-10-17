@@ -114,6 +114,27 @@ extern NSString * const XNGAPIClientDeprecationWarningNotification;
                success:(void (^)(id JSON))success
                failure:(void (^)(NSError *error))failure;
 
+#pragma mark - block-based GET / DELETE with additional headers
+
+/**
+ method to make a GET call to the public XING API with additional headers.
+ */
+- (void)getJSONPath:(NSString *)path
+         parameters:(NSDictionary *)parameters
+  additionalHeaders:(NSDictionary *)headers
+            success:(void (^)(id JSON))success
+            failure:(void (^)(NSError *error))failure;
+
+/**
+ method to make a DELETE call to the public XING API with additional headers.
+ */
+- (void)deleteJSONPath:(NSString *)path
+            parameters:(NSDictionary *)parameters
+     additionalHeaders:(NSDictionary *)headers
+               success:(void (^)(id JSON))success
+               failure:(void (^)(NSError *error))failure;
+
+
 #pragma mark - block-based PUT and POST with JSON parameters
 
 /**
@@ -134,10 +155,40 @@ extern NSString * const XNGAPIClientDeprecationWarningNotification;
             failure:(void (^)(NSError *error))failure;
 
 /**
- use this method to make a JSON encoded PUT call to the public XING API.
+ use this method to make a JSON encoded POST call to the public XING API.
  */
 - (void)postJSONPath:(NSString *)path
       JSONParameters:(NSDictionary *)parameters
+             success:(void (^)(id JSON))success
+             failure:(void (^)(NSError *error))failure;
+
+#pragma mark - block-based PUT and POST with JSON parameters and additional headers
+
+/**
+ use this method to make a JSON encoded PUT call to the public XING API.
+ */
+- (void)putJSONPath:(NSString *)path
+     JSONParameters:(NSDictionary *)parameters
+  additionalHeaders:(NSDictionary *)headers
+            success:(void (^)(id JSON))success
+            failure:(void (^)(NSError *error))failure;
+
+/**
+ use this method to make a JSON encoded PUT call to the public XING API and track its progress
+ */
+- (void)putJSONPath:(NSString *)path
+     JSONParameters:(NSDictionary *)parameters
+  additionalHeaders:(NSDictionary *)headers
+     uploadProgress:(void (^)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))uploadProgress
+            success:(void (^)(id JSON))success
+            failure:(void (^)(NSError *error))failure;
+
+/**
+ use this method to make a JSON encoded POST call to the public XING API.
+ */
+- (void)postJSONPath:(NSString *)path
+      JSONParameters:(NSDictionary *)parameters
+   additionalHeaders:(NSDictionary *)headers
              success:(void (^)(id JSON))success
              failure:(void (^)(NSError *error))failure;
 
@@ -176,6 +227,28 @@ extern NSString * const XNGAPIClientDeprecationWarningNotification;
 - (void)deleteJSONPath:(NSString *)path
             parameters:(NSDictionary *)parameters
           acceptHeader:(NSString *)acceptHeader
+               success:(void (^)(id))success
+               failure:(void (^)(NSError *))failure;
+
+#pragma mark - block-based GET / PUT / POST / DELETE with optional accept headers and additional headers
+
+/**
+ use this method to make a GET call to a vendor resource of the XING API.
+ */
+- (void)getJSONPath:(NSString *)path
+         parameters:(NSDictionary *)parameters
+       acceptHeader:(NSString *)acceptHeader
+  additionalHeaders:(NSDictionary *)headers
+            success:(void (^)(id))success
+            failure:(void (^)(NSError *))failure;
+
+/**
+ use this method to make a DELETE call to a vendor resource of the XING API.
+ */
+- (void)deleteJSONPath:(NSString *)path
+            parameters:(NSDictionary *)parameters
+          acceptHeader:(NSString *)acceptHeader
+     additionalHeaders:(NSDictionary *)headers
                success:(void (^)(id))success
                failure:(void (^)(NSError *))failure;
 

@@ -30,14 +30,15 @@
  https://dev.xing.com/docs/put/users/me
 */
 - (void)putUpdateUsersGeneralInformationWithAcademicTitle:(NSString *)academicTitle
-                                         employmentStatus:(NSString *)employmentStatus
-                                                    haves:(NSString *)haves
-                                                 topHaves:(NSString *)topHaves
-                                                interests:(NSString *)interests
-                                            organisations:(NSString *)organisations
-                                                    wants:(NSString *)wants
-                                                  success:(void (^)(id JSON))success
-                                                  failure:(void (^)(NSError *error))failure;
+                                        employmentStatus:(NSString *)employmentStatus
+                                                   haves:(NSString *)haves
+                                                topHaves:(NSString *)topHaves
+                                               interests:(NSString *)interests
+                                           organisations:(NSString *)organisations
+                                                   wants:(NSString *)wants
+                                       additionalHeaders:(NSDictionary *)headers
+                                                 success:(void (^)(id JSON))success
+                                                 failure:(void (^)(NSError *error))failure;
 
 /**
  Update users profile picture
@@ -46,6 +47,7 @@
 */
 - (void)putUpdateUsersProfilePictureWithImage:(UIImage *)image
                                uploadProgress:(void (^)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))uploadProgress
+                            additionalHeaders:(NSDictionary *)headers
                                       success:(void (^)(id JSON))success
                                       failure:(void (^)(NSError *error))failure;
 
@@ -55,16 +57,18 @@
  Get profile picture upload progress
  https://dev.xing.com/docs/get/users/me/photo/progress
  */
-- (void)getUsersProfilePictureProgressWithSuccess:(void (^)(id JSON))success
-                                          failure:(void (^)(NSError *error))failure;
+- (void)getUsersProfilePictureProgressWithAdditionalHeaders:(NSDictionary *)headers
+                                                    success:(void (^)(id JSON))success
+                                                    failure:(void (^)(NSError *error))failure;
 
 /**
  Delete users profile picture
 
  https://dev.xing.com/docs/delete/users/me/photo
 */
-- (void)deleteUsersProfilePictureWithSuccess:(void (^)(id JSON))success
-                                     failure:(void (^)(NSError *error))failure;
+- (void)deleteUsersProfilePictureWithAdditionalHeaders:(NSDictionary *)headers
+                                               success:(void (^)(id JSON))success
+                                               failure:(void (^)(NSError *error))failure;
 
 /**
  Update users private address
@@ -80,6 +84,7 @@
                                     province:(NSString *)province
                                       street:(NSString *)street
                                      zipCode:(NSString *)zipCode
+                           additionalHeaders:(NSDictionary *)headers
                                      success:(void (^)(id JSON))success
                                      failure:(void (^)(NSError *error))failure;
 
@@ -97,6 +102,7 @@ https://dev.xing.com/docs/put/users/me/private_address
                                      province:(NSString *)province
                                        street:(NSString *)street
                                       zipCode:(NSString *)zipCode
+                            additionalHeaders:(NSDictionary *)headers
                                       success:(void (^)(id JSON))success
                                       failure:(void (^)(NSError *error))failure;
 
@@ -111,6 +117,7 @@ https://dev.xing.com/docs/put/users/me/private_address
                          endDate:(NSString *)endDate
                            notes:(NSString *)notes
                          subject:(NSString *)subject
+               additionalHeaders:(NSDictionary *)headers
                          success:(void (^)(id JSON))success
                          failure:(void (^)(NSError *error))failure;
 
@@ -126,6 +133,7 @@ https://dev.xing.com/docs/put/users/me/private_address
                       endDate:(NSString *)endDate
                         notes:(NSString *)notes
                       subject:(NSString *)subject
+            additionalHeaders:(NSDictionary *)headers
                       success:(void (^)(id JSON))success
                       failure:(void (^)(NSError *error))failure;
 
@@ -135,6 +143,7 @@ https://dev.xing.com/docs/put/users/me/private_address
  https://dev.xing.com/docs/delete/users/me/educational_background/schools/:id
 */
 - (void)deleteSchoolWithID:(NSString *)id
+         additionalHeaders:(NSDictionary *)headers
                    success:(void (^)(id JSON))success
                    failure:(void (^)(NSError *error))failure;
 
@@ -144,6 +153,7 @@ https://dev.xing.com/docs/put/users/me/private_address
  https://dev.xing.com/docs/put/users/me/educational_background/primary_school
 */
 - (void)putUpdatePrimarySchoolWithID:(NSString *)schoolID
+                   additionalHeaders:(NSDictionary *)headers
                              success:(void (^)(id JSON))success
                              failure:(void (^)(NSError *error))failure;
 
@@ -153,6 +163,7 @@ https://dev.xing.com/docs/put/users/me/private_address
  https://dev.xing.com/docs/post/users/me/educational_background/qualifications
 */
 - (void)postAddQualificationWithDescription:(NSString *)description
+                          additionalHeaders:(NSDictionary *)headers
                                     success:(void (^)(id JSON))success
                                     failure:(void (^)(NSError *error))failure;
 
@@ -173,6 +184,7 @@ https://dev.xing.com/docs/put/users/me/private_address
                        endDate:(NSString *)endDate
                       untilNow:(NSNumber *)untilNow
                            url:(NSString *)URL
+             additionalHeaders:(NSDictionary *)headers
                        success:(void (^)(id JSON))success
                        failure:(void (^)(NSError *error))failure;
 
@@ -196,6 +208,7 @@ https://dev.xing.com/docs/put/users/me/private_address
                        endDate:(NSString *)endDate
                       untilNow:(NSNumber *)untilNow
                            url:(NSString *)URL
+             additionalHeaders:(NSDictionary *)headers
                        success:(void (^)(id JSON))success
                        failure:(void (^)(NSError *error))failure;
 
@@ -205,6 +218,7 @@ https://dev.xing.com/docs/put/users/me/private_address
  https://dev.xing.com/docs/delete/users/me/professional_experience/companies/:id
 */
 - (void)deleteCompanyWithID:(NSString *)id
+          additionalHeaders:(NSDictionary *)headers
                     success:(void (^)(id JSON))success
                     failure:(void (^)(NSError *error))failure;
 
@@ -214,6 +228,7 @@ https://dev.xing.com/docs/put/users/me/private_address
  https://dev.xing.com/docs/put/users/me/professional_experience/primary_company
  */
 - (void)putUpdatePrimaryCompanyWithID:(NSString *)companyID
+                    additionalHeaders:(NSDictionary *)headers
                               success:(void (^)(id JSON))success
                               failure:(void (^)(NSError *error))failure;
 
@@ -223,6 +238,7 @@ https://dev.xing.com/docs/put/users/me/private_address
  https://dev.xing.com/docs/put/users/me/professional_experience/awards
  */
 - (void)putUpdateAwards:(NSArray<XNGAPIAward *> *)awards
+      additionalHeaders:(NSDictionary *)headers
                 success:(void (^)(id JSON))success
                 failure:(void (^)(NSError *error))failure;
 
@@ -233,6 +249,7 @@ https://dev.xing.com/docs/put/users/me/private_address
 */
 - (void)putUpdateLanguageWithIdentifier:(NSString *)language
                                   skill:(NSString *)skill
+                      additionalHeaders:(NSDictionary *)headers
                                 success:(void (^)(id JSON))success
                                 failure:(void (^)(NSError *error))failure;
 
@@ -242,6 +259,7 @@ https://dev.xing.com/docs/put/users/me/private_address
  https://dev.xing.com/docs/delete/users/me/languages/:language
 */
 - (void)deleteLanguageWithIdentifier:(NSString *)language
+                   additionalHeaders:(NSDictionary *)headers
                              success:(void (^)(id JSON))success
                              failure:(void (^)(NSError *error))failure;
 
@@ -253,6 +271,7 @@ https://dev.xing.com/docs/put/users/me/private_address
 - (void)putUpdateBirthDateWithDay:(NSInteger)day
                             month:(NSInteger)month
                              year:(NSInteger)year
+                additionalHeaders:(NSDictionary *)headers
                           success:(void (^)(id JSON))success
                           failure:(void (^)(NSError *error))failure;
 
@@ -263,6 +282,7 @@ https://dev.xing.com/docs/put/users/me/private_address
 */
 - (void)putUpdateWebProfileWithIdentifier:(NSString *)identifier
                                       url:(NSString *)URL
+                        additionalHeaders:(NSDictionary *)headers
                                   success:(void (^)(id JSON))success
                                   failure:(void (^)(NSError *error))failure;
 
@@ -272,6 +292,7 @@ https://dev.xing.com/docs/put/users/me/private_address
  https://dev.xing.com/docs/delete/users/me/web_profiles/:profile
 */
 - (void)deleteWebProfileWithIdentifier:(NSString *)identifier
+                     additionalHeaders:(NSDictionary *)headers
                                success:(void (^)(id JSON))success
                                failure:(void (^)(NSError *error))failure;
 
@@ -283,6 +304,7 @@ https://dev.xing.com/docs/put/users/me/private_address
 - (void)putUpdateProfileMessageWithUserID:(NSString *)userID
                                   message:(NSString *)profileMessage
                                  isPublic:(BOOL)isPublic
+                        additionalHeaders:(NSDictionary *)headers
                                   success:(void (^)(id JSON))success
                                   failure:(void (^)(NSError *error))failure;
 
@@ -292,6 +314,7 @@ https://dev.xing.com/docs/put/users/me/private_address
  https://developer.xing.com/docs/put/users/me/legal_information
  */
 - (void)putUpdateLegalInformation:(NSString *)content
+                additionalHeaders:(NSDictionary *)headers
                           success:(void (^)(id JSON))success
                           failure:(void (^)(NSError *error))failure;
 
@@ -302,6 +325,7 @@ https://dev.xing.com/docs/put/users/me/private_address
  */
 - (void)putUpdateInstantMessengerAccountWithAccount:(NSString *)account
                                                name:(NSString *)name
+                                  additionalHeaders:(NSDictionary *)headers
                                             success:(void (^)(id JSON))success
                                             failure:(void (^)(NSError *error))failure;
 
@@ -311,6 +335,7 @@ https://dev.xing.com/docs/put/users/me/private_address
  https://dev.xing.com/docs/delete/users/me/instant_messaging_accounts/:account
  */
 - (void)deleteInstantMessengerAccount:(NSString *)account
+                    additionalHeaders:(NSDictionary *)headers
                               success:(void (^)(id JSON))success
                               failure:(void (^)(NSError *error))failure;
 

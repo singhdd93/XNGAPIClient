@@ -31,6 +31,7 @@
                                                 interests:(NSString *)interests
                                             organisations:(NSString *)organisations
                                                     wants:(NSString *)wants
+                                        additionalHeaders:(NSDictionary *)headers
                                                   success:(void (^)(id JSON))success
                                                   failure:(void (^)(NSError *error))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
@@ -57,11 +58,12 @@
     }
 
     NSString *path = @"v1/users/me";
-    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)putUpdateUsersProfilePictureWithImage:(UIImage *)image
                                uploadProgress:(void (^)(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite))uploadProgress
+                            additionalHeaders:(NSDictionary *)headers
                                       success:(void (^)(id JSON))success
                                       failure:(void (^)(NSError *error))failure {
     if (!image) {
@@ -77,6 +79,7 @@
 
     [self putJSONPath:[self pathForProfilePictureUpload]
        JSONParameters:parameters
+    additionalHeaders:headers
        uploadProgress:uploadProgress
               success:success
               failure:failure];
@@ -91,19 +94,22 @@
     return @"/v1/users/me/photo";
 }
 
-- (void)getUsersProfilePictureProgressWithSuccess:(void (^)(id JSON))success
-                                          failure:(void (^)(NSError *error))failure {
+- (void)getUsersProfilePictureProgressWithAdditionalHeaders:(NSDictionary *)headers
+                                                    success:(void (^)(id JSON))success
+                                                    failure:(void (^)(NSError *error))failure {
     NSString *path = @"/v1/users/me/photo/progress";
     [self getJSONPath:path
            parameters:nil
+    additionalHeaders:headers
               success:success
               failure:failure];
 }
 
-- (void)deleteUsersProfilePictureWithSuccess:(void (^)(id JSON))success
-                                     failure:(void (^)(NSError *error))failure {
+- (void)deleteUsersProfilePictureWithAdditionalHeaders:(NSDictionary *)headers
+                                               success:(void (^)(id JSON))success
+                                               failure:(void (^)(NSError *error))failure {
     NSString *path = @"v1/users/me/photo";
-    [self deleteJSONPath:path parameters:nil success:success failure:failure];
+    [self deleteJSONPath:path parameters:nil additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)putUpdateUsersPrivateAddressWithCity:(NSString *)city
@@ -115,6 +121,7 @@
                                     province:(NSString *)province
                                       street:(NSString *)street
                                      zipCode:(NSString *)zipCode
+                           additionalHeaders:(NSDictionary *)headers
                                      success:(void (^)(id JSON))success
                                      failure:(void (^)(NSError *error))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
@@ -147,7 +154,7 @@
     }
 
     NSString *path = @"v1/users/me/private_address";
-    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)putUpdateUsersBusinessAddressWithCity:(NSString *)city
@@ -159,6 +166,7 @@
                                      province:(NSString *)province
                                        street:(NSString *)street
                                       zipCode:(NSString *)zipCode
+                            additionalHeaders:(NSDictionary *)headers
                                       success:(void (^)(id JSON))success
                                       failure:(void (^)(NSError *error))failure {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
@@ -191,7 +199,7 @@
     }
 
     NSString *path = @"v1/users/me/business_address";
-    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)postCreateSchoolWithName:(NSString *)name
@@ -200,6 +208,7 @@
                          endDate:(NSString *)endDate
                            notes:(NSString *)notes
                          subject:(NSString *)subject
+               additionalHeaders:(NSDictionary *)headers
                          success:(void (^)(id JSON))success
                          failure:(void (^)(NSError *error))failure {
     if (!name) {
@@ -225,7 +234,7 @@
     }
 
     NSString *path = @"v1/users/me/educational_background/schools";
-    [self postJSONPath:path JSONParameters:parameters success:success failure:failure];
+    [self postJSONPath:path JSONParameters:parameters additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)putUpdateSchoolWithID:(NSString *)id
@@ -235,6 +244,7 @@
                       endDate:(NSString *)endDate
                         notes:(NSString *)notes
                       subject:(NSString *)subject
+            additionalHeaders:(NSDictionary *)headers
                       success:(void (^)(id JSON))success
                       failure:(void (^)(NSError *error))failure {
     if (!id) {
@@ -262,10 +272,11 @@
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/users/me/educational_background/schools/%@", id];
-    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
+                          [self putJSONPath:path JSONParameters:parameters additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)deleteSchoolWithID:(NSString *)id
+         additionalHeaders:(NSDictionary *)headers
                    success:(void (^)(id JSON))success
                    failure:(void (^)(NSError *))failure {
     if (!id) {
@@ -273,10 +284,11 @@
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/users/me/educational_background/schools/%@", id];
-    [self deleteJSONPath:path parameters:nil success:success failure:failure];
+                       [self deleteJSONPath:path parameters:nil additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)putUpdatePrimarySchoolWithID:(NSString *)schoolID
+                   additionalHeaders:(NSDictionary *)headers
                              success:(void (^)(id JSON))success
                              failure:(void (^)(NSError *error))failure {
     if (!schoolID) {
@@ -285,10 +297,11 @@
 
     NSDictionary *parameters = @{@"school_id": schoolID};
     NSString *path = @"v1/users/me/educational_background/primary_school";
-    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)postAddQualificationWithDescription:(NSString *)description
+                          additionalHeaders:(NSDictionary *)headers
                                     success:(void (^)(id JSON))success
                                     failure:(void (^)(NSError *error))failure {
     if (!description) {
@@ -297,7 +310,7 @@
 
     NSDictionary *parameters = @{@"description": description};
     NSString *path = @"v1/users/me/educational_background/qualifications";
-    [self postJSONPath:path JSONParameters:parameters success:success failure:failure];
+    [self postJSONPath:path JSONParameters:parameters additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)postAddCompanyWithName:(NSString *)name
@@ -312,6 +325,7 @@
                        endDate:(NSString *)endDate
                       untilNow:(NSNumber *)untilNow
                            url:(NSString *)URL
+             additionalHeaders:(NSDictionary *)headers
                        success:(void (^)(id JSON))success
                        failure:(void (^)(NSError *error))failure {
     if (!formOfEmployment || !industries || !name || !title) {
@@ -349,7 +363,7 @@
     }
 
     NSString *path = @"v1/users/me/professional_experience/companies";
-    [self postJSONPath:path JSONParameters:parameters success:success failure:failure];
+    [self postJSONPath:path JSONParameters:parameters additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)putUpdateCompanyWithID:(NSString *)id
@@ -365,6 +379,7 @@
                        endDate:(NSString *)endDate
                       untilNow:(NSNumber *)untilNow
                            url:(NSString *)URL
+             additionalHeaders:(NSDictionary *)headers
                        success:(void (^)(id JSON))success
                        failure:(void (^)(NSError *error))failure {
     if (!id) {
@@ -411,10 +426,11 @@
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/users/me/professional_experience/companies/%@", id];
-    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
+                           [self putJSONPath:path JSONParameters:parameters additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)deleteCompanyWithID:(NSString *)id
+          additionalHeaders:(NSDictionary *)headers
                     success:(void (^)(id JSON))success
                     failure:(void (^)(NSError *error))failure {
     if (!id) {
@@ -422,10 +438,11 @@
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/users/me/professional_experience/companies/%@", id];
-    [self deleteJSONPath:path parameters:nil success:success failure:failure];
+    [self deleteJSONPath:path parameters:nil additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)putUpdatePrimaryCompanyWithID:(NSString *)companyID
+                    additionalHeaders:(NSDictionary *)headers
                               success:(void (^)(id JSON))success
                               failure:(void (^)(NSError *error))failure {
     if (!companyID) {
@@ -434,10 +451,11 @@
 
     NSDictionary *parameters = @{@"company_id": companyID};
     NSString *path = @"/v1/users/me/professional_experience/primary_company";
-    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)putUpdateAwards:(NSArray<XNGAPIAward *> *)awards
+      additionalHeaders:(NSDictionary *)headers
                 success:(void (^)(id JSON))success
                 failure:(void (^)(NSError *error))failure {    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
@@ -449,11 +467,12 @@
     }
     
     NSString *path = @"/v1/users/me/professional_experience/awards";
-    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)putUpdateLanguageWithIdentifier:(NSString *)language
                                   skill:(NSString *)skill
+                      additionalHeaders:(NSDictionary *)headers
                                 success:(void (^)(id JSON))success
                                 failure:(void (^)(NSError *error))failure {
     if (!language) {
@@ -466,10 +485,11 @@
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/users/me/languages/%@", language];
-    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)deleteLanguageWithIdentifier:(NSString *)language
+                   additionalHeaders:(NSDictionary *)headers
                              success:(void (^)(id JSON))success
                              failure:(void (^)(NSError *error))failure {
     if (!language) {
@@ -477,12 +497,13 @@
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/users/me/languages/%@", language];
-    [self deleteJSONPath:path parameters:nil success:success failure:failure];
+    [self deleteJSONPath:path parameters:nil additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)putUpdateBirthDateWithDay:(NSInteger)day
                             month:(NSInteger)month
                              year:(NSInteger)year
+                additionalHeaders:(NSDictionary *)headers
                           success:(void (^)(id JSON))success
                           failure:(void (^)(NSError *error))failure {
     if (!day || !month || !year) {
@@ -491,11 +512,12 @@
 
     NSDictionary *parameters = @{@"day": @(day), @"month": @(month), @"year": @(year)};
     NSString *path = @"v1/users/me/birth_date";
-    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)putUpdateWebProfileWithIdentifier:(NSString *)identifier
                                       url:(NSString *)URL
+                        additionalHeaders:(NSDictionary *)headers
                                   success:(void (^)(id JSON))success
                                   failure:(void (^)(NSError *error))failure {
     if (!identifier) {
@@ -508,10 +530,11 @@
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/users/me/web_profiles/%@", identifier];
-    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)deleteWebProfileWithIdentifier:(NSString *)identifier
+                     additionalHeaders:(NSDictionary *)headers
                                success:(void (^)(id JSON))success
                                failure:(void (^)(NSError *error))failure {
     if (!identifier) {
@@ -520,12 +543,13 @@
 
     identifier = [identifier stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet alphanumericCharacterSet]];
     NSString *path = [NSString stringWithFormat:@"v1/users/me/web_profiles/%@", identifier];
-    [self deleteJSONPath:path parameters:nil success:success failure:failure];
+    [self deleteJSONPath:path parameters:nil additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)putUpdateProfileMessageWithUserID:(NSString *)userID
                                   message:(NSString *)profileMessage
                                  isPublic:(BOOL)isPublic
+                        additionalHeaders:(NSDictionary *)headers
                                   success:(void (^)(id JSON))success
                                   failure:(void (^)(NSError *error))failure {
     if (!profileMessage || !userID) {
@@ -539,10 +563,11 @@
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/users/%@/profile_message", userID];
-    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)putUpdateLegalInformation:(NSString *)content
+                additionalHeaders:(NSDictionary *)headers
                           success:(void (^)(id JSON))success
                           failure:(void (^)(NSError *error))failure {
     
@@ -552,11 +577,12 @@
     
     NSString *path = @"v1/users/me/legal_information";
     NSDictionary *parameters = @{@"content": content};
-    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)putUpdateInstantMessengerAccountWithAccount:(NSString *)account
                                                name:(NSString *)name
+                                  additionalHeaders:(NSDictionary *)headers
                                             success:(void (^)(id JSON))success
                                             failure:(void (^)(NSError *error))failure {
   
@@ -566,10 +592,11 @@
     
     NSString *path = [NSString stringWithFormat:@"v1/users/me/instant_messaging_accounts/%@", account];
     NSDictionary *parameters = @{@"name": name};
-    [self putJSONPath:path JSONParameters:parameters success:success failure:failure];
+    [self putJSONPath:path JSONParameters:parameters additionalHeaders:headers success:success failure:failure];
 }
 
 - (void)deleteInstantMessengerAccount:(NSString *)account
+                    additionalHeaders:(NSDictionary *)headers
                               success:(void (^)(id JSON))success
                               failure:(void (^)(NSError *error))failure {
     if (!account) {
@@ -577,7 +604,7 @@
     }
 
     NSString *path = [NSString stringWithFormat:@"v1/users/me/instant_messaging_accounts/%@", account];
-    [self deleteJSONPath:path parameters:nil success:success failure:failure];
+    [self deleteJSONPath:path parameters:nil additionalHeaders:headers success:success failure:failure];
 }
 
 @end
