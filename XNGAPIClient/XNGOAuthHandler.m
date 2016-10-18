@@ -24,6 +24,7 @@
 #import "NSString+URLEncoding.h"
 #import "NSError+XWS.h"
 #import <SAMKeychain/SAMKeychain.h>
+#import "XNGAPIDataHandler.h"
 
 static NSString *kIdentifier = @"com.xing.iphone-app-2010";
 static NSString *kTokenSecretName = @"TokenSecret";//Keychain username
@@ -31,15 +32,75 @@ static NSString *kUserIDName = @"UserID";//Keychain username
 static NSString *kAccessTokenName = @"AccessToken";//Keychain username
 
 // OAuth 2 constants
-static NSString *kOAuth2Identifier = @"com.xing.XING.OAuth2";
+static NSString *kOAuth2Identifier = @"M3F8W7J23K.com.xing.XING.OAuth2";
 static NSString *kOAuth2RefreshTokenName = @"RefreshToken";
 static NSString *kOAuth2UserIDName = @"UserID";
 static NSString *kOAuth2AccessTokenName = @"AccessToken";
+static NSString *kOAuth2ExpiresIn = @"ExpiresIn";
 
 @interface XNGOAuthHandler ()
 @property (nonatomic, strong, readwrite) NSString *accessToken;
-@property (nonatomic, strong, readwrite) NSString *tokenSecret;
+@property (nonatomic, strong, readwrite) NSString *refreshToken;
+@property (nonatomic, strong, readwrite) NSDate *expirationDate;
 @property (nonatomic, strong, readwrite) NSString *userID;
+@end
+
+@interface SAMKeychain(seamlessLogin)
++ (NSString *)passwordForService:(NSString *)serviceName account:(NSString *)account accessGroup:(NSString *)accessGroup error:(NSError *__autoreleasing *)error;
++ (NSData *)passwordDataForService:(NSString *)serviceName account:(NSString *)account accessGroup:(NSString *)accessGroup error:(NSError **)error;
++ (BOOL)setPassword:(NSString *)password forService:(NSString *)serviceName account:(NSString *)account accessGroup:(NSString *)accessGroup error:(NSError *__autoreleasing *)error;
++ (BOOL)setPasswordData:(NSData *)password forService:(NSString *)serviceName account:(NSString *)account error:(NSError **)error;
++ (BOOL)deletePasswordForService:(NSString *)serviceName account:(NSString *)account accessGroup:(NSString *)accessGroup error:(NSError *__autoreleasing *)error;
+
+@end
+
+@implementation SAMKeychain(seamlessLogin)
+
++ (NSString *)passwordForService:(NSString *)serviceName account:(NSString *)account accessGroup:(NSString *)accessGroup error:(NSError *__autoreleasing *)error {
+    SAMKeychainQuery *query = [[SAMKeychainQuery alloc] init];
+    query.service = serviceName;
+    query.account = account;
+    query.accessGroup = accessGroup;
+    [query fetch:error];
+    return query.password;
+}
+
++ (NSData *)passwordDataForService:(NSString *)serviceName account:(NSString *)account accessGroup:(NSString *)accessGroup error:(NSError **)error {
+    SAMKeychainQuery *query = [[SAMKeychainQuery alloc] init];
+    query.service = serviceName;
+    query.account = account;
+    query.accessGroup = accessGroup;
+    [query fetch:error];
+
+    return query.passwordData;
+}
+
++ (BOOL)setPassword:(NSString *)password forService:(NSString *)serviceName account:(NSString *)account accessGroup:(NSString *)accessGroup error:(NSError *__autoreleasing *)error {
+    SAMKeychainQuery *query = [[SAMKeychainQuery alloc] init];
+    query.service = serviceName;
+    query.account = account;
+    query.password = password;
+    query.accessGroup = accessGroup;
+
+    return [query save:error];
+}
+
++ (BOOL)setPasswordData:(NSData *)password forService:(NSString *)serviceName account:(NSString *)account accessGroup:(NSString *)accessGroup error:(NSError **)error {
+    SAMKeychainQuery *query = [[SAMKeychainQuery alloc] init];
+    query.service = serviceName;
+    query.account = account;
+    query.passwordData = password;
+    query.accessGroup = accessGroup;
+
+    return [query save:error];
+}
++ (BOOL)deletePasswordForService:(NSString *)serviceName account:(NSString *)account accessGroup:(NSString *)accessGroup error:(NSError *__autoreleasing *)error {
+    SAMKeychainQuery *query = [[SAMKeychainQuery alloc] init];
+    query.service = serviceName;
+    query.account = account;
+    return [query deleteItem:error];
+}
+
 @end
 
 @implementation XNGOAuthHandler
@@ -57,48 +118,73 @@ static NSString *kOAuth2AccessTokenName = @"AccessToken";
 #pragma mark - handling oauth consumer/secret
 
 - (NSString *)userID {
-	if (_userID == nil) {
-		NSError *error;
-        _userID = [SAMKeychain passwordForService:kIdentifier
-                                         account:kUserIDName
-                                           error:&error];
-		NSAssert( !error || [error code] == errSecItemNotFound, @"KeychainUserIDReadError: %@",error);
-	}
-	return _userID;
+    if (_userID == nil) {
+        NSError *error;
+        _userID = [SAMKeychain passwordForService:kOAuth2Identifier
+                                          account:kOAuth2UserIDName
+                                      accessGroup: @"M3F8W7J23K.com.xing.XING.OAuth2"
+                                            error:&error];
+        NSAssert(!error || [error code] == errSecItemNotFound, @"KeychainUserIDReadError: %@", error);
+    }
+    return _userID;
 }
 
 - (BOOL)hasAccessToken {
     return self.accessToken.length > 0;
 }
 
-- (BOOL)hasTokenSecret {
-    return self.tokenSecret.length > 0;
+- (BOOL)hasRefreshToken {
+    return self.refreshToken.length > 0;
 }
 
 - (BOOL)hasUserID {
     return self.userID.length > 0;
 }
 
-- (NSString *)accessToken {
-	if (_accessToken == nil) {
-		NSError *error;
-        _accessToken = [SAMKeychain passwordForService:kIdentifier
-                                         account:kAccessTokenName
-                                           error:&error];
-		NSAssert( !error || [error code] == errSecItemNotFound, @"KeychainUserAccesstokenError: %@",error);
-	}
-	return _accessToken;
+- (BOOL)hasExpirationDate {
+    return self.expirationDate != nil;
 }
 
-- (NSString *)tokenSecret {
-	if (_tokenSecret  == nil) {
-		NSError *error;
-        _tokenSecret = [SAMKeychain passwordForService:kIdentifier
-                                              account:kTokenSecretName
-                                                error:&error];
-		NSAssert( !error || [error code] == errSecItemNotFound, @"KeychainTokenSecretReadError: %@",error);
-	}
-	return _tokenSecret;
+- (NSString *)accessToken {
+    if (_accessToken == nil) {
+        NSError *error;
+        _accessToken = [SAMKeychain passwordForService:kOAuth2Identifier
+                                               account:kOAuth2AccessTokenName
+                                           accessGroup: @"M3F8W7J23K.com.xing.XING.OAuth2"
+
+                                                 error:&error];
+        NSAssert(!error || [error code] == errSecItemNotFound, @"KeychainUserAccesstokenError: %@", error);
+    }
+    return _accessToken;
+}
+
+- (NSString *)refreshToken {
+    if (_refreshToken  == nil) {
+        NSError *error;
+        _refreshToken = [SAMKeychain passwordForService:kOAuth2Identifier
+                                                account:kOAuth2RefreshTokenName
+                                            accessGroup: @"M3F8W7J23K.com.xing.XING.OAuth2"
+
+                                                  error:&error];
+        NSAssert(!error || [error code] == errSecItemNotFound, @"KeychainRefreshTokenReadError: %@", error);
+    }
+    return _refreshToken;
+}
+
+- (NSDate *)expirationDate {
+    if (_expirationDate == nil) {
+        NSError *error;
+        NSData *expirationDateData = [SAMKeychain passwordDataForService:kOAuth2Identifier
+                                                                 account:kOAuth2ExpiresIn
+                                                             accessGroup: @"M3F8W7J23K.com.xing.XING.OAuth2"
+                                                                   error:&error];
+        NSAssert(!error || [error code] == errSecItemNotFound, @"KeychainExpirationDateReadError: %@", error);
+
+        double timeInterval;
+        memcpy(&timeInterval, expirationDateData.bytes, sizeof(timeInterval));
+        _expirationDate = [NSDate dateWithTimeIntervalSince1970:timeInterval];
+    }
+    return _expirationDate;
 }
 
 - (NSError*)xwsErrorWithAFHTTPRequestOperation:(AFHTTPRequestOperation*)operation {
@@ -116,46 +202,85 @@ static NSString *kOAuth2AccessTokenName = @"AccessToken";
                                       success:(void (^)(void))success
                                       failure:(void (^)(NSError *error))failure {
     NSString *userID = responseParameters[@"user_id"];
-    NSString *accessToken = responseParameters[@"oauth_token"];
-    NSString *accessTokenSecret = responseParameters[@"oauth_token_secret"];
+    NSString *accessToken = responseParameters[@"access_token"];
+    NSString *refreshToken = responseParameters[@"refresh_token"];
+    NSNumber *expiresIn = responseParameters[@"expires_in"];
+    NSString *authTokenKey = responseParameters[@"auth_token_key"];
+    NSString *apiKey = [[XNGAPIDataHandler sharedDataHandler]  consumerKey];
+    NSDate *expirationDate = [NSDate dateWithTimeIntervalSince1970:[expiresIn doubleValue]];
 
     [self saveUserID:userID
          accessToken:accessToken
-              secret:accessTokenSecret
+        refreshToken:refreshToken
+      expirationDate:expirationDate
              success:success
              failure:failure];
+
+    NSError *error = nil;
+
+    [SAMKeychain setPassword:apiKey
+                  forService:kOAuth2Identifier
+                     account: @"consumerKey"
+                 accessGroup: @"M3F8W7J23K.com.xing.XING.OAuth2"
+
+                       error:&error];
+    NSAssert(!error, @"KeychainUserIDWriteError: %@", error);
+
+    [SAMKeychain setPassword:authTokenKey
+                  forService:kOAuth2Identifier
+                     account: @"authTokenKey"
+                 accessGroup: @"M3F8W7J23K.com.xing.XING.OAuth2"
+
+                       error:&error];
+    NSAssert(!error, @"KeychainUserIDWriteError: %@", error);
+
 }
 
 - (void)saveUserID:(NSString *)userID
        accessToken:(NSString *)accessToken
-            secret:(NSString *)accessTokenSecret
+      refreshToken:(NSString *)refreshToken
+    expirationDate:(NSDate *)expirationDate
            success:(void (^)(void))success
            failure:(void (^)(NSError *error))failure {
 
     NSError *error = nil;
 
     [SAMKeychain setPassword:userID
-                 forService:kIdentifier
-                    account:kUserIDName
-                      error:&error];
+                  forService:kOAuth2Identifier
+                     account:kOAuth2UserIDName
+                 accessGroup: @"M3F8W7J23K.com.xing.XING.OAuth2"
 
-    NSAssert( !error, @"KeychainUserIDWriteError: %@",error);
+                       error:&error];
+    NSAssert(!error, @"KeychainUserIDWriteError: %@", error);
+    _userID = userID;
 
     [SAMKeychain setPassword:accessToken
-                 forService:kIdentifier
-                    account:kAccessTokenName
-                      error:&error];
+                  forService:kOAuth2Identifier
+                     account:kOAuth2AccessTokenName
+                 accessGroup: @"M3F8W7J23K.com.xing.XING.OAuth2"
 
-    NSAssert( !error, @"KeychainAccessToksaenWriteError: %@",error);
+                       error:&error];
+    NSAssert(!error, @"KeychainAccessTokenWriteError: %@", error);
     _accessToken = accessToken;
 
-    [SAMKeychain setPassword:accessTokenSecret
-                 forService:kIdentifier
-                    account:kTokenSecretName
-                      error:&error];
+    [SAMKeychain setPassword:refreshToken
+                  forService:kOAuth2Identifier
+                     account:kOAuth2RefreshTokenName
+                 accessGroup: @"M3F8W7J23K.com.xing.XING.OAuth2"
 
-    NSAssert( !error, @"KeychainTokenSecretWriteError: %@",error);
-    _tokenSecret = accessTokenSecret;
+                       error:&error];
+    NSAssert(!error, @"KeychainRefreshTokenWriteError: %@", error);
+    _refreshToken = refreshToken;
+
+    double data = [expirationDate timeIntervalSince1970];
+    [SAMKeychain setPasswordData:[NSData dataWithBytes:&data length:sizeof(data)]
+                      forService:kOAuth2Identifier
+                         account:kOAuth2ExpiresIn
+                     accessGroup: @"M3F8W7J23K.com.xing.XING.OAuth2"
+
+                           error:&error];
+    NSAssert(!error, @"KeychainExpiresInWriteError: %@", error);
+    _expirationDate = expirationDate;
 
     if (error) {
         NSAssert(NO,@"Could not save into keychain");
@@ -174,18 +299,30 @@ static NSString *kOAuth2AccessTokenName = @"AccessToken";
 
 - (void)deleteKeychainEntries {
 
-	NSError *error = nil;
-	_userID = nil;
-    [SAMKeychain deletePasswordForService:kIdentifier account:kUserIDName error:&error];
-	NSAssert( !error || [error code] == errSecItemNotFound, @"KeychainUserIDDeleteError: %@",error);
+    NSError *error = nil;
+    _userID = nil;
+    [SAMKeychain deletePasswordForService:kOAuth2Identifier account:kOAuth2UserIDName
+                              accessGroup: @"M3F8W7J23K.com.xing.XING.OAuth2"
+                                    error:&error];
+    NSAssert(!error || [error code] == errSecItemNotFound, @"KeychainUserIDDeleteError: %@", error);
 
-	_accessToken = nil;
-    [SAMKeychain deletePasswordForService:kIdentifier account:kAccessTokenName error:&error];
-	NSAssert( !error || [error code] == errSecItemNotFound, @"KeychainAccessTokenDeleteError: %@",error);
+    _accessToken = nil;
+    [SAMKeychain deletePasswordForService:kOAuth2Identifier account:kOAuth2AccessTokenName
+                              accessGroup: @"M3F8W7J23K.com.xing.XING.OAuth2"
+                                    error:&error];
+    NSAssert(!error || [error code] == errSecItemNotFound, @"KeychainAccessTokenDeleteError: %@", error);
 
-	_tokenSecret = nil;
-    [SAMKeychain deletePasswordForService:kIdentifier account:kTokenSecretName error:&error];
-	NSAssert( !error || [error code] == errSecItemNotFound, @"KeychainTokenSecretDeleteError: %@",error);
+    _refreshToken = nil;
+    [SAMKeychain deletePasswordForService:kOAuth2Identifier account:kOAuth2RefreshTokenName
+                              accessGroup: @"M3F8W7J23K.com.xing.XING.OAuth2"
+                                    error:&error];
+    NSAssert(!error || [error code] == errSecItemNotFound, @"KeychainRefreshTokenDeleteError: %@", error);
+
+    _expirationDate = nil;
+    [SAMKeychain deletePasswordForService:kOAuth2Identifier account:kOAuth2ExpiresIn
+                              accessGroup: @"M3F8W7J23K.com.xing.XING.OAuth2"
+                                    error:&error];
+    NSAssert(!error || [error code] == errSecItemNotFound, @"KeychainExpiresInDeleteError: %@", error);
 }
 
 
