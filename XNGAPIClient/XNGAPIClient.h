@@ -243,6 +243,26 @@ extern NSString * const XNGAPIClientDeprecationWarningNotification;
             failure:(void (^)(NSError *))failure;
 
 /**
+ use this method to make a PUT call to a vendor resource of the XING API.
+ */
+- (void)putJSONPath:(NSString *)path
+         parameters:(NSDictionary *)parameters
+       acceptHeader:(NSString *)acceptHeader
+  additionalHeaders:(NSDictionary *)headers
+            success:(void (^)(id))success
+            failure:(void (^)(NSError *))failure;
+
+/**
+ use this method to make a POST call to a vendor resource of the XING API.
+ */
+- (void)postJSONPath:(NSString *)path
+          parameters:(NSDictionary *)parameters
+        acceptHeader:(NSString *)acceptHeader
+   additionalHeaders:(NSDictionary *)headers
+             success:(void (^)(id))success
+             failure:(void (^)(NSError *))failure;
+
+/**
  use this method to make a DELETE call to a vendor resource of the XING API.
  */
 - (void)deleteJSONPath:(NSString *)path
